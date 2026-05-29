@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harmonie Fanfare Rudipontaine — Pont de Roide</title>
+  <meta name="description" content="Site officiel de l'Harmonie Fanfare Rudipontaine de Pont de Roide-Vermondans. Concerts, école de musique, actualités.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Hero avec photo de groupe */
+    .hero-photo {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right,
+          rgba(6,13,22,0.78) 0%,
+          rgba(6,13,22,0.65) 35%,
+          rgba(6,13,22,0.35) 60%,
+          rgba(6,13,22,0.12) 100%),
+        url('images/groupe.png') center center / cover no-repeat;
+    }
+    @media(max-width:768px) {
+      .hero-photo {
+        background:
+          linear-gradient(to bottom,
+            rgba(6,13,22,0.75) 0%,
+            rgba(6,13,22,0.82) 100%),
+          url('images/groupe.png') center top / cover no-repeat;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar + footer injectés automatiquement par nav-component.js -->
+<script src="js/nav-component.js"></script>
+
+
+<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+<section class="hero">
+  <!-- Photo de groupe en fond avec overlay -->
+  <div class="hero-photo"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-particles"></div>
+
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <i class="fa-solid fa-music"></i>
+        Depuis 1922 · Pont de Roide-Vermondans
+      </div>
+
+      <h1>
+        La Musique,<br>
+        <span class="highlight">Notre Passion</span><br>
+        Partagée
+      </h1>
+
+      <p>
+        L'Harmonie Fanfare Rudipontaine réunit musiciens passionnés et élèves talentueux
+        autour d'une même vocation : faire vivre la musique dans notre région du Doubs.
+      </p>
+
+      <div class="hero-actions">
+        <a href="manifestations.html" class="btn btn-blue btn-lg">
+          <i class="fa-solid fa-calendar-days"></i> Nos Concerts
+        </a>
+        <a href="histoire.html" class="btn btn-outline btn-lg">
+          <i class="fa-solid fa-book-open"></i> Notre Histoire
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="num" data-count="103">103</span>
+          <span class="label">Années d'Histoire</span>
+        </div>
+        <div class="hero-stat">
+          <span class="num" data-count="38">38</span>
+          <span class="label">Musiciens Actifs</span>
+        </div>
+        <div class="hero-stat">
+          <span class="num" data-count="49">49</span>
+          <span class="label">Élèves à l'École</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════ PROCHAINS ÉVÉNEMENTS ═══════════════════════════ -->
+<section class="section" style="background:var(--c-navy)">
+  <div class="container">
+    <div class="section-header" data-aos>
+      <div class="eyebrow"><i class="fa-solid fa-calendar-days"></i> Agenda</div>
+      <h2>Prochains Événements</h2>
+      <div class="divider"></div>
+      <p>Retrouvez-nous lors de nos prochaines manifestations musicales</p>
+    </div>
+
+    <div style="display:grid;gap:1.25rem;max-width:780px;margin:0 auto">
+
+      <div class="event-card" data-aos data-aos-delay="100">
+        <div class="event-date-box">
+          <span class="day">03</span>
+          <span class="month">Mai</span>
+        </div>
+        <div class="event-info">
+          <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem;flex-wrap:wrap">
+            <h3>Concert de Printemps</h3>
+            <span class="badge badge-blue">Concert</span>
+          </div>
+          <div class="event-meta">
+            <span><i class="fa-solid fa-clock"></i> 16h00</span>
+            <span><i class="fa-solid fa-location-dot"></i> Grand Kursaal — Besançon</span>
+          </div>
+          <p style="margin:0;font-size:.88rem;color:var(--c-text-muted)">
+            Concert exceptionnel dans la magnifique salle du Grand Kursaal de Besançon. Entrée libre.
+          </p>
+        </div>
+      </div>
+
+      <div class="event-card" data-aos data-aos-delay="200">
+        <div class="event-date-box">
+          <span class="day">08</span>
+          <span class="month">Mai</span>
+        </div>
+        <div class="event-info">
+          <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem;flex-wrap:wrap">
+            <h3>Commémoration du 8 Mai</h3>
+            <span class="badge badge-gold">Cérémonie</span>
+          </div>
+          <div class="event-meta">
+            <span><i class="fa-solid fa-clock"></i> 9h45 – 12h00</span>
+            <span><i class="fa-solid fa-location-dot"></i> Pont de Roide-Vermondans</span>
+          </div>
+          <p style="margin:0;font-size:.88rem;color:var(--c-text-muted)">
+            Commémoration de la Victoire du 8 Mai 1945. Cérémonie patriotique avec défilé.
+          </p>
+        </div>
+      </div>
+
+      <div class="event-card" data-aos data-aos-delay="300">
+        <div class="event-date-box">
+          <span class="day">09</span>
+          <span class="month">Mai</span>
+        </div>
+        <div class="event-info">
+          <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem;flex-wrap:wrap">
+            <h3>Salon des Vins</h3>
+            <span class="badge badge-green">Animation</span>
+          </div>
+          <div class="event-meta">
+            <span><i class="fa-solid fa-clock"></i> 17h00</span>
+            <span><i class="fa-solid fa-location-dot"></i> Villars-sous-Dampjoux</span>
+          </div>
+          <p style="margin:0;font-size:.88rem;color:var(--c-text-muted)">
+            Animation musicale lors du Salon des Vins de Villars-sous-Dampjoux.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:2.5rem">
+      <a href="manifestations.html" class="btn btn-outline">
+        <i class="fa-solid fa-calendar-check"></i> Voir tous les événements
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════ ANNONCES + PASSÉS ═══════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="grid-2" style="align-items:start;gap:clamp(2rem,4vw,4rem)">
+
+      <div data-aos="fade-right">
+        <div class="section-header" style="text-align:left;margin-bottom:2rem">
+          <div class="eyebrow" style="justify-content:flex-start"><i class="fa-solid fa-bell"></i> Infos</div>
+          <h2>Informations Pratiques</h2>
+          <div class="divider" style="margin:1rem 0 0"></div>
+        </div>
+        <div style="display:grid;gap:1rem">
+          <div class="card" style="padding:1.5rem">
+            <div style="display:flex;gap:1rem;align-items:flex-start">
+              <div class="card-icon" style="margin:0;width:46px;height:46px;font-size:1.2rem;flex-shrink:0"><i class="fa-solid fa-drum"></i></div>
+              <div>
+                <h4 style="margin-bottom:.4rem">Prochaine Répétition</h4>
+                <p style="margin:0;font-size:.88rem;color:var(--c-text-muted)">
+                  <strong id="prochain-vendredi" style="color:var(--c-accent)">Vendredi 08 Mai 2026</strong><br>
+                  de 20h00 à 22h00 — Salle Georges Contal
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="card" style="padding:1.5rem">
+            <div style="display:flex;gap:1rem;align-items:flex-start">
+              <div class="card-icon" style="margin:0;width:46px;height:46px;font-size:1.2rem;flex-shrink:0"><i class="fa-solid fa-file-lines"></i></div>
+              <div>
+                <h4 style="margin-bottom:.4rem">Compte-rendu du Comité</h4>
+                <p style="margin:0;font-size:.88rem;color:var(--c-text-muted)">Le dernier compte-rendu de réunion est disponible dans l'espace membres.</p>
+                <a href="pages-membres.html" class="btn btn-outline btn-sm" style="margin-top:.75rem">
+                  <i class="fa-solid fa-lock"></i> Accès Membres
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="card" style="padding:1.5rem">
+            <div style="display:flex;gap:1rem;align-items:flex-start">
+              <div class="card-icon" style="margin:0;width:46px;height:46px;font-size:1.2rem;background:linear-gradient(135deg,#1877F2,#1877F2);flex-shrink:0"><i class="fa-brands fa-facebook-f"></i></div>
+              <div>
+                <h4 style="margin-bottom:.4rem">Suivez-nous sur Facebook</h4>
+                <p style="margin:0;font-size:.88rem;color:var(--c-text-muted)">Retrouvez toute notre actualité, photos et vidéos en temps réel.</p>
+                <a href="https://www.facebook.com/people/Harmonie-Fanfare-Rudipontaine/100057406793498/" target="_blank" rel="noopener" class="btn btn-sm" style="margin-top:.75rem;background:#1877F2;color:white;border-radius:var(--radius-md)">
+                  <i class="fa-brands fa-facebook-f"></i> Notre page Facebook
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-aos="fade-left">
+        <div class="section-header" style="text-align:left;margin-bottom:2rem">
+          <div class="eyebrow" style="justify-content:flex-start"><i class="fa-solid fa-clock-rotate-left"></i> Rétrospective</div>
+          <h2>Événements Récents</h2>
+          <div class="divider" style="margin:1rem 0 0"></div>
+        </div>
+        <div style="display:grid;gap:1rem">
+          <div class="card" style="padding:1.25rem 1.5rem">
+            <div style="display:flex;align-items:center;gap:1rem">
+              <div style="flex-shrink:0;width:50px;height:50px;border-radius:var(--radius-md);background:rgba(29,111,164,0.15);border:1px solid rgba(29,111,164,0.2);display:flex;align-items:center;justify-content:center;font-size:.85rem;text-align:center;color:var(--c-accent);font-weight:700;line-height:1">29<br><span style="font-size:.65rem;font-weight:400">Mars</span></div>
+              <div>
+                <div style="font-weight:600;color:var(--c-white);margin-bottom:.2rem">Carnaval de Pont de Roide</div>
+                <div style="font-size:.82rem;color:var(--c-text-muted);display:flex;align-items:center;gap:.3rem"><i class="fa-solid fa-location-dot"></i> Pont de Roide-Vermondans</div>
+              </div>
+            </div>
+          </div>
+          <div class="card" style="padding:1.25rem 1.5rem">
+            <div style="display:flex;align-items:center;gap:1rem">
+              <div style="flex-shrink:0;width:50px;height:50px;border-radius:var(--radius-md);background:rgba(29,111,164,0.15);border:1px solid rgba(29,111,164,0.2);display:flex;align-items:center;justify-content:center;font-size:.85rem;text-align:center;color:var(--c-accent);font-weight:700;line-height:1">28<br><span style="font-size:.65rem;font-weight:400">Mars</span></div>
+              <div>
+                <div style="font-weight:600;color:var(--c-white);margin-bottom:.2rem">Concert de Printemps</div>
+                <div style="font-size:.82rem;color:var(--c-text-muted);display:flex;align-items:center;gap:.3rem"><i class="fa-solid fa-location-dot"></i> Pont de Roide-Vermondans</div>
+              </div>
+            </div>
+          </div>
+          <div class="card" style="padding:1.25rem 1.5rem">
+            <div style="display:flex;align-items:center;gap:1rem">
+              <div style="flex-shrink:0;width:50px;height:50px;border-radius:var(--radius-md);background:rgba(29,111,164,0.15);border:1px solid rgba(29,111,164,0.2);display:flex;align-items:center;justify-content:center;font-size:.85rem;text-align:center;color:var(--c-accent);font-weight:700;line-height:1">19<br><span style="font-size:.65rem;font-weight:400">Mars</span></div>
+              <div>
+                <div style="font-weight:600;color:var(--c-white);margin-bottom:.2rem">Cérémonie Patriotique</div>
+                <div style="font-size:.82rem;color:var(--c-text-muted);display:flex;align-items:center;gap:.3rem"><i class="fa-solid fa-location-dot"></i> Pont de Roide-Vermondans</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem">
+          <a href="manifestations.html#passees" class="btn btn-outline" style="width:100%;justify-content:center">
+            <i class="fa-solid fa-history"></i> Toutes les manifestations passées
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════ À PROPOS ═══════════════════════════ -->
+<section class="section" style="background:var(--c-navy)">
+  <div class="container">
+    <div class="grid-2" style="gap:clamp(2rem,5vw,5rem);align-items:center">
+
+      <div data-aos="fade-right">
+        <div class="eyebrow" style="display:inline-flex;align-items:center;gap:.5rem;font-size:.75rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--c-accent);margin-bottom:1rem">
+          <span style="display:block;width:30px;height:1px;background:var(--c-accent);opacity:.6"></span>
+          Notre Association
+          <span style="display:block;width:30px;height:1px;background:var(--c-accent);opacity:.6"></span>
+        </div>
+        <h2 style="margin-bottom:1.5rem">Une Tradition Musicale depuis 1922</h2>
+        <p style="color:var(--c-text-muted);line-height:1.9">
+          L'Harmonie Fanfare Rudipontaine est née en 1922 lorsque des musiciens de Terre-Blanche,
+          Valentigney et Pont de Roide se sont réunis pour vivre leur passion commune.
+          Initialement « Fanfare des Usines Peugeot », elle est devenue le cœur musical
+          de Pont de Roide-Vermondans.
+        </p>
+        <p style="color:var(--c-text-muted);line-height:1.9">
+          Depuis 2025, l'association est conduite par <strong style="color:var(--c-white)">François-Xavier Tafanelli</strong>
+          à la direction et <strong style="color:var(--c-white)">Anthony Merique</strong> à la présidence.
+        </p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem">
+          <a href="histoire.html" class="btn btn-primary">
+            <i class="fa-solid fa-book-open"></i> Notre histoire
+          </a>
+          <a href="musiciens.html" class="btn btn-outline">
+            <i class="fa-solid fa-users"></i> Nos musiciens
+          </a>
+        </div>
+      </div>
+
+      <div data-aos="fade-left">
+        <div class="stats-grid" style="grid-template-columns:repeat(2,1fr)">
+          <div class="stat-card">
+            <div class="num" data-count="1922">1 922</div>
+            <div class="label">Fondation</div>
+          </div>
+          <div class="stat-card">
+            <div class="num" data-count="38">38</div>
+            <div class="label">Musiciens</div>
+          </div>
+          <div class="stat-card">
+            <div class="num" data-count="49">49</div>
+            <div class="label">Élèves</div>
+          </div>
+          <div class="stat-card">
+            <div class="num" data-count="44">44</div>
+            <div class="label">Ans de Direction J-P.K.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════ SECTIONS ═══════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header" data-aos>
+      <div class="eyebrow"><i class="fa-solid fa-sitemap"></i> Organisation</div>
+      <h2>Explorer l'Association</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="grid-3" style="gap:1.5rem">
+      <a href="ecole-musique.html" class="card" style="display:block;text-decoration:none" data-aos data-aos-delay="100">
+        <div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <h3 style="margin-bottom:.75rem">École de Musique</h3>
+        <p style="color:var(--c-text-muted);font-size:.9rem;margin:0">Cours de solfège et d'instruments pour tous niveaux, par des professeurs certifiés.</p>
+        <div style="margin-top:1.25rem;display:flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--c-accent);font-weight:500">En savoir plus <i class="fa-solid fa-arrow-right" style="font-size:.75rem"></i></div>
+      </a>
+      <a href="orchestre-junior.html" class="card" style="display:block;text-decoration:none" data-aos data-aos-delay="200">
+        <div class="card-icon"><i class="fa-solid fa-star"></i></div>
+        <h3 style="margin-bottom:.75rem">Orchestre Junior</h3>
+        <p style="color:var(--c-text-muted);font-size:.9rem;margin:0">Un orchestre dédié aux jeunes musiciens en formation avant de rejoindre l'harmonie.</p>
+        <div style="margin-top:1.25rem;display:flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--c-accent);font-weight:500">En savoir plus <i class="fa-solid fa-arrow-right" style="font-size:.75rem"></i></div>
+      </a>
+      <a href="musiciens.html" class="card" style="display:block;text-decoration:none" data-aos data-aos-delay="300">
+        <div class="card-icon"><i class="fa-solid fa-users"></i></div>
+        <h3 style="margin-bottom:.75rem">Nos Musiciens</h3>
+        <p style="color:var(--c-text-muted);font-size:.9rem;margin:0">Découvrez les 38 musiciens qui font vibrer l'harmonie lors de chaque concert.</p>
+        <div style="margin-top:1.25rem;display:flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--c-accent);font-weight:500">En savoir plus <i class="fa-solid fa-arrow-right" style="font-size:.75rem"></i></div>
+      </a>
+      <a href="repertoire.html" class="card" style="display:block;text-decoration:none" data-aos data-aos-delay="100">
+        <div class="card-icon"><i class="fa-solid fa-list-ul"></i></div>
+        <h3 style="margin-bottom:.75rem">Répertoire</h3>
+        <p style="color:var(--c-text-muted);font-size:.9rem;margin:0">Marches, classique, variétés, cinéma... Un répertoire riche et varié pour tous les publics.</p>
+        <div style="margin-top:1.25rem;display:flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--c-accent);font-weight:500">En savoir plus <i class="fa-solid fa-arrow-right" style="font-size:.75rem"></i></div>
+      </a>
+      <a href="souvenirs.html" class="card" style="display:block;text-decoration:none" data-aos data-aos-delay="200">
+        <div class="card-icon"><i class="fa-solid fa-camera"></i></div>
+        <h3 style="margin-bottom:.75rem">Photos & Souvenirs</h3>
+        <p style="color:var(--c-text-muted);font-size:.9rem;margin:0">Revivez nos meilleurs moments à travers la galerie photo et les articles de presse.</p>
+        <div style="margin-top:1.25rem;display:flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--c-accent);font-weight:500">En savoir plus <i class="fa-solid fa-arrow-right" style="font-size:.75rem"></i></div>
+      </a>
+      <a href="livre-or.html" class="card" style="display:block;text-decoration:none" data-aos data-aos-delay="300">
+        <div class="card-icon" style="background:linear-gradient(135deg,var(--c-gold),var(--c-gold-light))"><i class="fa-solid fa-pen-nib"></i></div>
+        <h3 style="margin-bottom:.75rem">Livre d'Or</h3>
+        <p style="color:var(--c-text-muted);font-size:.9rem;margin:0">Partagez vos impressions après un concert ou une manifestation.</p>
+        <div style="margin-top:1.25rem;display:flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--c-gold);font-weight:500">Laisser un message <i class="fa-solid fa-arrow-right" style="font-size:.75rem"></i></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════ CTA ═══════════════════════════ -->
+<section class="section-sm" style="background:linear-gradient(135deg,var(--c-navy-mid),var(--c-navy))">
+  <div class="container">
+    <div style="max-width:700px;margin:0 auto;text-align:center" data-aos>
+      <div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.75rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--c-gold);margin-bottom:1rem">
+        <i class="fa-solid fa-music"></i> Rejoignez-nous
+      </div>
+      <h2 style="margin-bottom:1rem">Vous Aimez la Musique ?</h2>
+      <p style="color:var(--c-text-muted);margin-bottom:2rem;font-size:1.05rem">
+        Que vous soyez musicien expérimenté ou débutant, l'Harmonie vous accueille.
+        Inscriptions à l'école de musique ouvertes toute l'année.
+      </p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+        <a href="ecole-musique.html" class="btn btn-gold btn-lg">
+          <i class="fa-solid fa-music"></i> S'inscrire à l'École
+        </a>
+        <a href="comite.html" class="btn btn-outline btn-lg">
+          <i class="fa-solid fa-envelope"></i> Nous Contacter
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script src="js/main.js"></script>
+<script>
+  (function () {
+    var now = new Date();
+    var day = now.getDay(); // 0=dim, 5=ven
+    var daysUntil = (5 - day + 7) % 7;
+    // Si on est vendredi après 22h, afficher le vendredi suivant
+    if (daysUntil === 0 && now.getHours() >= 22) daysUntil = 7;
+    var nextFriday = new Date(now);
+    nextFriday.setDate(now.getDate() + daysUntil);
+    var label = nextFriday.toLocaleDateString('fr-FR', {
+      weekday: 'long', day: '2-digit', month: 'long', year: 'numeric'
+    });
+    var el = document.getElementById('prochain-vendredi');
+    if (el) el.textContent = label.charAt(0).toUpperCase() + label.slice(1);
+  })();
+</script>
+</body>
+</html>

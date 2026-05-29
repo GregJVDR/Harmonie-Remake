@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Espace Membres — Harmonie Fanfare Rudipontaine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .members-container { max-width: 480px; margin: 0 auto; }
+
+    .tab-toggle {
+      display: flex;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--c-border);
+      border-radius: var(--radius-md);
+      padding: 4px;
+      margin-bottom: 2rem;
+    }
+    .tab-toggle button {
+      flex: 1;
+      padding: .65rem;
+      border: none;
+      background: transparent;
+      color: var(--c-text-muted);
+      font-size: .9rem;
+      font-weight: 500;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      border-radius: calc(var(--radius-md) - 4px);
+      transition: var(--transition);
+    }
+    .tab-toggle button.active {
+      background: var(--c-blue);
+      color: white;
+    }
+
+    .member-area { display: none; }
+    .member-area.active { display: block; }
+
+    .member-dashboard {
+      animation: fadeInUp .5s ease;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity:0; transform:translateY(20px); }
+      to { opacity:1; transform:translateY(0); }
+    }
+
+    .member-welcome {
+      background: linear-gradient(135deg, var(--c-navy-mid), var(--c-navy));
+      border: 1px solid var(--c-border);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .doc-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.1rem 1.5rem;
+      background: var(--c-glass);
+      border: 1px solid var(--c-border);
+      border-radius: var(--radius-md);
+      margin-bottom: .75rem;
+      transition: var(--transition);
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+    }
+    .doc-item:hover {
+      border-color: rgba(79,179,232,0.2);
+      background: var(--c-glass-hover);
+    }
+    .doc-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      background: rgba(29,111,164,0.2);
+      border: 1px solid rgba(29,111,164,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--c-accent);
+      font-size: .95rem;
+      flex-shrink: 0;
+    }
+    .doc-info { flex: 1; }
+    .doc-info .name { font-size: .92rem; font-weight: 500; color: var(--c-white); }
+    .doc-info .meta { font-size: .78rem; color: var(--c-text-muted); }
+
+    .section-label {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--c-text-muted);
+      margin: 1.75rem 0 .75rem;
+      padding-bottom: .5rem;
+      border-bottom: 1px solid var(--c-border);
+    }
+  </style>
+</head>
+<body>
+
+<script src="js/nav-component.js"></script>
+
+<section class="page-header">
+  <div class="container">
+    <div class="page-header-content">
+      <div class="eyebrow"><i class="fa-solid fa-lock"></i> Accès Restreint</div>
+      <h1>Espace Membres</h1>
+      <p style="color:var(--c-text-muted);max-width:600px;margin-top:.75rem;font-size:1.05rem">
+        Zone réservée aux membres de l'Harmonie Fanfare Rudipontaine
+      </p>
+      <div class="breadcrumb">
+        <a href="index.html">Accueil</a>
+        <span class="sep">/</span>
+        <span style="color:var(--c-accent)">Espace Membres</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="members-container">
+
+      <!-- NOT LOGGED IN -->
+      <div id="auth-panel" class="member-area active">
+        <div style="background:var(--c-glass);border:1px solid var(--c-border);border-radius:var(--radius-xl);padding:2.5rem;backdrop-filter:blur(16px);text-align:center;margin-bottom:2rem">
+          <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--c-blue),var(--c-accent));display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 1.25rem;box-shadow:0 8px 30px rgba(29,111,164,0.3)">
+            <i class="fa-solid fa-lock" style="font-size:1.5rem"></i>
+          </div>
+          <h3 style="margin-bottom:.4rem">Connexion Requise</h3>
+          <p style="color:var(--c-text-muted);font-size:.9rem;margin-bottom:2rem">
+            Accédez aux documents, comptes-rendus et informations réservés aux membres.
+          </p>
+        </div>
+
+        <!-- Tab toggle Login / Register -->
+        <div class="tab-toggle">
+          <button class="active" id="btn-login" onclick="switchAuth('login')">
+            <i class="fa-solid fa-right-to-bracket"></i> Se Connecter
+          </button>
+          <button id="btn-register" onclick="switchAuth('register')">
+            <i class="fa-solid fa-user-plus"></i> S'inscrire
+          </button>
+        </div>
+
+        <!-- LOGIN -->
+        <div id="login-panel">
+          <form id="login-form" style="display:grid;gap:1.25rem">
+            <div class="form-group" style="margin:0">
+              <label class="form-label">Identifiant / Email</label>
+              <input type="text" class="form-control" name="login" placeholder="votre@email.com" required>
+            </div>
+            <div class="form-group" style="margin:0">
+              <label class="form-label">Mot de passe</label>
+              <div style="position:relative">
+                <input type="password" class="form-control" name="password" placeholder="••••••••" id="pwd-input" required>
+                <button type="button" onclick="togglePwd()" style="position:absolute;right:.85rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--c-text-muted);cursor:pointer;padding:0">
+                  <i class="fa-solid fa-eye" id="pwd-eye"></i>
+                </button>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;font-size:.85rem">
+              <label style="display:flex;align-items:center;gap:.5rem;color:var(--c-text-muted);cursor:pointer">
+                <input type="checkbox" style="accent-color:var(--c-blue)"> Se souvenir de moi
+              </label>
+              <a href="#" style="color:var(--c-accent)">Mot de passe oublié ?</a>
+            </div>
+            <button type="submit" class="btn btn-primary" style="justify-content:center;width:100%">
+              <i class="fa-solid fa-right-to-bracket"></i> Se connecter
+            </button>
+          </form>
+        </div>
+
+        <!-- REGISTER -->
+        <div id="register-panel" style="display:none">
+          <form id="register-form" style="display:grid;gap:1.25rem">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(160px,100%),1fr));gap:1rem">
+              <div class="form-group" style="margin:0">
+                <label class="form-label">Prénom</label>
+                <input type="text" class="form-control" placeholder="Jean" required>
+              </div>
+              <div class="form-group" style="margin:0">
+                <label class="form-label">Nom</label>
+                <input type="text" class="form-control" placeholder="Dupont" required>
+              </div>
+            </div>
+            <div class="form-group" style="margin:0">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" placeholder="jean@exemple.com" required>
+            </div>
+            <div class="form-group" style="margin:0">
+              <label class="form-label">Mot de passe</label>
+              <input type="password" class="form-control" placeholder="Au moins 8 caractères" required>
+            </div>
+            <div class="form-group" style="margin:0">
+              <label class="form-label">Confirmer le mot de passe</label>
+              <input type="password" class="form-control" placeholder="••••••••" required>
+            </div>
+            <div class="form-group" style="margin:0">
+              <label class="form-label">Instrument</label>
+              <select class="form-control">
+                <option>Trompette</option>
+                <option>Clarinette</option>
+                <option>Saxophone</option>
+                <option>Flûte</option>
+                <option>Trombone</option>
+                <option>Tuba</option>
+                <option>Percussions</option>
+                <option>Autre</option>
+              </select>
+            </div>
+            <div class="highlight-box" style="font-size:.85rem">
+              <i class="fa-solid fa-circle-info" style="color:var(--c-accent)"></i>
+              Votre demande sera validée par le bureau avant activation du compte.
+            </div>
+            <button type="submit" class="btn btn-primary" style="justify-content:center;width:100%">
+              <i class="fa-solid fa-user-plus"></i> Créer mon compte
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- LOGGED IN (dashboard) -->
+      <div id="dashboard-panel" class="member-area member-dashboard">
+        <div class="member-welcome">
+          <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--c-blue),var(--c-accent));display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 1rem;box-shadow:0 8px 30px rgba(29,111,164,0.3)">M</div>
+          <h3 style="margin-bottom:.25rem">Bienvenue, Membre !</h3>
+          <p style="color:var(--c-text-muted);font-size:.9rem;margin-bottom:1.25rem">Harmonie Fanfare Rudipontaine — Espace Membres</p>
+          <button onclick="logout()" class="btn btn-outline btn-sm">
+            <i class="fa-solid fa-right-from-bracket"></i> Se déconnecter
+          </button>
+        </div>
+
+        <div class="section-label">Comptes-Rendus du Comité</div>
+        <div class="doc-item" onclick="showToast('Document disponible sur le serveur.')">
+          <div class="doc-icon"><i class="fa-solid fa-file-pdf"></i></div>
+          <div class="doc-info">
+            <div class="name">CR Réunion — Avril 2026</div>
+            <div class="meta">PDF · 2 pages · 15 avril 2026</div>
+          </div>
+          <i class="fa-solid fa-download" style="color:var(--c-text-muted);font-size:.85rem"></i>
+        </div>
+        <div class="doc-item" onclick="showToast('Document disponible sur le serveur.')">
+          <div class="doc-icon"><i class="fa-solid fa-file-pdf"></i></div>
+          <div class="doc-info">
+            <div class="name">CR Réunion — Février 2026</div>
+            <div class="meta">PDF · 3 pages · 12 février 2026</div>
+          </div>
+          <i class="fa-solid fa-download" style="color:var(--c-text-muted);font-size:.85rem"></i>
+        </div>
+        <div class="doc-item" onclick="showToast('Document disponible sur le serveur.')">
+          <div class="doc-icon"><i class="fa-solid fa-file-pdf"></i></div>
+          <div class="doc-info">
+            <div class="name">CR Réunion — Décembre 2025</div>
+            <div class="meta">PDF · 4 pages · 10 décembre 2025</div>
+          </div>
+          <i class="fa-solid fa-download" style="color:var(--c-text-muted);font-size:.85rem"></i>
+        </div>
+
+        <div class="section-label">Partitions & Répertoire</div>
+        <div class="doc-item" onclick="showToast('Partition disponible sur le serveur.')">
+          <div class="doc-icon"><i class="fa-solid fa-file-lines"></i></div>
+          <div class="doc-info">
+            <div class="name">Programme Concert de Printemps 2026</div>
+            <div class="meta">PDF · Partitions complètes · Mai 2026</div>
+          </div>
+          <i class="fa-solid fa-download" style="color:var(--c-text-muted);font-size:.85rem"></i>
+        </div>
+        <div class="doc-item" onclick="showToast('Partition disponible sur le serveur.')">
+          <div class="doc-icon"><i class="fa-solid fa-file-lines"></i></div>
+          <div class="doc-info">
+            <div class="name">Marches Commémoratives — 8 Mai</div>
+            <div class="meta">PDF · Partitions · Cérémonies</div>
+          </div>
+          <i class="fa-solid fa-download" style="color:var(--c-text-muted);font-size:.85rem"></i>
+        </div>
+
+        <div class="section-label">Membres & Contacts</div>
+        <div class="doc-item" onclick="showToast('Liste disponible sur le serveur.')">
+          <div class="doc-icon"><i class="fa-solid fa-users"></i></div>
+          <div class="doc-info">
+            <div class="name">Liste des Musiciens 2025-2026</div>
+            <div class="meta">Par section, par nom, contacts</div>
+          </div>
+          <i class="fa-solid fa-eye" style="color:var(--c-text-muted);font-size:.85rem"></i>
+        </div>
+        <div class="doc-item" onclick="showToast('Interviews disponibles sur le serveur.')">
+          <div class="doc-icon"><i class="fa-solid fa-microphone"></i></div>
+          <div class="doc-info">
+            <div class="name">Interviews des Musiciens</div>
+            <div class="meta">Portraits et témoignages</div>
+          </div>
+          <i class="fa-solid fa-eye" style="color:var(--c-text-muted);font-size:.85rem"></i>
+        </div>
+
+        <div class="section-label">Informations Internes</div>
+        <div class="doc-item">
+          <div class="doc-icon"><i class="fa-solid fa-calendar"></i></div>
+          <div class="doc-info">
+            <div class="name">Agenda Interne 2026</div>
+            <div class="meta">Dates de répétitions et événements</div>
+          </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top:1.5rem;font-size:.88rem">
+          <i class="fa-solid fa-circle-info" style="color:var(--c-accent)"></i>
+          <strong style="color:var(--c-white)">Note :</strong>
+          Cet espace membres est une démonstration HTML statique.
+          La gestion complète des authentifications et documents nécessite un serveur PHP.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script src="js/main.js"></script>
+<script>
+  function switchAuth(tab) {
+    document.getElementById('login-panel').style.display = tab === 'login' ? 'block' : 'none';
+    document.getElementById('register-panel').style.display = tab === 'register' ? 'block' : 'none';
+    document.getElementById('btn-login').classList.toggle('active', tab === 'login');
+    document.getElementById('btn-register').classList.toggle('active', tab === 'register');
+  }
+
+  function togglePwd() {
+    const input = document.getElementById('pwd-input');
+    const icon = document.getElementById('pwd-eye');
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.className = 'fa-solid fa-eye-slash';
+    } else {
+      input.type = 'password';
+      icon.className = 'fa-solid fa-eye';
+    }
+  }
+
+  document.getElementById('login-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('button[type=submit]');
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Connexion...';
+    btn.disabled = true;
+    setTimeout(() => {
+      document.getElementById('auth-panel').classList.remove('active');
+      document.getElementById('dashboard-panel').classList.add('active');
+      showToast('Bienvenue dans votre espace membres !');
+    }, 1200);
+  });
+
+  document.getElementById('register-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    showToast('Demande envoyée ! Le bureau validera votre compte sous 48h.', 'info');
+    this.reset();
+    switchAuth('login');
+  });
+
+  function logout() {
+    document.getElementById('dashboard-panel').classList.remove('active');
+    document.getElementById('auth-panel').classList.add('active');
+    showToast('Vous avez été déconnecté.', 'info');
+  }
+</script>
+</body>
+</html>

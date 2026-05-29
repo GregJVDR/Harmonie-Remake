@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CDs — Harmonie Fanfare Rudipontaine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .cd-card {
+      background: var(--c-glass);
+      border: 1px solid var(--c-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition);
+      backdrop-filter: blur(12px);
+    }
+    .cd-card:hover {
+      border-color: rgba(79,179,232,0.25);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .cd-cover {
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, var(--c-navy), var(--c-navy-mid));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+      font-size: 4rem;
+      border-bottom: 1px solid var(--c-border);
+      position: relative;
+      overflow: hidden;
+    }
+    .cd-cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 30%, rgba(29,111,164,0.3), transparent 60%);
+    }
+    .cd-info { padding: 1.5rem; }
+    .cd-track {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .6rem 0;
+      border-bottom: 1px solid var(--c-border);
+      font-size: .85rem;
+      color: var(--c-text-muted);
+    }
+    .cd-track:last-child { border-bottom: none; }
+    .cd-track .num { width: 22px; text-align: right; color: var(--c-accent); font-size: .78rem; font-weight: 600; flex-shrink: 0; }
+    .cd-track .title { flex: 1; }
+    .cd-track .duration { color: var(--c-text-muted); font-size: .78rem; }
+  </style>
+</head>
+<body>
+
+<script src="js/nav-component.js"></script>
+
+<section class="page-header">
+  <div class="container">
+    <div class="page-header-content">
+      <div class="eyebrow"><i class="fa-solid fa-compact-disc"></i> Présentation</div>
+      <h1>Nos Enregistrements</h1>
+      <p style="color:var(--c-text-muted);max-width:600px;margin-top:.75rem;font-size:1.05rem">
+        Les CDs et enregistrements de l'Harmonie Fanfare Rudipontaine
+      </p>
+      <div class="breadcrumb">
+        <a href="index.html">Accueil</a>
+        <span class="sep">/</span>
+        <span>Présentation</span>
+        <span class="sep">/</span>
+        <span style="color:var(--c-accent)">CDs</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header" data-aos>
+      <div class="eyebrow"><i class="fa-solid fa-record-vinyl"></i> Discographie</div>
+      <h2>Notre Discographie</h2>
+      <div class="divider"></div>
+      <p>Les enregistrements qui témoignent de la richesse musicale de notre harmonie</p>
+    </div>
+
+    <div class="grid-3" style="gap:2rem">
+
+      <div class="cd-card" data-aos data-aos-delay="100">
+        <div class="cd-cover">
+          <i class="fa-solid fa-compact-disc" style="font-size:5rem;color:var(--c-accent);opacity:.6;position:relative"></i>
+          <div style="position:relative;text-align:center">
+            <div style="font-size:.9rem;font-weight:700;color:var(--c-white)">Concert de Gala</div>
+            <div style="font-size:.75rem;color:var(--c-text-muted)">Enregistrement Live</div>
+          </div>
+        </div>
+        <div class="cd-info">
+          <h3 style="font-size:1.15rem;margin-bottom:.3rem">Concert de Gala</h3>
+          <div style="display:flex;gap:.5rem;align-items:center;margin-bottom:1rem">
+            <span class="badge badge-gold">2020</span>
+            <span style="font-size:.8rem;color:var(--c-text-muted)">Enregistrement Live</span>
+          </div>
+          <div>
+            <div class="cd-track"><span class="num">01</span><span class="title">Ouverture Festive</span><span class="duration">4:32</span></div>
+            <div class="cd-track"><span class="num">02</span><span class="title">Marche des Champions</span><span class="duration">3:18</span></div>
+            <div class="cd-track"><span class="num">03</span><span class="title">Suite Romantique</span><span class="duration">8:45</span></div>
+            <div class="cd-track"><span class="num">04</span><span class="title">Médley Variétés</span><span class="duration">6:20</span></div>
+            <div class="cd-track"><span class="num">05</span><span class="title">Finale</span><span class="duration">5:10</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cd-card" data-aos data-aos-delay="200">
+        <div class="cd-cover" style="background:linear-gradient(135deg,#1a2a4a,#0d1b33)">
+          <i class="fa-solid fa-compact-disc" style="font-size:5rem;color:var(--c-gold);opacity:.6;position:relative"></i>
+          <div style="position:relative;text-align:center">
+            <div style="font-size:.9rem;font-weight:700;color:var(--c-white)">Musiques de Fête</div>
+            <div style="font-size:.75rem;color:var(--c-text-muted)">Studio</div>
+          </div>
+        </div>
+        <div class="cd-info">
+          <h3 style="font-size:1.15rem;margin-bottom:.3rem">Musiques de Fête</h3>
+          <div style="display:flex;gap:.5rem;align-items:center;margin-bottom:1rem">
+            <span class="badge badge-gold">2015</span>
+            <span style="font-size:.8rem;color:var(--c-text-muted)">Enregistrement Studio</span>
+          </div>
+          <div>
+            <div class="cd-track"><span class="num">01</span><span class="title">Grande Fanfare d'Ouverture</span><span class="duration">3:45</span></div>
+            <div class="cd-track"><span class="num">02</span><span class="title">Danses Populaires</span><span class="duration">7:12</span></div>
+            <div class="cd-track"><span class="num">03</span><span class="title">Chansons Françaises</span><span class="duration">9:30</span></div>
+            <div class="cd-track"><span class="num">04</span><span class="title">Hymnes et Fanfares</span><span class="duration">4:55</span></div>
+            <div class="cd-track"><span class="num">05</span><span class="title">Grand Final</span><span class="duration">6:08</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cd-card" data-aos data-aos-delay="300">
+        <div class="cd-cover" style="background:linear-gradient(135deg,#1a3344,#0d2233)">
+          <i class="fa-solid fa-compact-disc" style="font-size:5rem;color:rgba(255,255,255,.3);position:relative"></i>
+          <div style="position:relative;text-align:center">
+            <div style="font-size:.9rem;font-weight:700;color:var(--c-white)">80 Ans d'Harmonie</div>
+            <div style="font-size:.75rem;color:var(--c-text-muted)">CD Anniversaire</div>
+          </div>
+        </div>
+        <div class="cd-info">
+          <h3 style="font-size:1.15rem;margin-bottom:.3rem">80 Ans d'Harmonie</h3>
+          <div style="display:flex;gap:.5rem;align-items:center;margin-bottom:1rem">
+            <span class="badge badge-gold">2002</span>
+            <span style="font-size:.8rem;color:var(--c-text-muted)">CD Anniversaire</span>
+          </div>
+          <div>
+            <div class="cd-track"><span class="num">01</span><span class="title">Prélude</span><span class="duration">2:30</span></div>
+            <div class="cd-track"><span class="num">02</span><span class="title">Marches Historiques</span><span class="duration">12:15</span></div>
+            <div class="cd-track"><span class="num">03</span><span class="title">Mémoire Musicale</span><span class="duration">8:40</span></div>
+            <div class="cd-track"><span class="num">04</span><span class="title">Hommage</span><span class="duration">5:22</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="highlight-box" style="max-width:700px;margin:3rem auto 0;text-align:center" data-aos>
+      <i class="fa-solid fa-shopping-cart" style="color:var(--c-accent)"></i>
+      <strong style="color:var(--c-white)">Commander nos CDs</strong><br>
+      <span style="font-size:.9rem">Les enregistrements sont disponibles lors de nos concerts
+      ou en contactant directement le bureau de l'association.</span><br>
+      <a href="comite.html" class="btn btn-primary btn-sm" style="margin-top:1rem">
+        <i class="fa-solid fa-envelope"></i> Nous contacter
+      </a>
+    </div>
+  </div>
+</section>
+
+<script src="js/main.js"></script>
+</body>
+</html>
