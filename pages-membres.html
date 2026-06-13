@@ -3,23 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Espace Membres — Harmonie Fanfare Rudipontaine</title>
+  <title>Page introuvable - Harmonie Fanfare Rudipontaine</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    .members-container { max-width: 480px; margin: 0 auto; }
-
-    .tab-toggle {
-      display: flex;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--c-border);
-      border-radius: var(--radius-md);
-      padding: 4px;
-      margin-bottom: 2rem;
-    }
+    .placeholder-container { max-width: 680px; margin: 0 auto; text-align: center; }
+    .placeholder-card { background: rgba(255,255,255,0.05); border: 1px solid var(--c-border); border-radius: var(--radius-xl); padding: 3rem; }
     .tab-toggle button {
       flex: 1;
       padding: .65rem;
@@ -113,44 +105,35 @@
   <div class="container">
     <div class="page-header-content">
       <div class="eyebrow"><i class="fa-solid fa-lock"></i> Accès Restreint</div>
-      <h1>Espace Membres</h1>
+      <h1>Page supprimée</h1>
       <p style="color:var(--c-text-muted);max-width:600px;margin-top:.75rem;font-size:1.05rem">
-        Zone réservée aux membres de l'Harmonie Fanfare Rudipontaine
+        Cette page n'est plus disponible.
       </p>
       <div class="breadcrumb">
         <a href="index.html">Accueil</a>
         <span class="sep">/</span>
-        <span style="color:var(--c-accent)">Espace Membres</span>
+        <span style="color:var(--c-accent)">Page supprimée</span>
       </div>
     </div>
   </div>
 </section>
 
 <section class="section">
-  <div class="container">
-    <div class="members-container">
+  <div class="container placeholder-container">
+    <div class="placeholder-card">
+      <div style="font-size:3rem;line-height:1;margin-bottom:1rem">🚫</div>
+      <h2 style="margin-bottom:1rem">Espace Membres retiré</h2>
+      <p style="color:var(--c-text-muted);line-height:1.75;margin-bottom:1.5rem">
+        La fonctionnalité de connexion et l'espace membres ont été retirés du site. Revenez bientôt pour d'autres actualités.
+      </p>
+      <a href="index.html" class="btn btn-primary">Retour à l'accueil</a>
+    </div>
+  </div>
+</section>
 
-      <!-- NOT LOGGED IN -->
-      <div id="auth-panel" class="member-area active">
-        <div style="background:var(--c-glass);border:1px solid var(--c-border);border-radius:var(--radius-xl);padding:2.5rem;backdrop-filter:blur(16px);text-align:center;margin-bottom:2rem">
-          <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--c-blue),var(--c-accent));display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 1.25rem;box-shadow:0 8px 30px rgba(29,111,164,0.3)">
-            <i class="fa-solid fa-lock" style="font-size:1.5rem"></i>
-          </div>
-          <h3 style="margin-bottom:.4rem">Connexion Requise</h3>
-          <p style="color:var(--c-text-muted);font-size:.9rem;margin-bottom:2rem">
-            Accédez aux documents, comptes-rendus et informations réservés aux membres.
-          </p>
-        </div>
-
-        <!-- Tab toggle Login / Register -->
-        <div class="tab-toggle">
-          <button class="active" id="btn-login" onclick="switchAuth('login')">
-            <i class="fa-solid fa-right-to-bracket"></i> Se Connecter
-          </button>
-          <button id="btn-register" onclick="switchAuth('register')">
-            <i class="fa-solid fa-user-plus"></i> S'inscrire
-          </button>
-        </div>
+<script src="js/nav-component.js"></script>
+</body>
+</html>
 
         <!-- LOGIN -->
         <div id="login-panel">
@@ -234,7 +217,7 @@
         <div class="member-welcome">
           <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--c-blue),var(--c-accent));display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 1rem;box-shadow:0 8px 30px rgba(29,111,164,0.3)">M</div>
           <h3 style="margin-bottom:.25rem">Bienvenue, Membre !</h3>
-          <p style="color:var(--c-text-muted);font-size:.9rem;margin-bottom:1.25rem">Harmonie Fanfare Rudipontaine — Espace Membres</p>
+          <p style="color:var(--c-text-muted);font-size:.9rem;margin-bottom:1.25rem">Harmonie Fanfare Rudipontaine - Espace Membres</p>
           <button onclick="logout()" class="btn btn-outline btn-sm">
             <i class="fa-solid fa-right-from-bracket"></i> Se déconnecter
           </button>
@@ -244,7 +227,7 @@
         <div class="doc-item" onclick="showToast('Document disponible sur le serveur.')">
           <div class="doc-icon"><i class="fa-solid fa-file-pdf"></i></div>
           <div class="doc-info">
-            <div class="name">CR Réunion — Avril 2026</div>
+            <div class="name">CR Réunion - Avril 2026</div>
             <div class="meta">PDF · 2 pages · 15 avril 2026</div>
           </div>
           <i class="fa-solid fa-download" style="color:var(--c-text-muted);font-size:.85rem"></i>
@@ -252,7 +235,7 @@
         <div class="doc-item" onclick="showToast('Document disponible sur le serveur.')">
           <div class="doc-icon"><i class="fa-solid fa-file-pdf"></i></div>
           <div class="doc-info">
-            <div class="name">CR Réunion — Février 2026</div>
+            <div class="name">CR Réunion - Février 2026</div>
             <div class="meta">PDF · 3 pages · 12 février 2026</div>
           </div>
           <i class="fa-solid fa-download" style="color:var(--c-text-muted);font-size:.85rem"></i>
@@ -260,7 +243,7 @@
         <div class="doc-item" onclick="showToast('Document disponible sur le serveur.')">
           <div class="doc-icon"><i class="fa-solid fa-file-pdf"></i></div>
           <div class="doc-info">
-            <div class="name">CR Réunion — Décembre 2025</div>
+            <div class="name">CR Réunion - Décembre 2025</div>
             <div class="meta">PDF · 4 pages · 10 décembre 2025</div>
           </div>
           <i class="fa-solid fa-download" style="color:var(--c-text-muted);font-size:.85rem"></i>
@@ -278,7 +261,7 @@
         <div class="doc-item" onclick="showToast('Partition disponible sur le serveur.')">
           <div class="doc-icon"><i class="fa-solid fa-file-lines"></i></div>
           <div class="doc-info">
-            <div class="name">Marches Commémoratives — 8 Mai</div>
+            <div class="name">Marches Commémoratives - 8 Mai</div>
             <div class="meta">PDF · Partitions · Cérémonies</div>
           </div>
           <i class="fa-solid fa-download" style="color:var(--c-text-muted);font-size:.85rem"></i>

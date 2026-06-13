@@ -1,5 +1,5 @@
 /* ============================================================
-   Harmonie Fanfare Rudipontaine — Main JS
+   Harmonie Fanfare Rudipontaine - Main JS
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -12,22 +12,77 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   }
 
-  /* ── Mobile nav burger ── */
-  const burger = document.querySelector('.nav-burger');
+  /* ── Desktop dropdowns (mutually exclusive) ── */
+  const navItems = document.querySelectorAll('.nav-item');
+  navItems.forEach(item => {
+    if (!item.querySelector('.nav-dropdown')) return;
+
+    let closeTimer;
+
+    item.addEventListener('mouseenter', () => {
+      clearTimeout(closeTimer);
+      navItems.forEach(i => i.classList.remove('dropdown-open'));
+      item.classList.add('dropdown-open');
+    });
+
+    item.addEventListener('mouseleave', () => {
+      closeTimer = setTimeout(() => item.classList.remove('dropdown-open'), 120);
+    });
+
+    item.querySelector('.nav-dropdown').addEventListener('mouseenter', () => {
+      clearTimeout(closeTimer);
+    });
+    item.querySelector('.nav-dropdown').addEventListener('mouseleave', () => {
+      closeTimer = setTimeout(() => item.classList.remove('dropdown-open'), 120);
+    });
+  });
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.nav-item')) {
+      navItems.forEach(i => i.classList.remove('dropdown-open'));
+    }
+  });
+
+  /* ── Mobile nav ── */
+  const burger   = document.querySelector('.nav-burger');
   const mobileNav = document.querySelector('.mobile-nav');
+  const backdrop  = document.querySelector('.mobile-backdrop');
+
+  function openMenu() {
+    const scrollbarW = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.paddingRight = scrollbarW + 'px';
+    document.body.style.overflow = 'hidden';
+    burger.classList.add('open');
+    mobileNav.classList.add('open');
+    if (backdrop) backdrop.classList.add('open');
+  }
+  function closeMenu() {
+    burger.classList.remove('open');
+    mobileNav.classList.remove('open');
+    if (backdrop) backdrop.classList.remove('open');
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
+  }
+
   if (burger && mobileNav) {
     burger.addEventListener('click', () => {
-      burger.classList.toggle('open');
-      mobileNav.classList.toggle('open');
-      document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+      mobileNav.classList.contains('open') ? closeMenu() : openMenu();
+    });
+
+    if (backdrop) backdrop.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && mobileNav.classList.contains('open')) closeMenu();
     });
 
     mobileNav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        burger.classList.remove('open');
-        mobileNav.classList.remove('open');
-        document.body.style.overflow = '';
-      });
+      link.addEventListener('click', closeMenu);
+    });
+
+    /* Active page highlight */
+    const page = location.pathname.split('/').pop() || 'index.html';
+    mobileNav.querySelectorAll('.mobile-nav-link[data-page]').forEach(link => {
+      if (link.dataset.page === page) link.classList.add('active');
     });
   }
 
@@ -162,22 +217,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ── Login form ── */
-  const loginForm = document.getElementById('login-form');
-  if (loginForm) {
-    loginForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const btn = this.querySelector('button[type=submit]');
-      btn.textContent = 'Connexion...';
-      btn.disabled = true;
-      setTimeout(() => {
-        btn.textContent = 'Se connecter';
-        btn.disabled = false;
-        showToast('Zone membres — Fonctionnalité disponible avec le serveur PHP.', 'info');
-      }, 1200);
-    });
-  }
-
   /* ── Active nav link ── */
   const currentPage = location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-link[href]').forEach(link => {
@@ -187,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ── Hero particles ── */
   const particleContainer = document.querySelector('.hero-particles');
   if (particleContainer) {
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 8; i++) {
       const p = document.createElement('div');
       p.className = 'hero-particle';
       p.style.cssText = `

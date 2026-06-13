@@ -9,7 +9,7 @@
   <div class="container">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
-        <img src="images/logo.png" alt="Logo Harmonie Fanfare Rudipontaine" class="nav-logo-icon" style="object-fit:contain;background:transparent;padding:2px">
+        <img src="images/logo3d2.png" alt="Logo Harmonie Fanfare Rudipontaine" class="nav-logo-icon" style="object-fit:contain;background:transparent;padding:2px">
         <div class="nav-logo-text">
           <span class="name">Harmonie</span>
           <span class="sub">Fanfare Rudipontaine</span>
@@ -23,7 +23,6 @@
           <div class="nav-dropdown">
             <a href="manifestations.html#avenir"><i class="fa-solid fa-calendar-days"></i> À Venir</a>
             <a href="manifestations.html#passees"><i class="fa-solid fa-clock-rotate-left"></i> Passées</a>
-            <a href="manifestations.html#archives"><i class="fa-solid fa-box-archive"></i> Archives</a>
           </div>
         </li>
         <li class="nav-item">
@@ -33,43 +32,95 @@
             <a href="orchestre-junior.html"><i class="fa-solid fa-star"></i> Orchestre Junior</a>
             <a href="musiciens.html"><i class="fa-solid fa-users"></i> Musiciens</a>
             <a href="comite.html"><i class="fa-solid fa-sitemap"></i> Comité</a>
-            <a href="repertoire.html"><i class="fa-solid fa-list-ul"></i> Répertoire</a>
-            <a href="cds.html"><i class="fa-solid fa-compact-disc"></i> CDs</a>
           </div>
         </li>
-        <li class="nav-item"><a href="livre-or.html" class="nav-link" data-page="livre-or.html">Livre d'Or</a></li>
         <li class="nav-item">
           <span class="nav-link">Souvenirs <span class="arrow">▾</span></span>
           <div class="nav-dropdown">
             <a href="souvenirs.html#photos"><i class="fa-solid fa-images"></i> Photos</a>
-            <a href="souvenirs.html#partage"><i class="fa-solid fa-share-nodes"></i> Partage Photos</a>
-            <a href="souvenirs.html#presse"><i class="fa-solid fa-newspaper"></i> Presse</a>
           </div>
         </li>
-        <li class="nav-item"><a href="pages-membres.html" class="nav-link" data-page="pages-membres.html">Espace Membres</a></li>
       </ul>
       <div class="nav-actions">
-        <a href="pages-membres.html" class="btn btn-blue btn-sm">
-          <i class="fa-solid fa-lock"></i> Connexion
+        <a href="ecole-musique.html#inscription" class="nav-link nav-inscription-btn" data-page="ecole-musique.html">
+          <i class="fa-solid fa-pen" style="font-size:.7rem"></i> S'inscrire
         </a>
         <div class="nav-burger" id="nav-burger"><span></span><span></span><span></span></div>
       </div>
     </div>
   </div>
 </nav>
-<div class="mobile-nav" id="mobile-nav">
-  <a href="index.html">Accueil</a>
-  <a href="histoire.html">Histoire</a>
-  <a href="manifestations.html">Manifestations</a>
-  <a href="ecole-musique.html">École de Musique</a>
-  <a href="orchestre-junior.html">Orchestre Junior</a>
-  <a href="musiciens.html">Musiciens</a>
-  <a href="comite.html">Comité</a>
-  <a href="repertoire.html">Répertoire</a>
-  <a href="cds.html">CDs</a>
-  <a href="livre-or.html">Livre d'Or</a>
-  <a href="souvenirs.html">Souvenirs</a>
-  <a href="pages-membres.html">Espace Membres</a>
+<div class="mobile-backdrop" id="mobile-backdrop"></div>
+<div class="mobile-nav" id="mobile-nav" role="dialog" aria-modal="true" aria-label="Menu de navigation">
+  <nav class="mobile-nav-body">
+    <a href="index.html" class="mobile-nav-link" data-page="index.html">
+      <span class="mnl-icon mnl-blue"><i class="fa-solid fa-house"></i></span>
+      <span class="mnl-label">Accueil</span>
+      <i class="fa-solid fa-chevron-right mnl-arrow"></i>
+    </a>
+    <a href="histoire.html" class="mobile-nav-link" data-page="histoire.html">
+      <span class="mnl-icon mnl-purple"><i class="fa-solid fa-book-open"></i></span>
+      <span class="mnl-label">Histoire</span>
+      <i class="fa-solid fa-chevron-right mnl-arrow"></i>
+    </a>
+
+    <div class="mobile-nav-section-label">Manifestations</div>
+    <a href="manifestations.html#avenir" class="mobile-nav-link">
+      <span class="mnl-icon mnl-green"><i class="fa-solid fa-calendar-days"></i></span>
+      <span class="mnl-label">Concerts à Venir</span>
+      <i class="fa-solid fa-chevron-right mnl-arrow"></i>
+    </a>
+    <a href="manifestations.html#passees" class="mobile-nav-link">
+      <span class="mnl-icon mnl-gray"><i class="fa-solid fa-clock-rotate-left"></i></span>
+      <span class="mnl-label">Manifestations Passées</span>
+      <i class="fa-solid fa-chevron-right mnl-arrow"></i>
+    </a>
+
+    <div class="mobile-nav-section-label">L'Association</div>
+    <a href="ecole-musique.html" class="mobile-nav-link" data-page="ecole-musique.html">
+      <span class="mnl-icon mnl-gold"><i class="fa-solid fa-graduation-cap"></i></span>
+      <span class="mnl-label">École de Musique</span>
+      <i class="fa-solid fa-chevron-right mnl-arrow"></i>
+    </a>
+    <a href="orchestre-junior.html" class="mobile-nav-link" data-page="orchestre-junior.html">
+      <span class="mnl-icon mnl-orange"><i class="fa-solid fa-star"></i></span>
+      <span class="mnl-label">Orchestre Junior</span>
+      <i class="fa-solid fa-chevron-right mnl-arrow"></i>
+    </a>
+    <a href="musiciens.html" class="mobile-nav-link" data-page="musiciens.html">
+      <span class="mnl-icon mnl-blue"><i class="fa-solid fa-users"></i></span>
+      <span class="mnl-label">Nos Musiciens</span>
+      <i class="fa-solid fa-chevron-right mnl-arrow"></i>
+    </a>
+    <a href="comite.html" class="mobile-nav-link" data-page="comite.html">
+      <span class="mnl-icon mnl-teal"><i class="fa-solid fa-sitemap"></i></span>
+      <span class="mnl-label">Le Comité</span>
+      <i class="fa-solid fa-chevron-right mnl-arrow"></i>
+    </a>
+
+    <div class="mobile-nav-section-label">Souvenirs</div>
+    <a href="souvenirs.html#photos" class="mobile-nav-link">
+      <span class="mnl-icon mnl-green"><i class="fa-solid fa-images"></i></span>
+      <span class="mnl-label">Photos</span>
+      <i class="fa-solid fa-chevron-right mnl-arrow"></i>
+    </a>
+  </nav>
+
+  <div class="mobile-nav-cta">
+    <a href="ecole-musique.html#inscription" class="mobile-nav-link" data-page="ecole-musique.html">
+      <span class="mnl-icon mnl-gold"><i class="fa-solid fa-pen"></i></span>
+      <span class="mnl-label">S'inscrire à l'École</span>
+      <i class="fa-solid fa-chevron-right mnl-arrow"></i>
+    </a>
+  </div>
+
+  <div class="mobile-nav-footer">
+    <div class="mobile-nav-socials">
+      <a href="https://www.facebook.com/people/Harmonie-Fanfare-Rudipontaine/100057406793498/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="mailto:contact@harmonie-pont-de-roide.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+    </div>
+    <p class="mobile-nav-copyright">© 2026 Harmonie Fanfare Rudipontaine</p>
+  </div>
 </div>`;
 
   const FOOTER_HTML = `
@@ -78,7 +129,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.25rem">
-          <img src="images/logo.png" alt="Logo Harmonie" style="width:44px;height:44px;border-radius:12px;object-fit:contain;flex-shrink:0">
+          <img src="images/logo3d2.png" alt="Logo Harmonie" style="width:44px;height:44px;border-radius:12px;object-fit:contain;flex-shrink:0">
           <div style="display:flex;flex-direction:column;line-height:1.1">
             <span style="font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--c-white)">Harmonie</span>
             <span style="font-size:.7rem;color:var(--c-text-muted);letter-spacing:.05em">Fanfare Rudipontaine</span>
@@ -87,7 +138,7 @@
         <p class="desc">Association musicale fondée en 1922 à Pont de Roide-Vermondans. 38 musiciens actifs et 49 élèves à l'école de musique.</p>
         <div class="footer-social">
           <a href="https://www.facebook.com/harmoniefanfarerudipontaine" target="_blank" rel="noopener" class="social-btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="#" class="social-btn" title="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="social-btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
           <a href="mailto:contact@harmonie-pont-de-roide.com" class="social-btn" title="Email"><i class="fa-solid fa-envelope"></i></a>
         </div>
       </div>
@@ -97,9 +148,7 @@
           <li><a href="index.html"><i class="fa-solid fa-chevron-right" style="font-size:.7rem"></i> Accueil</a></li>
           <li><a href="histoire.html"><i class="fa-solid fa-chevron-right" style="font-size:.7rem"></i> Histoire</a></li>
           <li><a href="manifestations.html"><i class="fa-solid fa-chevron-right" style="font-size:.7rem"></i> Manifestations</a></li>
-          <li><a href="livre-or.html"><i class="fa-solid fa-chevron-right" style="font-size:.7rem"></i> Livre d'Or</a></li>
           <li><a href="souvenirs.html"><i class="fa-solid fa-chevron-right" style="font-size:.7rem"></i> Souvenirs</a></li>
-          <li><a href="pages-membres.html"><i class="fa-solid fa-chevron-right" style="font-size:.7rem"></i> Espace Membres</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -109,8 +158,6 @@
           <li><a href="orchestre-junior.html"><i class="fa-solid fa-chevron-right" style="font-size:.7rem"></i> Orchestre Junior</a></li>
           <li><a href="musiciens.html"><i class="fa-solid fa-chevron-right" style="font-size:.7rem"></i> Nos Musiciens</a></li>
           <li><a href="comite.html"><i class="fa-solid fa-chevron-right" style="font-size:.7rem"></i> Le Comité</a></li>
-          <li><a href="repertoire.html"><i class="fa-solid fa-chevron-right" style="font-size:.7rem"></i> Répertoire</a></li>
-          <li><a href="cds.html"><i class="fa-solid fa-chevron-right" style="font-size:.7rem"></i> CDs</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -126,7 +173,7 @@
         </ul>
         <div class="highlight-box" style="margin-top:1rem;padding:1rem">
           <div style="font-size:.8rem;font-weight:600;color:var(--c-accent);margin-bottom:.4rem"><i class="fa-solid fa-circle-info"></i> Répétitions</div>
-          <div style="font-size:.82rem;color:var(--c-text-muted)">Tous les vendredis — 20h00 – 22h00</div>
+          <div style="font-size:.82rem;color:var(--c-text-muted)">Tous les vendredis - 20h00 – 22h00</div>
         </div>
       </div>
     </div>
@@ -164,7 +211,6 @@
       'manifestations.html': 1,
       'ecole-musique.html': 3, 'orchestre-junior.html': 3,
       'musiciens.html': 3, 'comite.html': 3,
-      'repertoire.html': 3, 'cds.html': 3,
       'souvenirs.html': 5,
     };
     if (subPages[page] !== undefined) {
