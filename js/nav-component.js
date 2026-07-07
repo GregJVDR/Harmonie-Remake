@@ -179,7 +179,13 @@
     </div>
     <div class="footer-bottom">
       <div>© 2007–2026 Harmonie Fanfare Rudipontaine. Tous droits réservés.</div>
-      <div>Webmaster : <a href="#">Grégoire JURY--VERMOT DES ROCHES</a>
+      <div>
+        <a href="mentions-legales.html#mentions">Mentions légales</a>
+        <span style="opacity:.4;margin:0 .4rem">·</span>
+        <a href="mentions-legales.html#cgu">CGU</a>
+        <span style="opacity:.4;margin:0 .4rem">·</span>
+        Webmaster : <a href="#">Grégoire JURY--VERMOT DES ROCHES</a>
+      </div>
     </div>
   </div>
 </footer>

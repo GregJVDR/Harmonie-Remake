@@ -1249,51 +1249,6 @@ p { margin-bottom: 1rem; }
 
 textarea.form-control { resize: vertical; min-height: 130px; }
 
-/* ── Guestbook ── */
-.guestbook-entry {
-  background: var(--c-glass);
-  border: 1px solid var(--c-border);
-  border-top: 1px solid var(--c-glass-highlight);
-  border-radius: var(--radius-lg);
-  padding: 1.75rem;
-  margin-bottom: 1.5rem;
-  transition: transform var(--transition-spring), box-shadow var(--transition-glass), border-color var(--transition-glass), background var(--transition-glass);
-  backdrop-filter: blur(20px);
-  box-shadow: var(--shadow-glass);
-}
-
-.guestbook-entry:hover {
-  background: var(--c-glass-hover);
-  border-color: rgba(79,179,232,0.25);
-  border-top-color: rgba(255,255,255,0.3);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-glass-hover);
-}
-
-.guestbook-entry-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--c-blue), var(--c-blue-light));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--c-white);
-  flex-shrink: 0;
-}
-
-.guestbook-entry-meta .author { font-weight: 600; color: var(--c-white); }
-.guestbook-entry-meta .date { font-size: 0.8rem; color: var(--c-text-muted); }
-
 /* ── Accordion (Répertoire) ── */
 .accordion-item {
   border: 1px solid var(--c-border);
@@ -1345,20 +1300,6 @@ textarea.form-control { resize: vertical; min-height: 130px; }
 
 .accordion-body-inner ul { padding-left: 1.25rem; }
 .accordion-body-inner li { margin-bottom: 0.4rem; list-style: disc; }
-
-/* ── Members Login ── */
-.login-card {
-  max-width: 480px;
-  margin: 0 auto;
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.14);
-  border-top: 1px solid rgba(255,255,255,0.28);
-  border-radius: var(--radius-xl);
-  padding: 3rem;
-  backdrop-filter: blur(40px) saturate(2);
-  -webkit-backdrop-filter: blur(40px) saturate(2);
-  box-shadow: var(--shadow-glass), 0 40px 80px rgba(0,0,0,0.3);
-}
 
 /* ── Footer ── */
 footer {
@@ -1572,6 +1513,117 @@ footer {
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
+/* ══════════════════════════════════════════════════════════
+   Sections claires (fond blanc cassé, alternance avec le bleu)
+   ══════════════════════════════════════════════════════════ */
+.section-light { background: #faf8f3; }
+
+/* Les textes utilisant les variables héritent automatiquement
+   (--c-white bascule en bleu nuit pour les textes inline « blancs ») */
+.section-light {
+  --c-text: #3d4d61;
+  --c-text-muted: #5b6b7f;
+  --c-white: #0A1628;
+}
+/* Ré-affirme le vrai blanc où il reste indispensable */
+.section-light .btn-blue,
+.section-light .btn-primary,
+.section-light .btn-facebook,
+.section-light .card-icon,
+.section-light .event-date-box .day { color: #ffffff; }
+.section-light h2, .section-light h3, .section-light h4, .section-light h5 { color: var(--c-navy); }
+.section-light .section-header p { color: #5b6b7f; }
+.section-light strong { color: var(--c-navy); }
+
+/* Cartes et blocs vitrés → blancs, bord net, sans flou */
+.section-light .card,
+.section-light .event-card,
+.section-light .stat-card,
+.section-light .accordion-item {
+  background: #ffffff;
+  border: 1.5px solid rgba(8,29,49,0.18);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: 0 10px 30px rgba(8,29,49,0.08);
+}
+.section-light .card:hover,
+.section-light .event-card:hover,
+.section-light .stat-card:hover {
+  background: #ffffff;
+  border-color: rgba(200,168,75,0.5);
+  border-top-color: rgba(200,168,75,0.5);
+  box-shadow: 0 16px 40px rgba(8,29,49,0.13);
+}
+
+/* Chiffres des stat-cards : dégradé clair illisible → bleu nuit plein */
+.section-light .stat-card .num {
+  background: none;
+  -webkit-text-fill-color: var(--c-navy);
+  color: var(--c-navy);
+}
+.section-light .stat-card .label { color: #6b7683; }
+
+/* Événements */
+.section-light .event-date-box { background: var(--c-navy); box-shadow: none; }
+.section-light .event-date-box .month { color: var(--c-gold-light); }
+.section-light .event-meta i { color: var(--c-gold); }
+
+/* Badges : variantes claires */
+.section-light .badge-blue  { background: rgba(26,82,168,0.08);  color: var(--c-blue); border: 1px solid rgba(26,82,168,0.22); backdrop-filter: none; }
+.section-light .badge-gold  { background: rgba(200,168,75,0.12); color: #9a7d2e; border: 1px solid rgba(200,168,75,0.35); backdrop-filter: none; }
+.section-light .badge-green { background: rgba(30,122,79,0.1);   color: #1e7a4f; border: 1px solid rgba(30,122,79,0.25); backdrop-filter: none; }
+.section-light .badge-red   { background: rgba(181,32,32,0.08);  color: #a83232; border: 1px solid rgba(181,32,32,0.25); backdrop-filter: none; }
+
+/* Boutons contour */
+.section-light .btn-outline {
+  background: #ffffff;
+  color: var(--c-navy);
+  border: 1px solid rgba(8,29,49,0.18);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: 0 4px 14px rgba(8,29,49,0.08);
+}
+.section-light .btn-outline:hover {
+  background: #ffffff;
+  border-color: rgba(200,168,75,0.55);
+  color: var(--c-navy);
+  box-shadow: 0 10px 26px rgba(8,29,49,0.14);
+}
+
+/* Accordéon (répertoire) */
+.section-light .accordion-trigger { background: #ffffff; color: var(--c-navy); }
+.section-light .accordion-trigger:hover { background: #f4f1ea; }
+.section-light .accordion-body { background: #faf8f3; }
+.section-light .accordion-body-inner { color: #4d5d70; }
+
+/* Formulaires */
+.section-light .form-label { color: #3d4d61; }
+.section-light .form-control {
+  background: #ffffff;
+  border: 1px solid rgba(8,29,49,0.2);
+  color: var(--c-navy);
+  backdrop-filter: none;
+  box-shadow: none;
+}
+.section-light .form-control::placeholder { color: #8a97a5; }
+.section-light .form-control:focus {
+  border-color: rgba(26,82,168,0.5);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(26,82,168,0.12);
+}
+
+/* Timeline (histoire) : pastille détourée sur fond clair */
+.section-light .timeline-item::before { border-color: #faf8f3; }
+
+/* Encadré info */
+.section-light .highlight-box {
+  background: rgba(26,82,168,0.06);
+  border: 1px solid rgba(26,82,168,0.18);
+  border-top-color: rgba(26,82,168,0.18);
+  backdrop-filter: none;
+  box-shadow: none;
+}
+
 /* ── Responsive Nav ── */
 @media(max-width:1024px) {
   .nav-menu { display: none; }
@@ -1709,9 +1761,6 @@ footer {
   /* Galerie : 1 colonne */
   .gallery-grid { grid-template-columns: 1fr; }
 
-  /* Carte login */
-  .login-card { padding: 2rem 1.25rem; }
-
   /* Boutons réseaux sociaux : cible tactile ≥ 44px */
   .social-btn { width: 44px; height: 44px; font-size: 1rem; }
 
@@ -1723,9 +1772,4 @@ footer {
 
   /* Accordion - texte du titre ne déborde pas */
   .accordion-trigger { padding: 1rem 1.25rem; font-size: 0.9rem; }
-
-  /* Guestbook avatar + header */
-  .guestbook-entry { padding: 1.25rem; }
-  .guestbook-entry-header { gap: 0.75rem; }
-  .avatar { width: 38px; height: 38px; font-size: 0.9rem; }
 }

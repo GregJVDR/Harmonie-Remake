@@ -17,23 +17,23 @@
     .members-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-      gap: 1.25rem;
+      gap: 1.4rem;
     }
 
     .member-card {
-      background: var(--c-glass);
-      border: 1px solid var(--c-border);
-      border-radius: var(--radius-lg);
+      background: #ffffff;
+      border: 1.5px solid rgba(8,29,49,0.14);
+      border-radius: 16px;
       overflow: hidden;
-      transition: var(--transition);
-      backdrop-filter: blur(12px);
       cursor: pointer;
+      box-shadow: 0 6px 18px rgba(8,29,49,0.06);
+      transition: transform .35s cubic-bezier(.34,1.3,.64,1), box-shadow .3s ease, border-color .3s ease;
     }
 
     .member-card:hover {
-      border-color: rgba(79,179,232,0.35);
       transform: translateY(-6px);
-      box-shadow: var(--shadow-md), var(--shadow-glow);
+      border-color: rgba(200,168,75,0.55);
+      box-shadow: 0 18px 40px rgba(8,29,49,0.14);
     }
 
     .member-photo-wrap {
@@ -41,26 +41,40 @@
       position: relative;
     }
 
-    .member-photo-wrap::after {
-      content: '';
+    /* Loupe qui apparaît au survol */
+    .member-photo-wrap::before {
+      content: '\f002';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
       position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 50px;
-      background: linear-gradient(to top, rgba(10,22,40,.85) 0%, transparent 100%);
+      top: .65rem; right: .65rem;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: rgba(10,22,40,0.55);
+      backdrop-filter: blur(4px);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .78rem;
+      opacity: 0;
+      transform: scale(.6);
+      transition: opacity .3s ease, transform .3s cubic-bezier(.34,1.4,.64,1);
+      z-index: 1;
       pointer-events: none;
     }
+    .member-card:hover .member-photo-wrap::before { opacity: 1; transform: scale(1); }
 
     .member-photo {
       width: 100%;
       aspect-ratio: 3/4;
       object-fit: cover;
-      object-position: center top;
+      object-position: center;
       display: block;
-      background: var(--c-navy-mid);
-      transition: transform .4s ease;
+      background: #eef1f5;
+      filter: saturate(.92);
+      transition: transform .45s ease, filter .45s ease;
     }
 
-    .member-card:hover .member-photo { transform: scale(1.05); }
+    .member-card:hover .member-photo { transform: scale(1.06); filter: saturate(1.05); }
 
     .member-no-photo {
       width: 100%;
@@ -69,34 +83,50 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, var(--c-navy), var(--c-navy-mid));
-      color: var(--c-text-muted);
+      background: linear-gradient(135deg, #eef1f5, #e2e7ee);
+      color: #8a97a5;
       gap: .5rem;
     }
 
     .member-info {
-      padding: .75rem 1rem .9rem;
+      padding: .8rem 1rem 1rem;
     }
 
     .member-name {
-      font-size: .88rem;
-      font-weight: 600;
-      color: var(--c-white);
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--c-navy);
       line-height: 1.3;
     }
 
+    /* Soulignement doré qui s'étire au survol */
+    .member-name::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--c-gold);
+      margin-top: .3rem;
+      transition: width .35s ease;
+    }
+    .member-card:hover .member-name::after { width: 28px; }
+
     .member-role {
-      font-size: .72rem;
-      color: var(--c-text-muted);
-      margin-top: .15rem;
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: #8a97a5;
+      margin-top: .2rem;
     }
 
-    /* ── Séparateur de section ── */
+    /* ── Séparateur de pupitre ── */
     .pupitre-header {
       display: flex;
       align-items: center;
       gap: 1rem;
-      margin: 3rem 0 1.25rem;
+      margin: 3.25rem 0 1.4rem;
     }
 
     .pupitre-header:first-of-type { margin-top: 0; }
@@ -109,55 +139,94 @@
     }
 
     .pupitre-title h3 {
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       text-transform: uppercase;
-      letter-spacing: .12em;
+      letter-spacing: .14em;
       font-family: var(--font-sans);
       font-weight: 700;
-      color: var(--c-white);
+      color: var(--c-navy);
     }
 
     .pupitre-count {
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      background: rgba(29,111,164,0.25);
-      border: 1px solid rgba(79,179,232,0.3);
+      min-width: 28px; height: 28px;
+      padding: 0 .5rem;
+      border-radius: 100px;
+      background: var(--c-navy);
       display: flex; align-items: center; justify-content: center;
-      font-size: .78rem; font-weight: 700; color: var(--c-accent);
+      font-size: .78rem; font-weight: 700; color: #fff;
       flex-shrink: 0;
     }
 
+    /* Ligne dorée qui se dessine à l'apparition */
     .pupitre-line {
-      flex: 1; height: 1px;
-      background: linear-gradient(to right, rgba(79,179,232,0.25), transparent);
+      flex: 1; height: 2px;
+      border-radius: 2px;
+      background: linear-gradient(to right, rgba(200,168,75,0.6), rgba(8,29,49,0.06));
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform .9s cubic-bezier(.22,1,.36,1) .15s;
     }
+    .pupitre-header.aos-animate .pupitre-line { transform: scaleX(1); }
 
     /* ── Filtres ── */
     .filter-bar {
       display: flex;
-      gap: .5rem;
-      flex-wrap: wrap;
+      justify-content: safe center;
+      gap: .35rem;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: .25rem .25rem .5rem;
       margin-bottom: 2.5rem;
     }
+    .filter-bar::-webkit-scrollbar { display: none; }
 
     .filter-pill {
-      padding: .5rem 1.1rem;
+      padding: .45rem .9rem;
       border-radius: 100px;
-      border: 1px solid var(--c-border);
-      background: transparent;
-      color: var(--c-text-muted);
-      font-size: .82rem;
+      border: 1.5px solid rgba(8,29,49,0.15);
+      background: #ffffff;
+      color: #5b6b7f;
+      font-size: .8rem;
+      white-space: nowrap;
+      flex-shrink: 0;
       font-family: var(--font-sans);
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
-      transition: var(--transition);
+      transition: all .25s ease;
       display: flex; align-items: center; gap: .35rem;
     }
 
-    .filter-pill.active, .filter-pill:hover {
-      background: var(--c-blue);
-      border-color: var(--c-blue);
-      color: white;
+    .filter-pill:hover {
+      border-color: var(--c-navy);
+      color: var(--c-navy);
+      transform: translateY(-1px);
+    }
+
+    .filter-pill.active {
+      background: var(--c-navy);
+      border-color: var(--c-navy);
+      color: #fff;
+      box-shadow: 0 6px 16px rgba(8,29,49,0.22);
+    }
+
+    /* ── Animation « pop » au filtrage ── */
+    @keyframes card-pop {
+      from { opacity: 0; transform: translateY(14px) scale(.96); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .member-card.pop { animation: card-pop .4s cubic-bezier(.22,1,.36,1) both; }
+
+    /* ── CTA bas de page ── */
+    .members-cta {
+      text-align: center;
+      margin-top: 4rem;
+      padding: 2.75rem;
+      background: #ffffff;
+      border: 1.5px solid rgba(8,29,49,0.15);
+      border-radius: 22px;
+      box-shadow: 0 12px 34px rgba(8,29,49,0.08);
     }
 
     /* ── Lightbox ── */
@@ -174,27 +243,31 @@
     .member-lightbox.open { opacity: 1; pointer-events: auto; }
 
     .member-lb-box {
-      background: var(--c-navy);
-      border: 1px solid var(--c-border);
+      background: #ffffff;
       border-radius: var(--radius-xl);
       overflow: hidden;
       max-width: 420px;
       width: 100%;
-      transform: scale(.95);
-      transition: transform var(--transition);
+      transform: scale(.92) translateY(12px);
+      transition: transform .35s cubic-bezier(.22,1.2,.36,1);
     }
 
-    .member-lightbox.open .member-lb-box { transform: scale(1); }
+    .member-lightbox.open .member-lb-box { transform: scale(1) translateY(0); }
 
     .member-lb-img {
       width: 100%;
-      max-height: 360px;
+      aspect-ratio: 3 / 4;
+      max-height: min(62vh, 520px);
       object-fit: cover;
-      object-position: center top;
+      object-position: center;
       display: block;
+      transform: scale(1.06);
+      transition: transform .5s ease .1s;
     }
+    .member-lightbox.open .member-lb-img { transform: scale(1); }
 
     .member-lb-body { padding: 1.5rem 1.75rem 1.75rem; }
+    .member-lb-body h3 { color: var(--c-navy); }
 
     .member-lb-close {
       position: absolute; top: 1rem; right: 1rem;
@@ -240,7 +313,7 @@
 </section>
 
 <!-- MUSICIENS PAR PUPITRE -->
-<section class="section" style="padding-top:clamp(1.5rem,3vw,2.5rem)">
+<section class="section section-light" style="padding-top:clamp(1.5rem,3vw,2.5rem)">
   <div class="container">
 
     <!-- Filtres -->
@@ -260,7 +333,7 @@
     </div>
 
     <!-- ═══ DIRECTEUR ═══ -->
-    <div class="pupitre-header" data-pupitre="directeur">
+    <div class="pupitre-header" data-aos data-pupitre="directeur">
       <div class="pupitre-title">
         <h3>Directeur</h3>
         <div class="pupitre-count">1</div>
@@ -281,7 +354,7 @@
     </div>
 
     <!-- ═══ PERCUSSIONS ═══ -->
-    <div class="pupitre-header" data-pupitre="percussions">
+    <div class="pupitre-header" data-aos data-pupitre="percussions">
       <div class="pupitre-title">
         <h3>Percussions</h3>
         <div class="pupitre-count">4</div>
@@ -289,22 +362,22 @@
       <div class="pupitre-line"></div>
     </div>
     <div class="members-grid">
-      <div class="member-card" data-section="percussions" data-aos data-aos-delay="50"
+      <div class="member-card" data-section="percussions" data-aos
            onclick="openMember('Julien Boulet','Percussions','images/Membres/boulet_julien.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/boulet_julien.jpg" alt="Julien Boulet" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Julien Boulet</div><div class="member-role">Percussions</div></div>
       </div>
-      <div class="member-card" data-section="percussions" data-aos data-aos-delay="100"
+      <div class="member-card" data-section="percussions" data-aos
            onclick="openMember('Camille Coustaury','Percussions','images/Membres/coustaury_camille.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/coustaury_camille.jpg" alt="Camille Coustaury" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Camille Coustaury</div><div class="member-role">Percussions</div></div>
       </div>
-      <div class="member-card" data-section="percussions" data-aos data-aos-delay="150"
+      <div class="member-card" data-section="percussions" data-aos
            onclick="openMember('Stéphane Loichot','Percussions','images/Membres/loichot_stephane.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/loichot_stephane.jpg" alt="Stéphane Loichot" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Stéphane Loichot</div><div class="member-role">Percussions</div></div>
       </div>
-      <div class="member-card" data-section="percussions" data-aos data-aos-delay="200"
+      <div class="member-card" data-section="percussions" data-aos
            onclick="openMember('Michel Vergnaud','Percussions','images/Membres/vergnaud_michel.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/vergnaud_michel.jpg" alt="Michel Vergnaud" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Michel Vergnaud</div><div class="member-role">Percussions</div></div>
@@ -312,7 +385,7 @@
     </div>
 
     <!-- ═══ CLAIRONS ═══ -->
-    <div class="pupitre-header" data-pupitre="clairons">
+    <div class="pupitre-header" data-aos data-pupitre="clairons">
       <div class="pupitre-title">
         <h3>Clairons</h3>
         <div class="pupitre-count">5</div>
@@ -320,27 +393,27 @@
       <div class="pupitre-line"></div>
     </div>
     <div class="members-grid">
-      <div class="member-card" data-section="clairons" data-aos data-aos-delay="50"
+      <div class="member-card" data-section="clairons" data-aos
            onclick="openMember('Jérôme Boulet','Clairons','images/Membres/boulet_jerome.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/boulet_jerome.jpg" alt="Jérôme Boulet" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Jérôme Boulet</div><div class="member-role">Clairons</div></div>
       </div>
-      <div class="member-card" data-section="clairons" data-aos data-aos-delay="100"
+      <div class="member-card" data-section="clairons" data-aos
            onclick="openMember('Pascal Colin','Clairons','images/Membres/colin_pascal.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/colin_pascal.jpg" alt="Pascal Colin" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Pascal Colin</div><div class="member-role">Clairons</div></div>
       </div>
-      <div class="member-card" data-section="clairons" data-aos data-aos-delay="150"
+      <div class="member-card" data-section="clairons" data-aos
            onclick="openMember('Tristan Girardot','Clairons','images/Membres/girardot_tristan.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/girardot_tristan.jpg" alt="Tristan Girardot" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Tristan Girardot</div><div class="member-role">Clairons</div></div>
       </div>
-      <div class="member-card" data-section="clairons" data-aos data-aos-delay="200"
+      <div class="member-card" data-section="clairons" data-aos
            onclick="openMember('Olivier Raucaz','Clairons','images/Membres/raucaz_olivier.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/raucaz_olivier.jpg" alt="Olivier Raucaz" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Olivier Raucaz</div><div class="member-role">Clairons</div></div>
       </div>
-      <div class="member-card" data-section="clairons" data-aos data-aos-delay="250"
+      <div class="member-card" data-section="clairons" data-aos
            onclick="openMember('Guy Richard','Clairons','images/Membres/richard_guy.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/richard_guy.jpg" alt="Guy Richard" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Guy Richard</div><div class="member-role">Clairons</div></div>
@@ -348,7 +421,7 @@
     </div>
 
     <!-- ═══ TROMPETTES ═══ -->
-    <div class="pupitre-header" data-pupitre="trompettes">
+    <div class="pupitre-header" data-aos data-pupitre="trompettes">
       <div class="pupitre-title">
         <h3>Trompettes</h3>
         <div class="pupitre-count">6</div>
@@ -356,27 +429,27 @@
       <div class="pupitre-line"></div>
     </div>
     <div class="members-grid">
-      <div class="member-card" data-section="trompettes" data-aos data-aos-delay="50"
+      <div class="member-card" data-section="trompettes" data-aos
            onclick="openMember('Cédric Clauzel','Trompettes','images/Membres/clauzel_cedric.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/clauzel_cedric.jpg" alt="Cédric Clauzel" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Cédric Clauzel</div><div class="member-role">Trompettes</div></div>
       </div>
-      <div class="member-card" data-section="trompettes" data-aos data-aos-delay="100"
+      <div class="member-card" data-section="trompettes" data-aos
            onclick="openMember('Maxence Colin','Trompettes','images/Membres/colin_maxence.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/colin_maxence.jpg" alt="Maxence Colin" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Maxence Colin</div><div class="member-role">Trompettes</div></div>
       </div>
-      <div class="member-card" data-section="trompettes" data-aos data-aos-delay="150"
+      <div class="member-card" data-section="trompettes" data-aos
            onclick="openMember('Gilles Guillaume','Trompettes','images/Membres/guillaume_gilles.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/guillaume_gilles.jpg" alt="Gilles Guillaume" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Gilles Guillaume</div><div class="member-role">Trompettes</div></div>
       </div>
-      <div class="member-card" data-section="trompettes" data-aos data-aos-delay="200"
+      <div class="member-card" data-section="trompettes" data-aos
            onclick="openMember('Emmy Jacquot','Trompettes','images/Membres/jacquot_emmy.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/jacquot_emmy.jpg" alt="Emmy Jacquot" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Emmy Jacquot</div><div class="member-role">Trompettes</div></div>
       </div>
-      <div class="member-card" data-section="trompettes" data-aos data-aos-delay="250"
+      <div class="member-card" data-section="trompettes" data-aos
            onclick="openMember('Anthony Merique','Trompettes · Président','images/Membres/merique_anthony.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/merique_anthony.jpg" alt="Anthony Merique" class="member-photo"></div>
         <div class="member-info">
@@ -384,7 +457,7 @@
           <div class="member-role">Trompettes <span style="color:var(--c-gold)">· Président</span></div>
         </div>
       </div>
-      <div class="member-card" data-section="trompettes" data-aos data-aos-delay="300"
+      <div class="member-card" data-section="trompettes" data-aos
            onclick="openMember('Tristan Girardot','Trompettes','images/Membres/girardot_tristan.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/girardot_tristan.jpg" alt="Tristan Girardot" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Tristan Girardot</div><div class="member-role">Trompettes</div></div>
@@ -392,7 +465,7 @@
     </div>
 
     <!-- ═══ TROMBONES ═══ -->
-    <div class="pupitre-header" data-pupitre="trombones">
+    <div class="pupitre-header" data-aos data-pupitre="trombones">
       <div class="pupitre-title">
         <h3>Trombones</h3>
         <div class="pupitre-count">1</div>
@@ -408,7 +481,7 @@
     </div>
 
     <!-- ═══ CORS ═══ -->
-    <div class="pupitre-header" data-pupitre="cors">
+    <div class="pupitre-header" data-aos data-pupitre="cors">
       <div class="pupitre-title">
         <h3>Cors</h3>
         <div class="pupitre-count">2</div>
@@ -416,12 +489,12 @@
       <div class="pupitre-line"></div>
     </div>
     <div class="members-grid" style="max-width:440px">
-      <div class="member-card" data-section="cors" data-aos data-aos-delay="50"
+      <div class="member-card" data-section="cors" data-aos
            onclick="openMember('Mélanie Choulet','Cors','images/Membres/choulet_melanie.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/choulet_melanie.jpg" alt="Mélanie Choulet" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Mélanie Choulet</div><div class="member-role">Cors</div></div>
       </div>
-      <div class="member-card" data-section="cors" data-aos data-aos-delay="100"
+      <div class="member-card" data-section="cors" data-aos
            onclick="openMember('Alexis Tripard','Cors','images/Membres/tripard_alexis.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/tripard_alexis.jpg" alt="Alexis Tripard" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Alexis Tripard</div><div class="member-role">Cors</div></div>
@@ -429,7 +502,7 @@
     </div>
 
     <!-- ═══ BASSES ═══ -->
-    <div class="pupitre-header" data-pupitre="basses">
+    <div class="pupitre-header" data-aos data-pupitre="basses">
       <div class="pupitre-title">
         <h3>Basses</h3>
         <div class="pupitre-count">4</div>
@@ -437,22 +510,22 @@
       <div class="pupitre-line"></div>
     </div>
     <div class="members-grid">
-      <div class="member-card" data-section="basses" data-aos data-aos-delay="50"
+      <div class="member-card" data-section="basses" data-aos
            onclick="openMember('Olivier Crevon','Basses','images/Membres/crevon_olivier.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/crevon_olivier.jpg" alt="Olivier Crevon" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Olivier Crevon</div><div class="member-role">Basses</div></div>
       </div>
-      <div class="member-card" data-section="basses" data-aos data-aos-delay="100"
+      <div class="member-card" data-section="basses" data-aos
            onclick="openMember('Cathy Jacquot','Basses','images/Membres/jacquot_cathy.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/jacquot_cathy.jpg" alt="Cathy Jacquot" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Cathy Jacquot</div><div class="member-role">Basses</div></div>
       </div>
-      <div class="member-card" data-section="basses" data-aos data-aos-delay="150"
+      <div class="member-card" data-section="basses" data-aos
            onclick="openMember('Loris Loichot','Basses','images/Membres/loichot_loris.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/loichot_loris.jpg" alt="Loris Loichot" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Loris Loichot</div><div class="member-role">Basses</div></div>
       </div>
-      <div class="member-card" data-section="basses" data-aos data-aos-delay="200"
+      <div class="member-card" data-section="basses" data-aos
            onclick="openMember('Pascal Colin','Basses','images/Membres/colin_pascal.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/colin_pascal.jpg" alt="Pascal Colin" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Pascal Colin</div><div class="member-role">Basses</div></div>
@@ -460,7 +533,7 @@
     </div>
 
     <!-- ═══ CLARINETTES ═══ -->
-    <div class="pupitre-header" data-pupitre="clarinettes">
+    <div class="pupitre-header" data-aos data-pupitre="clarinettes">
       <div class="pupitre-title">
         <h3>Clarinettes</h3>
         <div class="pupitre-count">9</div>
@@ -468,47 +541,47 @@
       <div class="pupitre-line"></div>
     </div>
     <div class="members-grid">
-      <div class="member-card" data-section="clarinettes" data-aos data-aos-delay="50"
+      <div class="member-card" data-section="clarinettes" data-aos
            onclick="openMember('Capucine Boulet','Clarinettes','images/Membres/boulet_capucine.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/boulet_capucine.jpg" alt="Capucine Boulet" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Capucine Boulet</div><div class="member-role">Clarinettes</div></div>
       </div>
-      <div class="member-card" data-section="clarinettes" data-aos data-aos-delay="100"
+      <div class="member-card" data-section="clarinettes" data-aos
            onclick="openMember('Jennifer Briault','Clarinettes','images/Membres/briault_jennifer.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/briault_jennifer.jpg" alt="Jennifer Briault" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Jennifer Briault</div><div class="member-role">Clarinettes</div></div>
       </div>
-      <div class="member-card" data-section="clarinettes" data-aos data-aos-delay="150"
+      <div class="member-card" data-section="clarinettes" data-aos
            onclick="openMember('Mélyne Briault','Clarinettes','images/Membres/briault_melyne.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/briault_melyne.jpg" alt="Mélyne Briault" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Mélyne Briault</div><div class="member-role">Clarinettes</div></div>
       </div>
-      <div class="member-card" data-section="clarinettes" data-aos data-aos-delay="200"
+      <div class="member-card" data-section="clarinettes" data-aos
            onclick="openMember('Marie Étienne','Clarinettes','images/Membres/etienne_marie.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/etienne_marie.jpg" alt="Marie Étienne" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Marie Étienne</div><div class="member-role">Clarinettes</div></div>
       </div>
-      <div class="member-card" data-section="clarinettes" data-aos data-aos-delay="50"
+      <div class="member-card" data-section="clarinettes" data-aos
            onclick="openMember('Élodie Grandjean','Clarinettes','images/Membres/grandjean_elodie.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/grandjean_elodie.jpg" alt="Élodie Grandjean" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Élodie Grandjean</div><div class="member-role">Clarinettes</div></div>
       </div>
-      <div class="member-card" data-section="clarinettes" data-aos data-aos-delay="100"
+      <div class="member-card" data-section="clarinettes" data-aos
            onclick="openMember('Alysson Hermitte','Clarinettes','images/Membres/hermitte_alysson.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/hermitte_alysson.jpg" alt="Alysson Hermitte" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Alysson Hermitte</div><div class="member-role">Clarinettes</div></div>
       </div>
-      <div class="member-card" data-section="clarinettes" data-aos data-aos-delay="150"
+      <div class="member-card" data-section="clarinettes" data-aos
            onclick="openMember('Clara Rodriguez','Clarinettes','images/Membres/rodriguez_clara.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/rodriguez_clara.jpg" alt="Clara Rodriguez" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Clara Rodriguez</div><div class="member-role">Clarinettes</div></div>
       </div>
-      <div class="member-card" data-section="clarinettes" data-aos data-aos-delay="200"
+      <div class="member-card" data-section="clarinettes" data-aos
            onclick="openMember('Adeline Rollin','Clarinettes','images/Membres/rollin_adeline.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/rollin_adeline.jpg" alt="Adeline Rollin" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Adeline Rollin</div><div class="member-role">Clarinettes</div></div>
       </div>
-      <div class="member-card" data-section="clarinettes" data-aos data-aos-delay="250"
+      <div class="member-card" data-section="clarinettes" data-aos
            onclick="openMember('Doriane Tafanelli','Clarinettes','images/Membres/tafanelli_doriane.png')">
         <div class="member-photo-wrap"><img src="images/Membres/tafanelli_doriane.png" alt="Doriane Tafanelli" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Doriane Tafanelli</div><div class="member-role">Clarinettes</div></div>
@@ -516,7 +589,7 @@
     </div>
 
     <!-- ═══ HAUTBOIS ═══ -->
-    <div class="pupitre-header" data-pupitre="hautbois">
+    <div class="pupitre-header" data-aos data-pupitre="hautbois">
       <div class="pupitre-title">
         <h3>Hautbois</h3>
         <div class="pupitre-count">1</div>
@@ -532,7 +605,7 @@
     </div>
 
     <!-- ═══ FLÛTES ═══ -->
-    <div class="pupitre-header" data-pupitre="flutes">
+    <div class="pupitre-header" data-aos data-pupitre="flutes">
       <div class="pupitre-title">
         <h3>Flûtes</h3>
         <div class="pupitre-count">7</div>
@@ -540,37 +613,37 @@
       <div class="pupitre-line"></div>
     </div>
     <div class="members-grid">
-      <div class="member-card" data-section="flutes" data-aos data-aos-delay="50"
+      <div class="member-card" data-section="flutes" data-aos
            onclick="openMember('Baptiste Ambert','Flûtes','images/Membres/ambert_baptiste.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/ambert_baptiste.jpg" alt="Baptiste Ambert" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Baptiste Ambert</div><div class="member-role">Flûtes</div></div>
       </div>
-      <div class="member-card" data-section="flutes" data-aos data-aos-delay="100"
+      <div class="member-card" data-section="flutes" data-aos
            onclick="openMember('Lilou Boulet','Flûtes','images/Membres/boulet_lilou.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/boulet_lilou.jpg" alt="Lilou Boulet" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Lilou Boulet</div><div class="member-role">Flûtes</div></div>
       </div>
-      <div class="member-card" data-section="flutes" data-aos data-aos-delay="150"
+      <div class="member-card" data-section="flutes" data-aos
            onclick="openMember('Mathilde Cuénot','Flûtes','images/Membres/cuenot_mathilde.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/cuenot_mathilde.jpg" alt="Mathilde Cuénot" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Mathilde Cuénot</div><div class="member-role">Flûtes</div></div>
       </div>
-      <div class="member-card" data-section="flutes" data-aos data-aos-delay="200"
+      <div class="member-card" data-section="flutes" data-aos
            onclick="openMember('Yanis Garrido','Flûtes','images/Membres/garrido_yanis.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/garrido_yanis.jpg" alt="Yanis Garrido" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Yanis Garrido</div><div class="member-role">Flûtes</div></div>
       </div>
-      <div class="member-card" data-section="flutes" data-aos data-aos-delay="50"
+      <div class="member-card" data-section="flutes" data-aos
            onclick="openMember('Angélique Grillot','Flûtes','images/Membres/grillot_angelique.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/grillot_angelique.jpg" alt="Angélique Grillot" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Angélique Grillot</div><div class="member-role">Flûtes</div></div>
       </div>
-      <div class="member-card" data-section="flutes" data-aos data-aos-delay="100"
+      <div class="member-card" data-section="flutes" data-aos
            onclick="openMember('Lucile Knorst','Flûtes','images/Membres/knorst_lucile.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/knorst_lucile.jpg" alt="Lucile Knorst" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Lucile Knorst</div><div class="member-role">Flûtes</div></div>
       </div>
-      <div class="member-card" data-section="flutes" data-aos data-aos-delay="150"
+      <div class="member-card" data-section="flutes" data-aos
            onclick="openMember('Marie Richardet','Flûtes','images/Membres/richardet_marie.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/richardet_marie.jpg" alt="Marie Richardet" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Marie Richardet</div><div class="member-role">Flûtes</div></div>
@@ -578,7 +651,7 @@
     </div>
 
     <!-- ═══ SAXOPHONES ═══ -->
-    <div class="pupitre-header" data-pupitre="saxophones">
+    <div class="pupitre-header" data-aos data-pupitre="saxophones">
       <div class="pupitre-title">
         <h3>Saxophones</h3>
         <div class="pupitre-count">7</div>
@@ -586,37 +659,37 @@
       <div class="pupitre-line"></div>
     </div>
     <div class="members-grid">
-      <div class="member-card" data-section="saxophones" data-aos data-aos-delay="50"
+      <div class="member-card" data-section="saxophones" data-aos
            onclick="openMember('Coraline Choulet','Saxophones','images/Membres/choulet_coraline.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/choulet_coraline.jpg" alt="Coraline Choulet" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Coraline Choulet</div><div class="member-role">Saxophones</div></div>
       </div>
-      <div class="member-card" data-section="saxophones" data-aos data-aos-delay="100"
+      <div class="member-card" data-section="saxophones" data-aos
            onclick="openMember('Sylvie Colin','Saxophones','images/Membres/colin_sylvie.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/colin_sylvie.jpg" alt="Sylvie Colin" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Sylvie Colin</div><div class="member-role">Saxophones</div></div>
       </div>
-      <div class="member-card" data-section="saxophones" data-aos data-aos-delay="150"
+      <div class="member-card" data-section="saxophones" data-aos
            onclick="openMember('Stéphanie Crevon','Saxophones','images/Membres/crevon_stephanie.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/crevon_stephanie.jpg" alt="Stéphanie Crevon" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Stéphanie Crevon</div><div class="member-role">Saxophones</div></div>
       </div>
-      <div class="member-card" data-section="saxophones" data-aos data-aos-delay="200"
+      <div class="member-card" data-section="saxophones" data-aos
            onclick="openMember('Mathieu Dormois','Saxophones','images/Membres/dormois_mathieu.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/dormois_mathieu.jpg" alt="Mathieu Dormois" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Mathieu Dormois</div><div class="member-role">Saxophones</div></div>
       </div>
-      <div class="member-card" data-section="saxophones" data-aos data-aos-delay="50"
+      <div class="member-card" data-section="saxophones" data-aos
            onclick="openMember('Julien Klinguer','Saxophones','images/Membres/klinguer_julien.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/klinguer_julien.jpg" alt="Julien Klinguer" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Julien Klinguer</div><div class="member-role">Saxophones</div></div>
       </div>
-      <div class="member-card" data-section="saxophones" data-aos data-aos-delay="100"
+      <div class="member-card" data-section="saxophones" data-aos
            onclick="openMember('Maxime Klinguer','Saxophones','images/Membres/klinguer_maxime.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/klinguer_maxime.jpg" alt="Maxime Klinguer" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Maxime Klinguer</div><div class="member-role">Saxophones</div></div>
       </div>
-      <div class="member-card" data-section="saxophones" data-aos data-aos-delay="150"
+      <div class="member-card" data-section="saxophones" data-aos
            onclick="openMember('Anthony Noris','Saxophones','images/Membres/noris_anthony.jpg')">
         <div class="member-photo-wrap"><img src="images/Membres/noris_anthony.jpg" alt="Anthony Noris" class="member-photo"></div>
         <div class="member-info"><div class="member-name">Anthony Noris</div><div class="member-role">Saxophones</div></div>
@@ -624,7 +697,7 @@
     </div>
 
     <!-- CTA -->
-    <div style="text-align:center;margin-top:4rem;padding:2.5rem;background:var(--c-glass);border:1px solid var(--c-border);border-radius:var(--radius-xl);backdrop-filter:blur(12px)" data-aos>
+    <div class="members-cta" data-aos>
       <h3 style="margin-bottom:.75rem">Vous Jouez d'un Instrument ?</h3>
       <p style="color:var(--c-text-muted);margin-bottom:1.75rem;max-width:480px;margin-left:auto;margin-right:auto">
         L'harmonie accueille de nouveaux musiciens toute l'année. Contactez-nous !
@@ -649,15 +722,34 @@
   </div>
 </div>
 
+<script>
+  /* Cascade d'apparition régulière : délais recalculés dans l'ordre
+     du DOM (gauche → droite, rangée par rangée) pour chaque pupitre.
+     S'exécute avant main.js, qui lit data-aos-delay. */
+  document.querySelectorAll('.members-grid').forEach(grid => {
+    grid.querySelectorAll('.member-card').forEach((card, i) => {
+      card.dataset.aosDelay = Math.min(i, 10) * 45;
+    });
+  });
+</script>
 <script src="js/main.js"></script>
 <script>
-  /* Filtrage par pupitre */
+  /* Filtrage par pupitre, avec apparition en cascade */
   function filter(btn, section) {
     document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
+    let i = 0;
     document.querySelectorAll('.member-card').forEach(card => {
-      card.style.display = (section === 'all' || card.dataset.section === section) ? '' : 'none';
+      const show = section === 'all' || card.dataset.section === section;
+      card.classList.remove('pop');
+      card.style.display = show ? '' : 'none';
+      if (show) {
+        card.style.animationDelay = (Math.min(i, 14) * 35) + 'ms';
+        void card.offsetWidth; /* relance l'animation */
+        card.classList.add('pop');
+        i++;
+      }
     });
     document.querySelectorAll('.pupitre-header').forEach(h => {
       h.style.display = (section === 'all' || h.dataset.pupitre === section) ? 'flex' : 'none';

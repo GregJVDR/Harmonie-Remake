@@ -162,42 +162,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ── Guestbook form ── */
-  const guestbookForm = document.getElementById('guestbook-form');
-  if (guestbookForm) {
-    guestbookForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const name = this.querySelector('[name="name"]').value.trim();
-      const message = this.querySelector('[name="message"]').value.trim();
-
-      if (!name || !message) return;
-
-      const container = document.getElementById('guestbook-entries');
-      const entry = document.createElement('div');
-      entry.className = 'guestbook-entry';
-      entry.style.opacity = '0';
-      entry.style.transform = 'translateY(20px)';
-      entry.innerHTML = `
-        <div class="guestbook-entry-header">
-          <div class="avatar">${name.charAt(0).toUpperCase()}</div>
-          <div class="guestbook-entry-meta">
-            <div class="author">${escapeHtml(name)}</div>
-            <div class="date">${new Date().toLocaleDateString('fr-FR', {day:'numeric',month:'long',year:'numeric'})}</div>
-          </div>
-        </div>
-        <p style="color:var(--c-text);font-size:.93rem;margin:0">${escapeHtml(message)}</p>
-      `;
-      container.insertBefore(entry, container.firstChild);
-      requestAnimationFrame(() => {
-        entry.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        entry.style.opacity = '1';
-        entry.style.transform = 'translateY(0)';
-      });
-      this.reset();
-      showToast('Votre message a été ajouté au livre d\'or !');
-    });
-  }
-
   /* ── Photo upload ── */
   const photoUpload = document.getElementById('photo-upload');
   const photoPreview = document.getElementById('photo-preview');
