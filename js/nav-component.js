@@ -43,7 +43,7 @@
       </ul>
       <div class="nav-actions">
         <a href="ecole-musique.html#inscription" class="nav-link nav-inscription-btn" data-page="ecole-musique.html">
-          <i class="fa-solid fa-pen" style="font-size:.7rem"></i> S'inscrire
+          S'inscrire à l'école
         </a>
         <div class="nav-burger" id="nav-burger"><span></span><span></span><span></span></div>
       </div>

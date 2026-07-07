@@ -7,69 +7,740 @@
   <meta name="description" content="Site officiel de l'Harmonie Fanfare Rudipontaine de Pont de Roide-Vermondans. Concerts, école de musique, actualités.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Tinos:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="images/logo3d2.png">
+  <link rel="apple-touch-icon" href="images/logo3d2.png">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="preload" as="image" href="images/groupe.png" fetchpriority="high">
   <style>
-    /* Logo 3D flottant dans le hero */
-    .hero-logo-3d {
+    /* ══════════════════════════════════════════════════════════
+       Accueil — Hero : texte à gauche sur voile bleu nuit, photo
+       de groupe révélée à droite. Cartes statistiques en bas à
+       gauche chevauchant la courbe blanche de transition.
+       ══════════════════════════════════════════════════════════ */
+    .hhero {
+      position: relative;
+      min-height: 560px;
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+      background: #14304F;
+      padding: calc(var(--nav-h) + 44px) 0 40px;
+    }
+
+    /* Calque photo ancré à droite ; son bord gauche est fondu par un masque
+       dégradé pour éviter toute frontière verticale avec la zone bleu nuit */
+    .hhero-photo {
       position: absolute;
-      right: 8%;
-      top: 12%;
-      width: clamp(130px, 14vw, 210px);
-      z-index: 2;
-      pointer-events: none;
-      filter: drop-shadow(0 16px 36px rgba(0,0,0,0.6)) drop-shadow(0 0 48px rgba(200,168,75,0.18));
-      animation: logo3d-float 6s ease-in-out infinite, logo3d-fadein 1s cubic-bezier(0.34,1.56,0.64,1) both;
-      animation-delay: 0s, 0.4s;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 78%;
+      z-index: 0;
+      background: url('images/groupe.png') center center / cover no-repeat;
+      -webkit-mask-image: linear-gradient(90deg,
+        transparent 0%,
+        rgba(0,0,0,0.45) 10%,
+        rgba(0,0,0,0.8) 20%,
+        rgba(0,0,0,0.95) 28%,
+        #000 36%);
+      mask-image: linear-gradient(90deg,
+        transparent 0%,
+        rgba(0,0,0,0.45) 10%,
+        rgba(0,0,0,0.8) 20%,
+        rgba(0,0,0,0.95) 28%,
+        #000 36%);
     }
-    .hero-logo-3d img {
+
+    /* Voile global : fondu horizontal progressif, sans cassure */
+    .hhero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(90deg,
+        rgba(20,48,79,0.80) 0%,
+        rgba(20,48,79,0.70) 20%,
+        rgba(20,48,79,0.52) 32%,
+        rgba(20,48,79,0.30) 42%,
+        rgba(20,48,79,0.12) 52%,
+        rgba(20,48,79,0.03) 64%,
+        rgba(20,48,79,0.00) 78%);
+    }
+
+    /* Container = colonne pleine hauteur : contenu en haut, stats en bas */
+    .hhero .container.hhero-inner {
+      position: relative;
+      z-index: 3;
       width: 100%;
+      max-width: none;
+      margin: 0;
+      padding-left: clamp(60px, 6.5vw, 115px);
+      padding-right: clamp(1.5rem, 4vw, 3rem);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    /* ── Contenu texte (gauche) ── */
+    .hhero-content { width: 650px; max-width: 100%; }
+
+    .hhero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--c-gold-light);
+      margin-bottom: 1.25rem;
+    }
+    .hhero-eyebrow::after {
+      content: '';
+      width: 200px;
+      max-width: 40vw;
+      height: 1px;
+      background: linear-gradient(90deg, var(--c-gold), rgba(200,168,75,0.12));
+    }
+
+    .hhero h1 {
+      font-family: 'Tinos', 'Times New Roman', Georgia, serif;
+      font-weight: 700;
+      font-size: clamp(2.6rem, 4.4vw, 3.9rem);
+      line-height: 0.98;
+      color: var(--c-white);
+      margin: 0 0 1rem;
+      letter-spacing: 0.005em;
+      text-shadow: 0 2px 26px rgba(0,0,0,0.45);
+    }
+
+    .hhero-tagline {
+      font-size: clamp(1.2rem, 1.5vw, 1.32rem);
+      font-weight: 500;
+      color: var(--c-gold-light);
+      margin: 0 0 1.1rem;
+      line-height: 1.35;
+      white-space: nowrap;
+    }
+
+    .hhero-desc {
+      font-size: clamp(1rem, 1.15vw, 1.06rem);
+      color: rgba(255,255,255,0.82);
+      line-height: 1.7;
+      margin: 0 0 1.8rem;
+      max-width: 600px;
+      text-shadow: 0 1px 12px rgba(0,0,0,0.4);
+    }
+
+    /* ── Boutons côte à côte ── */
+    .hhero-actions { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 16px; }
+    .hhero-actions .btn {
+      height: 48px;
+      padding: 0 1.55rem;
+      font-size: 0.97rem;
+      border-radius: 12px;
+      white-space: nowrap;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+    }
+    .hhero-btn-primary {
+      background: var(--c-navy);
+      color: var(--c-white);
+      border: 1.5px solid rgba(200,168,75,0.65);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+    }
+    .hhero-btn-primary i { color: var(--c-gold-light); }
+    .hhero-btn-primary:hover {
+      background: #0d1f38;
+      border-color: var(--c-gold);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(0,0,0,0.45);
+    }
+    .hhero-btn-secondary {
+      background: #faf8f3;
+      color: var(--c-navy);
+      border: 1.5px solid rgba(255,255,255,0.5);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.25);
+    }
+    .hhero-btn-secondary i { color: var(--c-navy); }
+    .hhero-btn-secondary:hover {
+      background: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(0,0,0,0.32);
+    }
+
+    /* ── Cartes statistiques : bas gauche, chevauchant la courbe ── */
+    .hhero-stats {
+      margin-top: 44px;
+      width: 660px;
+      max-width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .hhero-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.95rem;
+      min-height: 120px;
+      background: #fffdf9;
+      border: 1.5px solid rgba(8,29,49,0.22);
+      border-radius: 16px;
+      padding: 1.1rem 1.3rem;
+      box-shadow: 0 14px 44px rgba(8,29,49,0.18);
+    }
+    .hhero-stat .stat-ic {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.7rem;
+      color: var(--c-gold);
+    }
+    .hhero-stat .stat-txt {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+      min-width: 0;
+    }
+    .hhero-stat .num {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--c-navy);
+      line-height: 1;
+    }
+    .hhero-stat .label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--c-navy);
+      margin-top: 0.45rem;
+    }
+    .hhero-stat .sub {
+      font-size: 0.72rem;
+      color: #6b7683;
+      margin-top: 0.2rem;
+    }
+
+    /* ── Courbe blanche de transition (vallée : haute aux bords, basse au centre) ── */
+    .hhero-curve {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      width: 100%;
+      height: 82px;
+      z-index: 2;
       display: block;
+      pointer-events: none;
     }
-    @keyframes logo3d-float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50%       { transform: translateY(-12px) rotate(0.5deg); }
+
+    /* ── Bouton rond flèche vers le bas ── */
+    .hhero-scroll {
+      position: absolute;
+      left: 50%;
+      bottom: 20px;
+      transform: translateX(-50%);
+      z-index: 4;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      color: var(--c-navy);
+      border: 1px solid rgba(8,29,49,0.1);
+      box-shadow: 0 8px 22px rgba(8,29,49,0.2);
+      animation: hhero-bounce 2.4s ease-in-out infinite;
     }
-    @keyframes logo3d-fadein {
-      from { opacity: 0; transform: translateY(20px) scale(0.92); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
+    .hhero-scroll:hover { color: var(--c-gold); }
+    @keyframes hhero-bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(5px); }
     }
-    @media(max-width:1024px) {
-      .hero-logo-3d { display: none; }
-    }
-    /* Entrée hero content */
-    .hero h1 { animation: hero-slide-up 0.7s cubic-bezier(0.34,1.2,0.64,1) 0.1s both; }
-    .hero p   { animation: hero-slide-up 0.7s cubic-bezier(0.34,1.2,0.64,1) 0.2s both; }
-    .hero-actions { animation: hero-slide-up 0.7s cubic-bezier(0.34,1.2,0.64,1) 0.3s both; }
-    .hero-stats { animation: hero-slide-up 0.65s cubic-bezier(0.34,1.2,0.64,1) 0.4s both; }
-    @keyframes hero-slide-up {
+
+    /* ── Entrées animées ── */
+    .hhero-content > * { animation: hhero-up 0.7s cubic-bezier(0.34,1.1,0.64,1) both; }
+    .hhero-eyebrow  { animation-delay: 0.05s; }
+    .hhero h1       { animation-delay: 0.13s; }
+    .hhero-tagline  { animation-delay: 0.21s; }
+    .hhero-desc     { animation-delay: 0.29s; }
+    .hhero-actions  { animation-delay: 0.37s; }
+    .hhero-stats    { animation: hhero-up 0.7s cubic-bezier(0.34,1.1,0.64,1) 0.45s both; }
+    @keyframes hhero-up {
       from { opacity: 0; transform: translateY(22px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* Hero avec photo de groupe */
-    .hero-photo {
-      position: absolute;
-      inset: 0;
-      background:
-        /* vignette gauche légère pour lisibilité du texte */
-        linear-gradient(to right, rgba(6,13,22,0.72) 0%, rgba(6,13,22,0.35) 35%, transparent 60%),
-        /* vignette haut pour la navbar */
-        linear-gradient(to bottom, rgba(6,13,22,0.80) 0%, transparent 28%),
-        /* vignette bas pour les stats */
-        linear-gradient(to top, rgba(6,13,22,0.88) 0%, transparent 28%),
-        url('images/groupe.png') center top / cover no-repeat;
-    }
-    @media(max-width:768px) {
-      .hero-photo {
-        background:
-          linear-gradient(to bottom,
-            rgba(6,13,22,0.72) 0%,
-            rgba(6,13,22,0.55) 45%,
-            rgba(6,13,22,0.78) 100%),
-          url('images/groupe.png') 60% top / cover no-repeat;
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .hhero { padding: calc(var(--nav-h) + 36px) 0 40px; }
+      .hhero-photo { width: 100%; right: 0; -webkit-mask-image: none; mask-image: none; }
+      .hhero-content { width: 100%; }
+      .hhero-tagline { white-space: normal; }
+      .hhero-overlay {
+        background: linear-gradient(90deg,
+          rgba(20,48,79,0.84) 0%,
+          rgba(20,48,79,0.72) 34%,
+          rgba(20,48,79,0.45) 60%,
+          rgba(20,48,79,0.24) 82%,
+          rgba(20,48,79,0.14) 100%);
       }
+      .hhero-stats { width: 100%; }
+    }
+    @media (max-width: 768px) {
+      .hhero { min-height: auto; padding: calc(var(--nav-h) + 28px) 0 36px; }
+      .hhero .container.hhero-inner { padding-left: clamp(1.25rem, 5vw, 2rem); padding-right: clamp(1.25rem, 5vw, 2rem); }
+      .hhero-overlay {
+        background: linear-gradient(to bottom,
+          rgba(20,48,79,0.62) 0%, rgba(20,48,79,0.48) 45%, rgba(20,48,79,0.78) 100%);
+      }
+      .hhero h1 { font-size: clamp(2.2rem, 9vw, 3rem); }
+      .hhero-desc { max-width: 100%; }
+      .hhero-actions { flex-wrap: wrap; }
+      .hhero-actions .btn { flex: 1 1 100%; height: 50px; justify-content: center; }
+      .hhero-stats { gap: 12px; margin-top: 34px; }
+      .hhero-stat { min-height: 0; flex-direction: column; text-align: center; gap: 0.55rem; padding: 1.1rem 0.6rem; }
+      .hhero-stat .stat-txt { align-items: center; }
+      .hhero-stat .num { font-size: 2.1rem; }
+      .hhero-curve { height: 58px; }
+    }
+    @media (max-width: 480px) {
+      .hhero-stats { grid-template-columns: 1fr; }
+      .hhero-stat { flex-direction: row; text-align: left; }
+      .hhero-stat .stat-txt { align-items: flex-start; }
+      .hhero-curve { height: 46px; }
+    }
+
+    /* Réduit le vide blanc entre la courbe du héro et la 1re section */
+    .hhero + .section { padding-top: clamp(1.25rem, 2vw, 2rem); }
+
+    /* ══════════════════════════════════════════════════════════
+       Section « Découvrez notre univers » — 3 cartes claires
+       ══════════════════════════════════════════════════════════ */
+    .univers {
+      background: #faf8f3;
+      padding-bottom: clamp(1.75rem, 3vw, 2.75rem);
+    }
+    .univers-head { text-align: center; margin-bottom: clamp(1.75rem, 3vw, 2.5rem); }
+    .univers-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.9rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      margin-bottom: 0.6rem;
+    }
+    .univers-eyebrow::before,
+    .univers-eyebrow::after {
+      content: '';
+      width: 44px;
+      height: 1px;
+      background: rgba(200,168,75,0.55);
+    }
+    .univers-head h2 {
+      color: var(--c-navy);
+      font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+      margin: 0;
+    }
+    .univers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(1.25rem, 2vw, 1.75rem);
+    }
+    .univers-card {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      min-height: 150px;
+      background: #ffffff;
+      border: 1px solid rgba(8,29,49,0.06);
+      border-radius: 16px;
+      padding: 1.35rem 1.3rem;
+      overflow: hidden;
+      box-shadow: 0 10px 28px rgba(8,29,49,0.08);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .univers-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(8,29,49,0.14);
+    }
+    /* Photo réelle en fond, fondue vers le blanc côté texte */
+    .univers-media {
+      position: absolute;
+      top: 0; right: 0; bottom: 0;
+      width: 64%;
+      background: url('images/groupe.png') center 42% / cover no-repeat;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.5) 45%, #000 100%);
+      mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.5) 45%, #000 100%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+    .univers-media-histoire  { filter: sepia(0.85) brightness(1.05) contrast(0.92); }
+    .univers-media-manif     { background-position: center 30%; }
+    .univers-media-souvenirs { filter: saturate(0.65); background-position: center 55%; }
+    .univers-icon {
+      position: relative;
+      z-index: 1;
+      width: 50px;
+      height: 50px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+      background: var(--c-navy);
+      color: #ffffff;
+      box-shadow: 0 6px 16px rgba(8,29,49,0.25);
+    }
+    .univers-icon.gold { background: var(--c-gold); }
+    .univers-body { position: relative; z-index: 1; max-width: 62%; }
+    .univers-body h3 {
+      color: var(--c-navy);
+      font-size: 1.05rem;
+      margin: 0.15rem 0 0.4rem;
+    }
+    .univers-body p {
+      font-size: 0.8rem;
+      color: #5b6b7f;
+      line-height: 1.55;
+      margin: 0 0 0.65rem;
+    }
+    .univers-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--c-blue);
+    }
+    .univers-link i { font-size: 0.7rem; transition: transform var(--transition); }
+    .univers-card:hover .univers-link i { transform: translateX(3px); }
+    @media (max-width: 1024px) {
+      .univers-grid { grid-template-columns: 1fr; }
+      .univers-card { min-height: 0; }
+      .univers-body { max-width: 70%; }
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       Sections de la page d'accueil
+       ══════════════════════════════════════════════════════════ */
+
+    /* Agenda */
+    .home-events {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(1.25rem, 2vw, 1.75rem);
+    }
+    @media (max-width: 1024px) {
+      .home-events { grid-template-columns: 1fr; max-width: 640px; margin: 0 auto; }
+    }
+    .event-title-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .event-desc {
+      margin: 0;
+      font-size: 0.88rem;
+      color: var(--c-text-muted);
+    }
+    .home-events-cta { text-align: center; margin-top: 2.75rem; }
+
+    /* Carte de localisation */
+    .map-embed {
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--c-border);
+      box-shadow: var(--shadow-lg);
+    }
+    .map-embed iframe { filter: grayscale(0.15) contrast(1.05); }
+    .map-cta { text-align: center; margin-top: 1.75rem; }
+    /* Bouton « S'y rendre » : effet liquid glass */
+    .btn-liquid {
+      background: linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.05));
+      backdrop-filter: blur(24px) saturate(1.8);
+      -webkit-backdrop-filter: blur(24px) saturate(1.8);
+      border: 1px solid rgba(255,255,255,0.28);
+      border-top-color: rgba(255,255,255,0.5);
+      color: var(--c-white);
+      border-radius: 100px;
+      padding: 0.95rem 2.2rem;
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.35),
+        inset 0 -10px 20px rgba(255,255,255,0.05);
+    }
+    .btn-liquid i { color: var(--c-gold-light); }
+    .btn-liquid:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, rgba(255,255,255,0.24), rgba(255,255,255,0.09));
+      border-color: rgba(255,255,255,0.45);
+      box-shadow:
+        0 14px 40px rgba(0,0,0,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.45),
+        inset 0 -10px 20px rgba(255,255,255,0.08),
+        0 0 32px rgba(200,168,75,0.15);
+    }
+
+    /* ── Prochains Événements : style clair assorti au haut de page ── */
+    .agenda-light { background: #faf8f3; padding-top: clamp(1.5rem, 2.5vw, 2.5rem); }
+    .agenda-light .section-header h2 { color: var(--c-navy); }
+    .agenda-light .section-header p { color: #5b6b7f; }
+    .agenda-light .event-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      background: #ffffff;
+      border: 1.5px solid rgba(8,29,49,0.22);
+      border-radius: 16px;
+      padding: 1.6rem;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      box-shadow: 0 8px 26px rgba(8,29,49,0.07);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    }
+    .agenda-light .event-info .event-meta { flex-direction: column; gap: 0.4rem; }
+    .agenda-light .event-card:hover {
+      background: #ffffff;
+      transform: translateY(-4px);
+      border-color: rgba(200,168,75,0.45);
+      box-shadow: 0 16px 38px rgba(8,29,49,0.12);
+    }
+    .agenda-light .event-date-box {
+      background: var(--c-navy);
+      border-radius: 12px;
+      box-shadow: none;
+    }
+    .agenda-light .event-date-box .day { color: #ffffff; }
+    .agenda-light .event-date-box .month { color: var(--c-gold-light); }
+    .agenda-light .event-info h3 { color: var(--c-navy); }
+    .agenda-light .event-info .event-meta { color: #64748b; }
+    .agenda-light .event-meta i { color: var(--c-gold); }
+    .agenda-light .event-desc { color: #5b6b7f; }
+    .agenda-light .badge-blue  { background: rgba(26,82,168,0.08);  color: var(--c-blue); border: 1px solid rgba(26,82,168,0.22); backdrop-filter: none; }
+    .agenda-light .badge-gold  { background: rgba(200,168,75,0.12); color: #9a7d2e; border: 1px solid rgba(200,168,75,0.35); backdrop-filter: none; }
+    .agenda-light .badge-green { background: rgba(30,122,79,0.1);   color: #1e7a4f; border: 1px solid rgba(30,122,79,0.25); backdrop-filter: none; }
+    .agenda-light .home-events-cta .btn-outline {
+      background: var(--c-navy);
+      color: #ffffff;
+      border: 1px solid var(--c-navy);
+      box-shadow: 0 8px 22px rgba(8,29,49,0.18);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    .agenda-light .home-events-cta .btn-outline:hover {
+      background: #0d1f38;
+      border-color: rgba(200,168,75,0.6);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* ── À propos : fond blanc cassé, textes et cartes adaptés ── */
+    .about-light { background: #faf8f3; }
+    .about-light .section-header h2 { color: var(--c-navy); }
+    .about-light .about-lead { color: #5b6b7f; }
+    .about-light .about-lead strong { color: var(--c-navy); }
+    .about-light .btn-outline {
+      background: #ffffff;
+      color: var(--c-navy);
+      border: 1px solid rgba(8,29,49,0.18);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      box-shadow: 0 4px 14px rgba(8,29,49,0.08);
+    }
+    .about-light .btn-outline:hover {
+      background: #ffffff;
+      border-color: rgba(200,168,75,0.55);
+      color: var(--c-navy);
+      box-shadow: 0 10px 26px rgba(8,29,49,0.14);
+    }
+    .about-light .stat-card {
+      background: #ffffff;
+      border: 1.5px solid rgba(8,29,49,0.22);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      box-shadow: 0 10px 30px rgba(8,29,49,0.08);
+    }
+    .about-light .stat-card:hover {
+      background: #ffffff;
+      border-color: rgba(200,168,75,0.45);
+      box-shadow: 0 16px 40px rgba(8,29,49,0.13);
+    }
+    .about-light .stat-card .num {
+      background: none;
+      -webkit-text-fill-color: var(--c-navy);
+      color: var(--c-navy);
+    }
+    .about-light .stat-card .label { color: #6b7683; }
+
+    /* Cartes infos pratiques */
+    .icard {
+      display: flex;
+      gap: 1.1rem;
+      align-items: flex-start;
+      padding: 1.5rem;
+    }
+    .icard .card-icon {
+      margin: 0;
+      width: 48px;
+      height: 48px;
+      font-size: 1.15rem;
+    }
+    .icard h4 { margin-bottom: 0.4rem; }
+    .icard p { margin: 0; font-size: 0.88rem; color: var(--c-text-muted); }
+    .icard-fb .card-icon { background: linear-gradient(135deg, #1877F2, #4293f5); box-shadow: 0 4px 20px rgba(24,119,242,0.4), inset 0 1px 0 rgba(255,255,255,0.3); }
+    .btn-facebook {
+      margin-top: 0.85rem;
+      background: linear-gradient(135deg, #1877F2, #4293f5);
+      color: #fff;
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 16px rgba(24,119,242,0.35), inset 0 1px 0 rgba(255,255,255,0.25);
+    }
+    .btn-facebook:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 28px rgba(24,119,242,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
+    }
+
+    /* Rétrospective */
+    .recent-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+    }
+    .recent-date {
+      flex-shrink: 0;
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      background: rgba(77,128,228,0.14);
+      border: 1px solid rgba(77,128,228,0.24);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--c-accent);
+      font-weight: 700;
+      line-height: 1.05;
+      font-size: 0.95rem;
+    }
+    .recent-date small { font-size: 0.62rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; }
+    .recent-item .title { font-weight: 600; color: var(--c-white); margin-bottom: 0.2rem; }
+    .recent-item .place {
+      font-size: 0.82rem;
+      color: var(--c-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .split-header { text-align: left; margin-bottom: 2rem; }
+    .split-header .eyebrow { justify-content: flex-start; }
+    .split-header .divider { margin: 1rem 0 0; }
+
+    /* À propos */
+    .about-lead { color: var(--c-text-muted); line-height: 1.9; }
+    .about-lead strong { color: var(--c-white); font-weight: 600; }
+    .about-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+
+    /* Explorer l'association */
+    .explore-card {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      height: 100%;
+    }
+    .explore-card h3 { margin-bottom: 0.75rem; font-size: 1.25rem; }
+    .explore-card p { color: var(--c-text-muted); font-size: 0.9rem; margin: 0; flex: 1; }
+    .explore-card .more {
+      margin-top: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.85rem;
+      color: var(--c-gold);
+      font-weight: 600;
+      transition: gap var(--transition);
+    }
+    .explore-card .more i { font-size: 0.72rem; transition: transform var(--transition); }
+    .explore-card:hover .more { gap: 0.75rem; }
+    .explore-card:hover .more i { transform: translateX(2px); }
+
+    /* CTA final */
+    .join-panel {
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+      padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 4vw, 4rem);
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-top: 2px solid rgba(200,168,75,0.55);
+      border-radius: var(--radius-xl);
+      backdrop-filter: blur(30px) saturate(1.8);
+      -webkit-backdrop-filter: blur(30px) saturate(1.8);
+      box-shadow: var(--shadow-glass), 0 0 80px rgba(200,168,75,0.07);
+    }
+    .join-panel .eyebrow-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      margin-bottom: 1rem;
+    }
+    .join-panel > p {
+      color: var(--c-text-muted);
+      margin: 0 auto 2rem;
+      font-size: 1.05rem;
+      max-width: 560px;
+    }
+    .join-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .join-contacts {
+      display: flex;
+      gap: clamp(1rem, 3vw, 2.5rem);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2.25rem;
+      padding-top: 1.75rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.85rem;
+      color: var(--c-text-muted);
+    }
+    .join-contacts a, .join-contacts span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color var(--transition);
+    }
+    .join-contacts i { color: var(--c-gold); font-size: 0.8rem; }
+    .join-contacts a:hover { color: var(--c-gold-light); }
+
+    /* Accessibilité : focus clavier visible */
+    .hhero a:focus-visible, main a:focus-visible, main button:focus-visible {
+      outline: 2px solid var(--c-gold);
+      outline-offset: 3px;
+    }
+
+    /* Respect des préférences de mouvement réduit */
+    @media (prefers-reduced-motion: reduce) {
+      .hhero-content > *, .hhero-stats, .hhero-scroll { animation: none; opacity: 1; transform: none; }
+      [data-aos] { opacity: 1; transform: none; transition: none; }
     }
   </style>
 </head>
@@ -78,70 +749,111 @@
 <!-- Navbar + footer injectés automatiquement par nav-component.js -->
 <script src="js/nav-component.js"></script>
 
+<main>
 
 <!-- ═══════════════════════════ HERO ═══════════════════════════ -->
-<section class="hero">
-  <!-- Photo de groupe en fond avec overlay -->
-  <div class="hero-photo"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-particles"></div>
+<section class="hhero">
+  <div class="hhero-photo" role="img" aria-label="Les musiciens de l'Harmonie Fanfare Rudipontaine réunis devant le pont sur le Doubs à Pont-de-Roide-Vermondans"></div>
+  <div class="hhero-overlay" aria-hidden="true"></div>
 
-  <div class="hero-logo-3d">
-    <img src="images/logo3d1.png" alt="Emblème H·F Pont-de-Roide">
+  <div class="container hhero-inner">
+    <div class="hhero-content">
+      <div class="hhero-eyebrow">Depuis 1922</div>
+      <h1>Harmonie Fanfare<br>Rudipontaine</h1>
+      <p class="hhero-tagline">La musique, le partage et la passion depuis 1922</p>
+      <p class="hhero-desc">Bienvenue dans notre harmonie !<br>Une grande famille de musiciens, de tous âges,<br>réunie par l'amour de la musique et le plaisir de jouer ensemble.</p>
+      <div class="hhero-actions">
+        <a href="ecole-musique.html" class="btn hhero-btn-primary">Découvrir l'école de musique</a>
+        <a href="manifestations.html" class="btn hhero-btn-secondary">Voir les manifestations</a>
+      </div>
+    </div>
+
+    <div class="hhero-stats">
+      <div class="hhero-stat">
+        <div class="stat-ic"><i class="fa-solid fa-users" aria-hidden="true"></i></div>
+        <div class="stat-txt">
+          <span class="num" data-count="103">103</span>
+          <span class="label">Années d'histoire</span>
+          <span class="sub">depuis 1922</span>
+        </div>
+      </div>
+      <div class="hhero-stat">
+        <div class="stat-ic"><i class="fa-solid fa-music" aria-hidden="true"></i></div>
+        <div class="stat-txt">
+          <span class="num" data-count="38">38</span>
+          <span class="label">Musiciens actifs</span>
+          <span class="sub">de tous âges</span>
+        </div>
+      </div>
+      <div class="hhero-stat">
+        <div class="stat-ic"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></div>
+        <div class="stat-txt">
+          <span class="num" data-count="49">49</span>
+          <span class="label">Élèves à l'école</span>
+          <span class="sub">futurs musiciens</span>
+        </div>
+      </div>
+    </div>
   </div>
 
+  <svg class="hhero-curve" viewBox="0 0 1440 96" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,0 C480,86 960,86 1440,0 L1440,96 L0,96 Z" fill="#faf8f3"></path>
+  </svg>
+  <div class="hhero-scroll" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></div>
+</section>
+
+
+<!-- ═══════════════════════════ DÉCOUVREZ NOTRE UNIVERS ═══════════════════════════ -->
+<section class="section univers">
   <div class="container">
-    <div class="hero-content">
-      <div class="hero-eyebrow">
-        Depuis 1922 · Pont de Roide-Vermondans
-      </div>
-
-      <h1>La Musique, <span class="highlight">Notre Passion</span> Partagée</h1>
-
-      <p>
-        L'Harmonie Fanfare Rudipontaine réunit musiciens passionnés et élèves talentueux
-        autour d'une même vocation : faire vivre la musique dans notre région du Doubs.
-      </p>
-
-      <div class="hero-actions">
-        <a href="manifestations.html" class="btn btn-blue btn-lg">
-          <i class="fa-solid fa-calendar-days"></i> Nos Concerts
-        </a>
-        <a href="histoire.html" class="btn btn-outline btn-lg">
-          <i class="fa-solid fa-book-open"></i> Notre Histoire
-        </a>
-      </div>
-
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <span class="num" data-count="103">103</span>
-          <span class="label">Années d'Histoire</span>
+    <div class="univers-head">
+      <div class="univers-eyebrow">Découvrez notre univers</div>
+      <h2>Une harmonie, une histoire, une famille</h2>
+    </div>
+    <div class="univers-grid">
+      <a href="histoire.html" class="univers-card">
+        <div class="univers-media univers-media-histoire" aria-hidden="true"></div>
+        <div class="univers-icon"><i class="fa-solid fa-book-open" aria-hidden="true"></i></div>
+        <div class="univers-body">
+          <h3>Histoire</h3>
+          <p>Plus de 100 ans de musique et de passion au service de notre village.</p>
+          <span class="univers-link">En savoir plus <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
         </div>
-        <div class="hero-stat">
-          <span class="num" data-count="38">38</span>
-          <span class="label">Musiciens Actifs</span>
+      </a>
+      <a href="manifestations.html" class="univers-card">
+        <div class="univers-media univers-media-manif" aria-hidden="true"></div>
+        <div class="univers-icon gold"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i></div>
+        <div class="univers-body">
+          <h3>Manifestations</h3>
+          <p>Concerts, défilés, événements... Venez vivre la musique avec nous tout au long de l'année !</p>
+          <span class="univers-link">Voir le calendrier <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
         </div>
-        <div class="hero-stat">
-          <span class="num" data-count="49">49</span>
-          <span class="label">Élèves à l'École</span>
+      </a>
+      <a href="souvenirs.html" class="univers-card">
+        <div class="univers-media univers-media-souvenirs" aria-hidden="true"></div>
+        <div class="univers-icon"><i class="fa-solid fa-camera" aria-hidden="true"></i></div>
+        <div class="univers-body">
+          <h3>Souvenirs</h3>
+          <p>Revivez nos plus beaux moments en images et partagez votre histoire avec nous.</p>
+          <span class="univers-link">Voir la galerie <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
 
 
 <!-- ═══════════════════════════ PROCHAINS ÉVÉNEMENTS ═══════════════════════════ -->
-<section class="section" style="background:var(--c-navy)">
+<section class="section agenda-light">
   <div class="container">
     <div class="section-header" data-aos>
-      <div class="eyebrow"><i class="fa-solid fa-calendar-days"></i> Agenda</div>
+      <div class="eyebrow"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Agenda</div>
       <h2>Prochains Événements</h2>
       <div class="divider"></div>
       <p>Retrouvez-nous lors de nos prochaines manifestations musicales</p>
     </div>
 
-    <div style="display:grid;gap:1.25rem;max-width:780px;margin:0 auto">
+    <div class="home-events">
 
       <div class="event-card" data-aos data-aos-delay="100">
         <div class="event-date-box">
@@ -149,15 +861,15 @@
           <span class="month">Mai</span>
         </div>
         <div class="event-info">
-          <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem;flex-wrap:wrap">
+          <div class="event-title-row">
             <h3>Concert de Printemps</h3>
             <span class="badge badge-blue">Concert</span>
           </div>
           <div class="event-meta">
-            <span><i class="fa-solid fa-clock"></i> 16h00</span>
-            <span><i class="fa-solid fa-location-dot"></i> Grand Kursaal - Besançon</span>
+            <span><i class="fa-solid fa-clock" aria-hidden="true"></i> 16h00</span>
+            <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Grand Kursaal - Besançon</span>
           </div>
-          <p style="margin:0;font-size:.88rem;color:var(--c-text-muted)">
+          <p class="event-desc">
             Concert exceptionnel dans la magnifique salle du Grand Kursaal de Besançon. Entrée libre.
           </p>
         </div>
@@ -169,15 +881,15 @@
           <span class="month">Mai</span>
         </div>
         <div class="event-info">
-          <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem;flex-wrap:wrap">
+          <div class="event-title-row">
             <h3>Commémoration du 8 Mai</h3>
             <span class="badge badge-gold">Cérémonie</span>
           </div>
           <div class="event-meta">
-            <span><i class="fa-solid fa-clock"></i> 9h45 – 12h00</span>
-            <span><i class="fa-solid fa-location-dot"></i> Pont de Roide-Vermondans</span>
+            <span><i class="fa-solid fa-clock" aria-hidden="true"></i> 9h45 – 12h00</span>
+            <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Pont de Roide-Vermondans</span>
           </div>
-          <p style="margin:0;font-size:.88rem;color:var(--c-text-muted)">
+          <p class="event-desc">
             Commémoration de la Victoire du 8 Mai 1945. Cérémonie patriotique avec défilé.
           </p>
         </div>
@@ -189,15 +901,15 @@
           <span class="month">Mai</span>
         </div>
         <div class="event-info">
-          <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem;flex-wrap:wrap">
+          <div class="event-title-row">
             <h3>Salon des Vins</h3>
             <span class="badge badge-green">Animation</span>
           </div>
           <div class="event-meta">
-            <span><i class="fa-solid fa-clock"></i> 17h00</span>
-            <span><i class="fa-solid fa-location-dot"></i> Villars-sous-Dampjoux</span>
+            <span><i class="fa-solid fa-clock" aria-hidden="true"></i> 17h00</span>
+            <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Villars-sous-Dampjoux</span>
           </div>
-          <p style="margin:0;font-size:.88rem;color:var(--c-text-muted)">
+          <p class="event-desc">
             Animation musicale lors du Salon des Vins de Villars-sous-Dampjoux.
           </p>
         </div>
@@ -205,103 +917,89 @@
 
     </div>
 
-    <div style="text-align:center;margin-top:2.5rem">
+    <div class="home-events-cta" data-aos>
       <a href="manifestations.html" class="btn btn-outline">
-        <i class="fa-solid fa-calendar-check"></i> Voir tous les événements
+        <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Voir tous les événements
       </a>
     </div>
   </div>
 </section>
 
 
-<!-- ═══════════════════════════ ANNONCES + PASSÉS ═══════════════════════════ -->
+<!-- ═══════════════════════════ INFOS PRATIQUES + RÉTROSPECTIVE ═══════════════════════════ -->
 <section class="section">
   <div class="container">
     <div class="grid-2" style="align-items:start;gap:clamp(2rem,4vw,4rem)">
 
       <div data-aos="fade-right">
-        <div class="section-header" style="text-align:left;margin-bottom:2rem">
-          <div class="eyebrow" style="justify-content:flex-start"><i class="fa-solid fa-bell"></i> Infos</div>
+        <div class="section-header split-header">
+          <div class="eyebrow"><i class="fa-solid fa-bell" aria-hidden="true"></i> Infos</div>
           <h2>Informations Pratiques</h2>
-          <div class="divider" style="margin:1rem 0 0"></div>
+          <div class="divider"></div>
         </div>
         <div style="display:grid;gap:1rem">
-          <div class="card" style="padding:1.5rem">
-            <div style="display:flex;gap:1rem;align-items:flex-start">
-              <div class="card-icon" style="margin:0;width:46px;height:46px;font-size:1.2rem;flex-shrink:0"><i class="fa-solid fa-drum"></i></div>
-              <div>
-                <h4 style="margin-bottom:.4rem">Prochaine Répétition</h4>
-                <p style="margin:0;font-size:.88rem;color:var(--c-text-muted)">
-                  <strong id="prochain-vendredi" style="color:var(--c-accent)">Vendredi 08 Mai 2026</strong><br>
-                  de 20h00 à 22h00 - Salle Georges Contal
-                </p>
-              </div>
+          <div class="card icard">
+            <div class="card-icon"><i class="fa-solid fa-drum" aria-hidden="true"></i></div>
+            <div>
+              <h4>Prochaine Répétition</h4>
+              <p>
+                <strong id="prochain-vendredi" style="color:var(--c-accent)">Vendredi</strong><br>
+                de 20h00 à 22h00 - Salle Georges Contal
+              </p>
             </div>
           </div>
-          <div class="card" style="padding:1.5rem">
-            <div style="display:flex;gap:1rem;align-items:flex-start">
-              <div class="card-icon" style="margin:0;width:46px;height:46px;font-size:1.2rem;flex-shrink:0"><i class="fa-solid fa-file-lines"></i></div>
-              <div>
-                <h4 style="margin-bottom:.4rem">Compte-rendus du Comité</h4>
-                <p style="margin:0;font-size:.88rem;color:var(--c-text-muted)">
-                  Retrouvez les informations publiques et annonces du comité directement sur le site.
-                </p>
-              </div>
+          <div class="card icard">
+            <div class="card-icon"><i class="fa-solid fa-file-lines" aria-hidden="true"></i></div>
+            <div>
+              <h4>Compte-rendus du Comité</h4>
+              <p>Retrouvez les informations publiques et annonces du comité directement sur le site.</p>
             </div>
           </div>
-          <div class="card" style="padding:1.5rem">
-            <div style="display:flex;gap:1rem;align-items:flex-start">
-              <div class="card-icon" style="margin:0;width:46px;height:46px;font-size:1.2rem;background:linear-gradient(135deg,#1877F2,#1877F2);flex-shrink:0"><i class="fa-brands fa-facebook-f"></i></div>
-              <div>
-                <h4 style="margin-bottom:.4rem">Suivez-nous sur Facebook</h4>
-                <p style="margin:0;font-size:.88rem;color:var(--c-text-muted)">Retrouvez toute notre actualité, photos et vidéos en temps réel.</p>
-                <a href="https://www.facebook.com/people/Harmonie-Fanfare-Rudipontaine/100057406793498/" target="_blank" rel="noopener" class="btn btn-sm" style="margin-top:.75rem;background:#1877F2;color:white;border-radius:var(--radius-md)">
-                  <i class="fa-brands fa-facebook-f"></i> Notre page Facebook
-                </a>
-              </div>
+          <div class="card icard icard-fb">
+            <div class="card-icon"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></div>
+            <div>
+              <h4>Suivez-nous sur Facebook</h4>
+              <p>Retrouvez toute notre actualité, photos et vidéos en temps réel.</p>
+              <a href="https://www.facebook.com/people/Harmonie-Fanfare-Rudipontaine/100057406793498/" target="_blank" rel="noopener" class="btn btn-sm btn-facebook">
+                <i class="fa-brands fa-facebook-f" aria-hidden="true"></i> Notre page Facebook
+              </a>
             </div>
           </div>
         </div>
       </div>
 
       <div data-aos="fade-left">
-        <div class="section-header" style="text-align:left;margin-bottom:2rem">
-          <div class="eyebrow" style="justify-content:flex-start"><i class="fa-solid fa-clock-rotate-left"></i> Rétrospective</div>
+        <div class="section-header split-header">
+          <div class="eyebrow"><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i> Rétrospective</div>
           <h2>Événements Récents</h2>
-          <div class="divider" style="margin:1rem 0 0"></div>
+          <div class="divider"></div>
         </div>
         <div style="display:grid;gap:1rem">
-          <div class="card" style="padding:1.25rem 1.5rem">
-            <div style="display:flex;align-items:center;gap:1rem">
-              <div style="flex-shrink:0;width:50px;height:50px;border-radius:var(--radius-md);background:rgba(29,111,164,0.15);border:1px solid rgba(29,111,164,0.2);display:flex;align-items:center;justify-content:center;font-size:.85rem;text-align:center;color:var(--c-accent);font-weight:700;line-height:1">29<br><span style="font-size:.65rem;font-weight:400">Mars</span></div>
-              <div>
-                <div style="font-weight:600;color:var(--c-white);margin-bottom:.2rem">Carnaval de Pont de Roide</div>
-                <div style="font-size:.82rem;color:var(--c-text-muted);display:flex;align-items:center;gap:.3rem"><i class="fa-solid fa-location-dot"></i> Pont de Roide-Vermondans</div>
-              </div>
+          <div class="card recent-item">
+            <div class="recent-date">29<small>Mars</small></div>
+            <div>
+              <div class="title">Carnaval de Pont de Roide</div>
+              <div class="place"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Pont de Roide-Vermondans</div>
             </div>
           </div>
-          <div class="card" style="padding:1.25rem 1.5rem">
-            <div style="display:flex;align-items:center;gap:1rem">
-              <div style="flex-shrink:0;width:50px;height:50px;border-radius:var(--radius-md);background:rgba(29,111,164,0.15);border:1px solid rgba(29,111,164,0.2);display:flex;align-items:center;justify-content:center;font-size:.85rem;text-align:center;color:var(--c-accent);font-weight:700;line-height:1">28<br><span style="font-size:.65rem;font-weight:400">Mars</span></div>
-              <div>
-                <div style="font-weight:600;color:var(--c-white);margin-bottom:.2rem">Concert de Printemps</div>
-                <div style="font-size:.82rem;color:var(--c-text-muted);display:flex;align-items:center;gap:.3rem"><i class="fa-solid fa-location-dot"></i> Pont de Roide-Vermondans</div>
-              </div>
+          <div class="card recent-item">
+            <div class="recent-date">28<small>Mars</small></div>
+            <div>
+              <div class="title">Concert de Printemps</div>
+              <div class="place"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Pont de Roide-Vermondans</div>
             </div>
           </div>
-          <div class="card" style="padding:1.25rem 1.5rem">
-            <div style="display:flex;align-items:center;gap:1rem">
-              <div style="flex-shrink:0;width:50px;height:50px;border-radius:var(--radius-md);background:rgba(29,111,164,0.15);border:1px solid rgba(29,111,164,0.2);display:flex;align-items:center;justify-content:center;font-size:.85rem;text-align:center;color:var(--c-accent);font-weight:700;line-height:1">19<br><span style="font-size:.65rem;font-weight:400">Mars</span></div>
-              <div>
-                <div style="font-weight:600;color:var(--c-white);margin-bottom:.2rem">Cérémonie Patriotique</div>
-                <div style="font-size:.82rem;color:var(--c-text-muted);display:flex;align-items:center;gap:.3rem"><i class="fa-solid fa-location-dot"></i> Pont de Roide-Vermondans</div>
-              </div>
+          <div class="card recent-item">
+            <div class="recent-date">19<small>Mars</small></div>
+            <div>
+              <div class="title">Cérémonie Patriotique</div>
+              <div class="place"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Pont de Roide-Vermondans</div>
             </div>
           </div>
         </div>
         <div style="margin-top:1.5rem">
           <a href="manifestations.html#passees" class="btn btn-outline" style="width:100%;justify-content:center">
-            <i class="fa-solid fa-history"></i> Toutes les manifestations passées
+            <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i> Toutes les manifestations passées
           </a>
         </div>
       </div>
@@ -312,33 +1010,32 @@
 
 
 <!-- ═══════════════════════════ À PROPOS ═══════════════════════════ -->
-<section class="section" style="background:var(--c-navy)">
+<section class="section about-light">
   <div class="container">
     <div class="grid-2" style="gap:clamp(2rem,5vw,5rem);align-items:center">
 
       <div data-aos="fade-right">
-        <div class="eyebrow" style="display:inline-flex;align-items:center;gap:.5rem;font-size:.75rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--c-accent);margin-bottom:1rem">
-          <span style="display:block;width:30px;height:1px;background:var(--c-accent);opacity:.6"></span>
-          Notre Association
-          <span style="display:block;width:30px;height:1px;background:var(--c-accent);opacity:.6"></span>
+        <div class="section-header split-header">
+          <div class="eyebrow"><i class="fa-solid fa-landmark" aria-hidden="true"></i> Notre Association</div>
+          <h2>Une Tradition Musicale depuis 1922</h2>
+          <div class="divider"></div>
         </div>
-        <h2 style="margin-bottom:1.5rem">Une Tradition Musicale depuis 1922</h2>
-        <p style="color:var(--c-text-muted);line-height:1.9">
+        <p class="about-lead">
           L'Harmonie Fanfare Rudipontaine est née en 1922 lorsque des musiciens de Terre-Blanche,
           Valentigney et Pont de Roide se sont réunis pour vivre leur passion commune.
           Initialement « Fanfare des Usines Peugeot », elle est devenue le cœur musical
           de Pont de Roide-Vermondans.
         </p>
-        <p style="color:var(--c-text-muted);line-height:1.9">
-          Depuis 2025, l'association est conduite par <strong style="color:var(--c-white)">François-Xavier Tafanelli</strong>
-          à la direction et <strong style="color:var(--c-white)">Anthony Merique</strong> à la présidence.
+        <p class="about-lead">
+          Depuis 2025, l'association est conduite par <strong>François-Xavier Tafanelli</strong>
+          à la direction et <strong>Anthony Merique</strong> à la présidence.
         </p>
-        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem">
-          <a href="histoire.html" class="btn btn-primary">
-            <i class="fa-solid fa-book-open"></i> Notre histoire
+        <div class="about-actions">
+          <a href="histoire.html" class="btn btn-blue">
+            <i class="fa-solid fa-book-open" aria-hidden="true"></i> Notre histoire
           </a>
           <a href="musiciens.html" class="btn btn-outline">
-            <i class="fa-solid fa-users"></i> Nos musiciens
+            <i class="fa-solid fa-users" aria-hidden="true"></i> Nos musiciens
           </a>
         </div>
       </div>
@@ -359,7 +1056,7 @@
           </div>
           <div class="stat-card">
             <div class="num" data-count="44">44</div>
-            <div class="label">Ans de Direction Jean Paul Klinguer</div>
+            <div class="label">Ans de direction Jean Paul Klinguer</div>
           </div>
         </div>
       </div>
@@ -369,75 +1066,114 @@
 </section>
 
 
-<!-- ═══════════════════════════ SECTIONS ═══════════════════════════ -->
+<!-- ═══════════════════════════ EXPLORER L'ASSOCIATION ═══════════════════════════ -->
 <section class="section">
   <div class="container">
     <div class="section-header" data-aos>
-      <div class="eyebrow"><i class="fa-solid fa-sitemap"></i> Organisation</div>
+      <div class="eyebrow"><i class="fa-solid fa-sitemap" aria-hidden="true"></i> Organisation</div>
       <h2>Explorer l'Association</h2>
       <div class="divider"></div>
+      <p>École, orchestres, répertoire, souvenirs : toutes les facettes de l'Harmonie</p>
     </div>
     <div class="grid-3" style="gap:1.5rem">
-      <a href="ecole-musique.html" class="card" style="display:block;text-decoration:none" data-aos data-aos-delay="100">
-        <div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-        <h3 style="margin-bottom:.75rem">École de Musique</h3>
-        <p style="color:var(--c-text-muted);font-size:.9rem;margin:0">Cours de solfège et d'instruments pour tous niveaux, par des professeurs certifiés.</p>
-        <div style="margin-top:1.25rem;display:flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--c-accent);font-weight:500">En savoir plus <i class="fa-solid fa-arrow-right" style="font-size:.75rem"></i></div>
+      <a href="ecole-musique.html" class="card explore-card" data-aos data-aos-delay="50">
+        <div class="card-icon"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></div>
+        <h3>École de Musique</h3>
+        <p>Cours de solfège et d'instruments pour tous niveaux, par des professeurs certifiés.</p>
+        <div class="more">En savoir plus <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></div>
       </a>
-      <a href="orchestre-junior.html" class="card" style="display:block;text-decoration:none" data-aos data-aos-delay="200">
-        <div class="card-icon"><i class="fa-solid fa-star"></i></div>
-        <h3 style="margin-bottom:.75rem">Orchestre Junior</h3>
-        <p style="color:var(--c-text-muted);font-size:.9rem;margin:0">Un orchestre dédié aux jeunes musiciens en formation avant de rejoindre l'harmonie.</p>
-        <div style="margin-top:1.25rem;display:flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--c-accent);font-weight:500">En savoir plus <i class="fa-solid fa-arrow-right" style="font-size:.75rem"></i></div>
+      <a href="orchestre-junior.html" class="card explore-card" data-aos data-aos-delay="100">
+        <div class="card-icon"><i class="fa-solid fa-star" aria-hidden="true"></i></div>
+        <h3>Orchestre Junior</h3>
+        <p>Un orchestre dédié aux jeunes musiciens en formation avant de rejoindre l'harmonie.</p>
+        <div class="more">En savoir plus <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></div>
       </a>
-      <a href="musiciens.html" class="card" style="display:block;text-decoration:none" data-aos data-aos-delay="300">
-        <div class="card-icon"><i class="fa-solid fa-users"></i></div>
-        <h3 style="margin-bottom:.75rem">Nos Musiciens</h3>
-        <p style="color:var(--c-text-muted);font-size:.9rem;margin:0">Découvrez les 38 musiciens qui font vibrer l'harmonie lors de chaque concert.</p>
-        <div style="margin-top:1.25rem;display:flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--c-accent);font-weight:500">En savoir plus <i class="fa-solid fa-arrow-right" style="font-size:.75rem"></i></div>
+      <a href="musiciens.html" class="card explore-card" data-aos data-aos-delay="150">
+        <div class="card-icon"><i class="fa-solid fa-users" aria-hidden="true"></i></div>
+        <h3>Nos Musiciens</h3>
+        <p>Découvrez les 38 musiciens qui font vibrer l'harmonie lors de chaque concert.</p>
+        <div class="more">En savoir plus <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></div>
       </a>
-      <a href="repertoire.html" class="card" style="display:block;text-decoration:none" data-aos data-aos-delay="100">
-        <div class="card-icon"><i class="fa-solid fa-list-ul"></i></div>
-        <h3 style="margin-bottom:.75rem">Répertoire</h3>
-        <p style="color:var(--c-text-muted);font-size:.9rem;margin:0">Marches, classique, variétés, cinéma... Un répertoire riche et varié pour tous les publics.</p>
-        <div style="margin-top:1.25rem;display:flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--c-accent);font-weight:500">En savoir plus <i class="fa-solid fa-arrow-right" style="font-size:.75rem"></i></div>
+      <a href="repertoire.html" class="card explore-card" data-aos data-aos-delay="200">
+        <div class="card-icon"><i class="fa-solid fa-list-ul" aria-hidden="true"></i></div>
+        <h3>Répertoire</h3>
+        <p>Marches, classique, variétés, cinéma... Un répertoire riche et varié pour tous les publics.</p>
+        <div class="more">En savoir plus <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></div>
       </a>
-      <a href="souvenirs.html" class="card" style="display:block;text-decoration:none" data-aos data-aos-delay="200">
-        <div class="card-icon"><i class="fa-solid fa-camera"></i></div>
-        <h3 style="margin-bottom:.75rem">Photos & Souvenirs</h3>
-        <p style="color:var(--c-text-muted);font-size:.9rem;margin:0">Revivez nos meilleurs moments à travers la galerie photo et les articles de presse.</p>
-        <div style="margin-top:1.25rem;display:flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--c-accent);font-weight:500">En savoir plus <i class="fa-solid fa-arrow-right" style="font-size:.75rem"></i></div>
+      <a href="souvenirs.html" class="card explore-card" data-aos data-aos-delay="250">
+        <div class="card-icon"><i class="fa-solid fa-camera" aria-hidden="true"></i></div>
+        <h3>Photos & Souvenirs</h3>
+        <p>Revivez nos meilleurs moments à travers la galerie photo et les articles de presse.</p>
+        <div class="more">En savoir plus <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></div>
       </a>
-
+      <a href="cds.html" class="card explore-card" data-aos data-aos-delay="300">
+        <div class="card-icon"><i class="fa-solid fa-compact-disc" aria-hidden="true"></i></div>
+        <h3>Nos Enregistrements</h3>
+        <p>Écoutez les CDs enregistrés par l'Harmonie au fil des années et des concerts.</p>
+        <div class="more">En savoir plus <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></div>
+      </a>
     </div>
   </div>
 </section>
 
 
-<!-- ═══════════════════════════ CTA ═══════════════════════════ -->
-<section class="section-sm" style="background:linear-gradient(135deg,var(--c-navy-mid),var(--c-navy))">
+<!-- ═══════════════════════════ LOCALISATION ═══════════════════════════ -->
+<section class="section" style="background:var(--c-navy)">
   <div class="container">
-    <div style="max-width:700px;margin:0 auto;text-align:center" data-aos>
-      <div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.75rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--c-gold);margin-bottom:1rem">
-        <i class="fa-solid fa-music"></i> Rejoignez-nous
+    <div class="section-header" data-aos>
+      <div class="eyebrow"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Nous trouver</div>
+      <h2>La Salle de Musique</h2>
+      <div class="divider"></div>
+      <p>Retrouvez-nous à Pont-de-Roide-Vermondans pour nos répétitions et concerts</p>
+    </div>
+
+    <div class="map-embed" data-aos>
+      <iframe
+        src="https://maps.google.com/maps?q=47.390180553853256,6.767123290243132&hl=fr&z=17&output=embed"
+        width="100%" height="600" style="border:0;display:block" allowfullscreen loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Localisation de la salle de musique de l'Harmonie Fanfare Rudipontaine"></iframe>
+    </div>
+    <div class="map-cta" data-aos>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=47.390180553853256,6.767123290243132"
+         target="_blank" rel="noopener" class="btn btn-liquid">
+        <i class="fa-solid fa-location-arrow" aria-hidden="true"></i> S'y rendre
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════ CTA REJOIGNEZ-NOUS ═══════════════════════════ -->
+<section class="section-sm" style="background:linear-gradient(135deg,var(--c-navy-mid),var(--c-navy));padding-bottom:clamp(3rem,6vw,5rem)">
+  <div class="container">
+    <div class="join-panel" data-aos>
+      <div class="eyebrow-line">
+        Rejoignez-nous
       </div>
       <h2 style="margin-bottom:1rem">Vous Aimez la Musique ?</h2>
-      <p style="color:var(--c-text-muted);margin-bottom:2rem;font-size:1.05rem">
+      <p>
         Que vous soyez musicien expérimenté ou débutant, l'Harmonie vous accueille.
         Inscriptions à l'école de musique ouvertes toute l'année.
       </p>
-      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-        <a href="ecole-musique.html" class="btn btn-gold btn-lg">
-          <i class="fa-solid fa-music"></i> S'inscrire à l'École
+      <div class="join-actions">
+        <a href="ecole-musique.html#inscription" class="btn btn-gold btn-lg">
+          <i class="fa-solid fa-music" aria-hidden="true"></i> S'inscrire à l'École
         </a>
         <a href="comite.html" class="btn btn-outline btn-lg">
-          <i class="fa-solid fa-envelope"></i> Nous Contacter
+          <i class="fa-solid fa-envelope" aria-hidden="true"></i> Nous Contacter
         </a>
+      </div>
+      <div class="join-contacts">
+        <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Pont-de-Roide-Vermondans, 25150 Doubs</span>
+        <a href="mailto:contact@harmonie-pont-de-roide.com"><i class="fa-solid fa-envelope" aria-hidden="true"></i> contact@harmonie-pont-de-roide.com</a>
+        <span><i class="fa-solid fa-drum" aria-hidden="true"></i> Répétitions le vendredi, 20h – 22h</span>
       </div>
     </div>
   </div>
 </section>
 
+</main>
 
 <script src="js/main.js"></script>
 <script>
