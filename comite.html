@@ -136,15 +136,15 @@
           <h3 style="margin-bottom:.25rem">Envoyer un Message</h3>
           <div class="form-group" style="margin:0">
             <label class="form-label">Nom complet *</label>
-            <input type="text" class="form-control" placeholder="Votre nom" required>
+            <input type="text" id="contact-nom" class="form-control" placeholder="Votre nom" required>
           </div>
           <div class="form-group" style="margin:0">
             <label class="form-label">Email *</label>
-            <input type="email" class="form-control" placeholder="votre@email.com" required>
+            <input type="email" id="contact-email" class="form-control" placeholder="votre@email.com" required>
           </div>
           <div class="form-group" style="margin:0">
             <label class="form-label">Sujet</label>
-            <select class="form-control">
+            <select id="contact-sujet" class="form-control">
               <option>Renseignements généraux</option>
               <option>Inscription à l'école de musique</option>
               <option>Rejoindre l'harmonie</option>
@@ -155,7 +155,7 @@
           </div>
           <div class="form-group" style="margin:0">
             <label class="form-label">Message *</label>
-            <textarea class="form-control" rows="5" placeholder="Votre message..." required></textarea>
+            <textarea id="contact-message" class="form-control" rows="5" placeholder="Votre message..." required></textarea>
           </div>
           <button type="submit" class="btn btn-primary" style="justify-content:center">
             <i class="fa-solid fa-paper-plane"></i> Envoyer
@@ -168,10 +168,25 @@
 
 <script src="js/main.js"></script>
 <script>
+  /* #################################################################
+     ENVOI DU FORMULAIRE DE CONTACT
+     Le bouton "Envoyer" ouvre le logiciel de messagerie du visiteur
+     avec un e-mail tout prêt, adressé à l'association.
+     Pour changer l'adresse de réception, modifiez la ligne ci-dessous.
+     ################################################################# */
+  var EMAIL_CONTACT = 'contact@harmonie-pont-de-roide.com';
+
   document.getElementById('contact-form').addEventListener('submit', function(e){
     e.preventDefault();
-    showToast('Message envoyé ! Le bureau vous répondra prochainement.');
-    this.reset();
+    var nom     = document.getElementById('contact-nom').value;
+    var email   = document.getElementById('contact-email').value;
+    var sujet   = document.getElementById('contact-sujet').value;
+    var message = document.getElementById('contact-message').value;
+    var corps = 'Nom : ' + nom + '\nEmail : ' + email + '\n\nMessage :\n' + message;
+    window.location.href = 'mailto:' + EMAIL_CONTACT
+      + '?subject=' + encodeURIComponent('[Site] ' + sujet + ' - ' + nom)
+      + '&body=' + encodeURIComponent(corps);
+    showToast('Votre logiciel de messagerie va s\'ouvrir avec le message prêt à envoyer.');
   });
 </script>
 </body>

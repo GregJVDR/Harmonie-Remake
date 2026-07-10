@@ -416,9 +416,29 @@
   });
 
   // Share form
+  /* #################################################################
+     ENVOI DU FORMULAIRE DE PARTAGE DE PHOTOS
+     Le bouton "Envoyer mes photos" ouvre le logiciel de messagerie du
+     visiteur avec un e-mail tout prêt, adressé à l'association.
+     Le visiteur doit joindre lui-même ses photos à l'e-mail
+     (un site sans serveur ne peut pas transférer de fichiers).
+     Pour changer l'adresse de réception, modifiez la ligne ci-dessous.
+     ################################################################# */
+  var EMAIL_CONTACT = 'contact@harmonie-pont-de-roide.com';
+
   document.getElementById('share-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    showToast('Photos envoyées ! Merci pour votre contribution.');
+    var nom         = this.elements['name'].value;
+    var evenement   = this.elements['event'].value;
+    var description = this.elements['description'].value;
+    var corps = 'Nom : ' + nom
+      + '\nÉvénement : ' + evenement
+      + '\n\nDescription :\n' + (description || '(aucune)')
+      + '\n\nIMPORTANT : joignez vos photos à cet e-mail avant de l\'envoyer !';
+    window.location.href = 'mailto:' + EMAIL_CONTACT
+      + '?subject=' + encodeURIComponent('[Site] Partage de photos - ' + evenement + ' - ' + nom)
+      + '&body=' + encodeURIComponent(corps);
+    showToast('Votre logiciel de messagerie va s\'ouvrir : joignez-y vos photos avant d\'envoyer.');
     this.reset();
     document.getElementById('photo-preview').innerHTML = '';
   });

@@ -372,19 +372,19 @@
           <h3 style="margin-bottom:.5rem">Demande de Renseignements</h3>
           <div class="form-group" style="margin:0">
             <label class="form-label">Prénom et Nom *</label>
-            <input type="text" class="form-control" placeholder="Jean Dupont" required>
+            <input type="text" id="insc-nom" class="form-control" placeholder="Jean Dupont" required>
           </div>
           <div class="form-group" style="margin:0">
             <label class="form-label">Email *</label>
-            <input type="email" class="form-control" placeholder="jean@exemple.com" required>
+            <input type="email" id="insc-email" class="form-control" placeholder="jean@exemple.com" required>
           </div>
           <div class="form-group" style="margin:0">
             <label class="form-label">Téléphone</label>
-            <input type="tel" class="form-control" placeholder="+33 6 12 34 56 78">
+            <input type="tel" id="insc-tel" class="form-control" placeholder="+33 6 12 34 56 78">
           </div>
           <div class="form-group" style="margin:0">
             <label class="form-label">Instrument souhaité</label>
-            <select class="form-control">
+            <select id="insc-instrument" class="form-control">
               <option value="">Choisir un instrument...</option>
               <option>Trompette</option>
               <option>Clarinette</option>
@@ -399,7 +399,7 @@
           </div>
           <div class="form-group" style="margin:0">
             <label class="form-label">Message</label>
-            <textarea class="form-control" rows="3" placeholder="Âge, niveau, questions..."></textarea>
+            <textarea id="insc-message" class="form-control" rows="3" placeholder="Âge, niveau, questions..."></textarea>
           </div>
           <button type="submit" class="btn btn-primary" style="justify-content:center">
             <i class="fa-solid fa-paper-plane"></i> Envoyer la demande
@@ -412,10 +412,30 @@
 
 <script src="js/main.js"></script>
 <script>
+  /* #################################################################
+     ENVOI DU FORMULAIRE D'INSCRIPTION
+     Le bouton "Envoyer la demande" ouvre le logiciel de messagerie du
+     visiteur avec un e-mail tout prêt, adressé à l'association.
+     Pour changer l'adresse de réception, modifiez la ligne ci-dessous.
+     ################################################################# */
+  var EMAIL_CONTACT = 'contact@harmonie-pont-de-roide.com';
+
   document.getElementById('inscription-form').addEventListener('submit', function(e){
     e.preventDefault();
-    showToast('Votre demande a été envoyée ! Nous vous répondrons bientôt.');
-    this.reset();
+    var nom        = document.getElementById('insc-nom').value;
+    var email      = document.getElementById('insc-email').value;
+    var tel        = document.getElementById('insc-tel').value;
+    var instrument = document.getElementById('insc-instrument').value;
+    var message    = document.getElementById('insc-message').value;
+    var corps = 'Nom : ' + nom
+      + '\nEmail : ' + email
+      + '\nTéléphone : ' + (tel || 'non renseigné')
+      + '\nInstrument souhaité : ' + (instrument || 'non renseigné')
+      + '\n\nMessage :\n' + (message || '(aucun)');
+    window.location.href = 'mailto:' + EMAIL_CONTACT
+      + '?subject=' + encodeURIComponent('[Site] Demande de renseignements école de musique - ' + nom)
+      + '&body=' + encodeURIComponent(corps);
+    showToast('Votre logiciel de messagerie va s\'ouvrir avec la demande prête à envoyer.');
   });
 </script>
 </body>
