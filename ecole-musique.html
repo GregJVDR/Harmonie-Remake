@@ -12,6 +12,61 @@
   <link rel="icon" type="image/png" href="images/logo3d2.png">
   <link rel="apple-touch-icon" href="images/logo3d2.png">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── Vitrine des instruments ── */
+    .instru-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .instru-card {
+      background: #ffffff;
+      border: 1.5px solid rgba(8,29,49,0.12);
+      border-radius: 18px;
+      padding: 1.6rem 1rem 1.3rem;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(8,29,49,0.06);
+      transition: transform .35s cubic-bezier(.34,1.3,.64,1), box-shadow .3s ease, border-color .3s ease;
+    }
+
+    .instru-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(200,168,75,0.55);
+      box-shadow: 0 18px 40px rgba(8,29,49,0.14);
+    }
+
+    .instru-img {
+      height: 130px;
+      width: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 16px rgba(8,29,49,0.16));
+      transition: transform .45s cubic-bezier(.22,1,.36,1);
+    }
+
+    .instru-card:hover .instru-img { transform: scale(1.09) rotate(-3deg); }
+
+    .instru-name {
+      font-weight: 700;
+      color: var(--c-navy);
+      font-size: .95rem;
+      margin-top: 1.1rem;
+    }
+
+    .instru-fam {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #8a97a5;
+      margin-top: .25rem;
+    }
+
+    @media(max-width:600px) {
+      .instru-grid { grid-template-columns: repeat(2, 1fr); gap: .85rem; }
+      .instru-img { height: 100px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -63,6 +118,14 @@
         </div>
       </div>
 
+      <!-- #############################################################
+           STATISTIQUES DE L'ÉCOLE
+           Pour changer un chiffre, modifiez À DEUX ENDROITS sur la ligne :
+             1. data-count="49"   (le chiffre de l'animation)
+             2. >49<              (le chiffre affiché)
+           Le nombre d'élèves apparaît aussi dans le texte au-dessus
+           ("49 élèves") et sur l'accueil (index.html, 2 endroits).
+           ############################################################# -->
       <div data-aos="fade-left">
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr));gap:1rem">
           <div class="stat-card">
@@ -70,7 +133,7 @@
             <div class="label">Élèves Inscrits</div>
           </div>
           <div class="stat-card">
-            <div class="num" data-count="5">5+</div>
+            <div class="num" data-count="11">11</div>
             <div class="label">Instruments Enseignés</div>
           </div>
           <div class="stat-card">
@@ -170,6 +233,96 @@
         <div style="margin-top:1rem">
           <span class="badge badge-gold">Certification CMF</span>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTRUMENTS -->
+<section class="section section-light" id="instruments">
+  <div class="container">
+    <div class="section-header" data-aos>
+      <div class="eyebrow"><i class="fa-solid fa-music"></i> Notre Orchestre</div>
+      <h2>Les Instruments de l'Harmonie</h2>
+      <div class="divider"></div>
+      <p>Découvrez les instruments que vous pouvez apprendre et pratiquer au sein de l'harmonie</p>
+    </div>
+
+    <!-- #################################################################
+         VITRINE DES INSTRUMENTS
+         Pour ajouter un instrument :
+           1. Mettez son image (format .png, fond transparent de
+              préférence) dans le dossier  images/instruments/
+           2. Copiez le modèle ci-dessous et collez-le dans la grille
+           3. Remplacez le nom du fichier, le NOM affiché et la famille
+              (Bois, Cuivres ou Percussions)
+           4. Si vous voulez, mettez à jour la statistique
+              "Instruments Enseignés" en haut de la page
+
+         MODÈLE À COPIER :
+
+      <div class="instru-card" data-aos>
+        <img src="images/instruments/NOM_DU_FICHIER.png" alt="NOM" class="instru-img" loading="lazy">
+        <div class="instru-name">NOM</div>
+        <div class="instru-fam">Cuivres</div>
+      </div>
+
+         ################################################################# -->
+    <div class="instru-grid">
+      <div class="instru-card" data-aos data-aos-delay="0">
+        <img src="images/instruments/flute.png" alt="Flûte traversière" class="instru-img" loading="lazy">
+        <div class="instru-name">Flûte Traversière</div>
+        <div class="instru-fam">Bois</div>
+      </div>
+      <div class="instru-card" data-aos data-aos-delay="50">
+        <img src="images/instruments/piccolo.png" alt="Piccolo" class="instru-img" loading="lazy">
+        <div class="instru-name">Piccolo</div>
+        <div class="instru-fam">Bois</div>
+      </div>
+      <div class="instru-card" data-aos data-aos-delay="100">
+        <img src="images/instruments/clarinette.png" alt="Clarinette" class="instru-img" loading="lazy">
+        <div class="instru-name">Clarinette</div>
+        <div class="instru-fam">Bois</div>
+      </div>
+      <div class="instru-card" data-aos data-aos-delay="150">
+        <img src="images/instruments/saxophone.png" alt="Saxophone" class="instru-img" loading="lazy">
+        <div class="instru-name">Saxophone</div>
+        <div class="instru-fam">Bois</div>
+      </div>
+      <div class="instru-card" data-aos data-aos-delay="200">
+        <img src="images/instruments/trompette.png" alt="Trompette" class="instru-img" loading="lazy">
+        <div class="instru-name">Trompette</div>
+        <div class="instru-fam">Cuivres</div>
+      </div>
+      <div class="instru-card" data-aos data-aos-delay="225">
+        <img src="images/instruments/clairon.png" alt="Clairon" class="instru-img" loading="lazy">
+        <div class="instru-name">Clairon</div>
+        <div class="instru-fam">Cuivres</div>
+      </div>
+      <div class="instru-card" data-aos data-aos-delay="250">
+        <img src="images/instruments/cor.png" alt="Cor" class="instru-img" loading="lazy">
+        <div class="instru-name">Cor</div>
+        <div class="instru-fam">Cuivres</div>
+      </div>
+      <div class="instru-card" data-aos data-aos-delay="300">
+        <img src="images/instruments/trombone.png" alt="Trombone" class="instru-img" loading="lazy">
+        <div class="instru-name">Trombone</div>
+        <div class="instru-fam">Cuivres</div>
+      </div>
+      <div class="instru-card" data-aos data-aos-delay="350">
+        <img src="images/instruments/tuba.png" alt="Tuba" class="instru-img" loading="lazy">
+        <div class="instru-name">Tuba</div>
+        <div class="instru-fam">Cuivres</div>
+      </div>
+      <div class="instru-card" data-aos data-aos-delay="400">
+        <img src="images/instruments/sousaphone.png" alt="Sousaphone" class="instru-img" loading="lazy">
+        <div class="instru-name">Sousaphone</div>
+        <div class="instru-fam">Cuivres</div>
+      </div>
+      <div class="instru-card" data-aos data-aos-delay="450">
+        <img src="images/instruments/batterie.png" alt="Batterie" class="instru-img" loading="lazy">
+        <div class="instru-name">Batterie</div>
+        <div class="instru-fam">Percussions</div>
       </div>
     </div>
   </div>

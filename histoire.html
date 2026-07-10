@@ -36,7 +36,8 @@
 </section>
 
 <!-- INTRO -->
-<section class="section section-light">
+<section class="section section-light has-instr-deco">
+  <img src="images/instruments/clairon.png" alt="" aria-hidden="true" class="instr-deco" style="right:-2%;top:8%;transform:rotate(15deg)" loading="lazy">
   <div class="container">
     <div class="grid-2" style="gap:clamp(2rem,5vw,5rem);align-items:center">
       <div data-aos="fade-right">
@@ -58,6 +59,14 @@
         </p>
       </div>
 
+      <!-- #############################################################
+           STATISTIQUES DE LA PAGE HISTOIRE
+           Pour changer un chiffre, modifiez À DEUX ENDROITS sur la ligne :
+             1. data-count="45"   (le chiffre de l'animation)
+             2. >45<              (le chiffre affiché)
+           Le nombre de musiciens doit être le même que sur l'accueil
+           et la page musiciens.
+           ############################################################# -->
       <div data-aos="fade-left">
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr));gap:1rem">
           <div class="stat-card">
@@ -69,7 +78,7 @@
             <div class="label">Musiciens à l'Apogée</div>
           </div>
           <div class="stat-card">
-            <div class="num" data-count="38">38</div>
+            <div class="num" data-count="45">45</div>
             <div class="label">Musiciens Actuels</div>
           </div>
           <div class="stat-card">
@@ -91,6 +100,20 @@
       <div class="divider"></div>
     </div>
 
+    <!-- #################################################################
+         CHRONOLOGIE (frise historique)
+         Pour ajouter une étape, copiez ce modèle et collez-le au bon
+         endroit chronologique dans la liste ci-dessous :
+
+        <div class="timeline-item" data-aos>
+          <span class="year">2027</span>
+          <h3>TITRE DE L'ÉTAPE</h3>
+          <p>DESCRIPTION DE L'ÉTAPE.</p>
+        </div>
+
+         Le nombre de musiciens actuel apparaît dans la dernière étape
+         ("Aujourd'hui") : pensez à le changer quand l'effectif évolue.
+         ################################################################# -->
     <div style="max-width:760px;margin:0 auto">
       <div class="timeline">
 
@@ -145,7 +168,7 @@
         <div class="timeline-item" data-aos>
           <span class="year">Aujourd'hui</span>
           <h3>Une Association Vivante</h3>
-          <p>Avec 38 musiciens actifs et 49 élèves à l'école de musique, l'Harmonie Fanfare Rudipontaine continue de faire rayonner la musique dans tout le Doubs. Affiliée à la Confédération Musicale de France, elle est portée par des professeurs certifiés.</p>
+          <p>Avec 45 musiciens actifs et 49 élèves à l'école de musique, l'Harmonie Fanfare Rudipontaine continue de faire rayonner la musique dans tout le Doubs. Affiliée à la Confédération Musicale de France, elle est portée par des professeurs certifiés.</p>
         </div>
 
       </div>

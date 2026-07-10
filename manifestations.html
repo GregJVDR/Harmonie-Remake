@@ -96,9 +96,87 @@
       </div>
     </div>
 
+    <!-- #################################################################
+         #################################################################
+
+         MODE D'EMPLOI : LES ÉVÉNEMENTS
+
+         Cette page a 2 onglets : "À Venir" (juste en dessous)
+         et "Passées" (plus bas, cherchez le repère ÉVÉNEMENTS PASSÉS).
+
+         ~~~ AJOUTER UN ÉVÉNEMENT À VENIR ~~~
+         Copiez le modèle ci-dessous, collez-le dans la liste, puis
+         remplacez le jour, le mois, le titre, l'étiquette, l'heure,
+         le lieu et la description. Les événements se rangent du plus
+         proche au plus lointain.
+
+         Couleur de la carte (bord gauche) :   ev-blue  ev-gold  ev-green
+         Couleur de l'étiquette :           badge-blue  badge-gold  badge-green
+         (bleu = concert, or = cérémonie, vert = animation)
+
+         MODÈLE À COPIER :
+
+        <div class="event-card ev-blue" data-aos>
+          <div class="event-date-box">
+            <span class="day">01</span>
+            <span class="month">Jan</span>
+          </div>
+          <div class="event-info">
+            <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem;flex-wrap:wrap">
+              <h3>TITRE DE L'ÉVÉNEMENT</h3>
+              <span class="badge badge-blue">Concert</span>
+            </div>
+            <div class="event-meta">
+              <span><i class="fa-solid fa-clock"></i> 20h00</span>
+              <span><i class="fa-solid fa-location-dot"></i> LIEU</span>
+            </div>
+            <p style="margin:.5rem 0 0;font-size:.88rem;color:var(--c-text-muted)">
+              DESCRIPTION DE L'ÉVÉNEMENT.
+            </p>
+          </div>
+        </div>
+
+         ~~~ PASSER UN ÉVÉNEMENT EN "PASSÉES" ~~~
+         1. Coupez tout le bloc (de <div class="event-card" à son </div> final)
+         2. Collez-le en HAUT de la liste de l'onglet "Passées" (plus bas)
+         3. Faites 3 petits changements pour le style "terminé" :
+            a. Ajoutez  style="background:var(--c-navy-mid)"  à la ligne
+               <div class="event-date-box">
+            b. Ajoutez cette ligne après l'étiquette de couleur :
+               <span class="badge badge-muted">Terminé</span>
+            c. Remplacez la ligne de l'heure par la date complète :
+               <span><i class="fa-solid fa-calendar"></i> 12 Septembre 2026</span>
+         (comparez avec les événements déjà passés pour vérifier)
+
+         RAPPEL : l'accueil (index.html) affiche aussi les 3 prochains
+         événements et les 3 derniers passés. Mettez-le à jour en même temps !
+
+         #################################################################
+         ################################################################# -->
+
     <!-- À Venir -->
     <div class="tab-panel active" id="tab-avenir">
       <div id="avenir" class="events-list">
+
+        <div class="event-card ev-gold" data-aos>
+          <div class="event-date-box">
+            <span class="day">12</span>
+            <span class="month">Sept</span>
+          </div>
+          <div class="event-info">
+            <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem;flex-wrap:wrap">
+              <h3>Manifestation de l'Harmonie</h3>
+              <span class="badge badge-gold">Événement</span>
+            </div>
+            <div class="event-meta">
+              <span><i class="fa-solid fa-calendar"></i> Samedi 12 Septembre 2026</span>
+              <span><i class="fa-solid fa-clock"></i> 11h00</span>
+            </div>
+            <p style="margin:.5rem 0 0;font-size:.88rem;color:var(--c-text-muted)">
+              Rendez-vous le samedi 12 septembre à 11h00. Programme détaillé communiqué prochainement.
+            </p>
+          </div>
+        </div>
 
         <div class="event-card ev-blue" data-aos>
           <div class="event-date-box">
@@ -174,6 +252,12 @@
       </div>
     </div>
 
+    <!-- #################################################################
+         ÉVÉNEMENTS PASSÉS
+         Collez ici les événements terminés, le plus récent EN PREMIER.
+         (voir le mode d'emploi complet en haut de la liste "À Venir")
+         ################################################################# -->
+
     <!-- Passées -->
     <div class="tab-panel" id="tab-passees">
       <div class="events-list">
@@ -185,16 +269,16 @@
           </div>
           <div class="event-info">
             <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem;flex-wrap:wrap">
-              <h3>Carnaval de Pont de Roide</h3>
+              <h3>Carnaval de Goux-lès-Dambelin</h3>
               <span class="badge badge-green">Animation</span>
               <span class="badge badge-muted">Terminé</span>
             </div>
             <div class="event-meta">
               <span><i class="fa-solid fa-calendar"></i> 29 Mars 2026</span>
-              <span><i class="fa-solid fa-location-dot"></i> Pont de Roide-Vermondans</span>
+              <span><i class="fa-solid fa-location-dot"></i> Goux-lès-Dambelin</span>
             </div>
             <p style="margin:.5rem 0 0;font-size:.88rem;color:var(--c-text-muted)">
-              Participation au carnaval annuel de Pont de Roide avec défilé musical animé.
+              Participation au carnaval de Goux-lès-Dambelin avec défilé musical animé.
             </p>
           </div>
         </div>

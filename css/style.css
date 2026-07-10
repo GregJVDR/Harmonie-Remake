@@ -1773,3 +1773,44 @@ footer {
   /* Accordion - texte du titre ne déborde pas */
   .accordion-trigger { padding: 1rem 1.25rem; font-size: 0.9rem; }
 }
+
+/* ═══════════ Instruments décoratifs ═══════════ */
+
+/* Section avec instruments en filigrane dans le fond */
+.has-instr-deco { position: relative; isolation: isolate; overflow: hidden; }
+
+.instr-deco {
+  position: absolute;
+  z-index: -1;
+  width: clamp(150px, 20vw, 300px);
+  opacity: .09;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Bandeau d'instruments alignés */
+.instr-strip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+.instr-strip img {
+  height: 54px;
+  width: auto;
+  max-width: 110px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 14px rgba(8, 29, 49, 0.35));
+  transition: transform .35s cubic-bezier(.34, 1.3, .64, 1);
+}
+
+.instr-strip img:nth-child(odd) { rotate: -5deg; }
+.instr-strip img:nth-child(even) { rotate: 4deg; }
+.instr-strip img:hover { transform: translateY(-6px) scale(1.1); }
+
+@media (max-width: 600px) {
+  .instr-strip img { height: 38px; max-width: 80px; }
+  .instr-deco { opacity: .07; }
+}

@@ -137,6 +137,22 @@
           <button class="filter-btn" onclick="filterAlbum(this,'2024')" style="padding:.5rem 1.1rem;border-radius:100px;border:1px solid var(--c-border);background:transparent;color:var(--c-text-muted);font-family:var(--font-sans);cursor:pointer;font-size:.85rem">2024</button>
         </div>
 
+        <!-- #############################################################
+             ALBUMS PHOTOS
+             Chaque album est un bloc <div class="card" ... data-year="2026">
+             Pour ajouter un album : copiez un bloc existant en entier,
+             puis modifiez :
+               1. data-year="2026"          : l'année (sert au filtre)
+               2. onclick="openLightbox('...')" : le nom de l'album
+               3. L'émoji décoratif (🎭, 🎺, ...)
+               4. Le badge de l'année (en haut à droite de la carte)
+               5. Le titre <h4> et la date sous la carte
+             Si l'année n'existe pas dans les boutons de filtre plus haut,
+             copiez un bouton existant et changez l'année aux 2 endroits
+             (le texte du bouton ET dans filterAlbum(this,'2027')).
+             Pensez aussi à ajouter l'événement dans la liste déroulante
+             du formulaire de partage (cherchez <option> plus bas).
+             ############################################################# -->
         <!-- Albums -->
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem" id="albums-grid">
 
@@ -148,7 +164,7 @@
               <div style="position:absolute;top:.75rem;right:.75rem"><span class="badge badge-blue">2026</span></div>
             </div>
             <div style="padding:1.25rem">
-              <h4 style="margin-bottom:.3rem">Carnaval de Pont de Roide</h4>
+              <h4 style="margin-bottom:.3rem">Carnaval de Goux-lès-Dambelin</h4>
               <div style="font-size:.82rem;color:var(--c-text-muted)">
                 <i class="fa-solid fa-calendar"></i> 29 Mars 2026 &nbsp;·&nbsp;
                 <i class="fa-solid fa-images"></i> Album en cours
@@ -247,6 +263,7 @@
           </div>
           <div class="form-group" style="margin:0">
             <label class="form-label">Événement concerné</label>
+            <!-- ##### LISTE DES ÉVÉNEMENTS DU FORMULAIRE : ajoutez une ligne <option>NOM</option> par événement récent ##### -->
             <select class="form-control" name="event">
               <option>Carnaval 2026</option>
               <option>Concert de Printemps 2026</option>

@@ -168,6 +168,23 @@
     }
     .pupitre-header.aos-animate .pupitre-line { transform: scaleX(1); }
 
+    /* Image d'instrument en bout de ligne de pupitre */
+    .pupitre-instr {
+      height: 58px;
+      max-width: 100px;
+      object-fit: contain;
+      flex-shrink: 0;
+      filter: drop-shadow(0 6px 12px rgba(8,29,49,0.18));
+      opacity: 0;
+      transform: translateX(14px) rotate(4deg);
+      transition: opacity .7s ease .35s, transform .7s cubic-bezier(.22,1,.36,1) .35s;
+    }
+    .pupitre-header.aos-animate .pupitre-instr { opacity: 1; transform: translateX(0) rotate(0deg); }
+
+    @media(max-width:600px) {
+      .pupitre-instr { height: 42px; max-width: 72px; }
+    }
+
     /* ── Filtres ── */
     .filter-bar {
       display: flex;
@@ -298,8 +315,9 @@
     <div class="page-header-content">
       <div class="eyebrow"><i class="fa-solid fa-users"></i> Présentation</div>
       <h1>Nos Musiciens</h1>
+      <!-- ##### NOMBRE TOTAL DE MUSICIENS : modifiez le chiffre ci-dessous ##### -->
       <p style="color:var(--c-text-muted);max-width:600px;margin-top:.75rem;font-size:1.05rem">
-        37 musiciens répartis en 10 pupitres
+        45 musiciens répartis en 10 pupitres
       </p>
       <div class="breadcrumb">
         <a href="index.html">Accueil</a>
@@ -311,6 +329,65 @@
     </div>
   </div>
 </section>
+
+<!-- ##################################################################### -->
+<!-- #####################################################################
+
+     MODE D'EMPLOI : LA PAGE MUSICIENS
+
+     ~~~ CHANGER LE NOMBRE TOTAL DE MUSICIENS ~~~
+     Le total apparaît à 6 endroits sur le site. Faites une recherche
+     (Ctrl+F ou Cmd+F) du nombre actuel (ex : "45") dans chaque fichier :
+       1. musiciens.html : la ligne "45 musiciens répartis en 10 pupitres"
+          (un peu plus haut dans ce fichier)
+       2. index.html : 3 endroits
+          (statistique du haut, bloc "Notre Association", carte "Nos Musiciens")
+          ATTENTION : changez le nombre affiché ET la valeur data-count="45"
+       3. histoire.html : 2 endroits
+          (statistique "Musiciens Actuels" + le texte de l'année 2026)
+
+     ~~~ AJOUTER UN MUSICIEN (AVEC PHOTO) ~~~
+     1. Mettez sa photo dans le dossier  images/Membres/
+        au format  nom_prenom.jpg  (ex : dupont_jean.jpg)
+     2. Copiez le modèle ci-dessous et collez-le dans la grille
+        (la zone <div class="members-grid"> ... </div>) du bon pupitre.
+     3. Remplacez PRENOM NOM (3 fois), PUPITRE (3 fois)
+        et le nom du fichier photo (2 fois).
+     4. Augmentez de 1 le chiffre dans <div class="pupitre-count">
+        du pupitre concerné.
+     5. Mettez à jour le nombre total (voir plus haut).
+
+     MODÈLE À COPIER (musicien avec photo) :
+
+      <div class="member-card" data-section="PUPITRE_EN_MINUSCULES" data-aos
+           onclick="openMember('PRENOM NOM','PUPITRE','images/Membres/nom_prenom.jpg')">
+        <div class="member-photo-wrap"><img src="images/Membres/nom_prenom.jpg" alt="PRENOM NOM" class="member-photo"></div>
+        <div class="member-info"><div class="member-name">PRENOM NOM</div><div class="member-role">PUPITRE</div></div>
+      </div>
+
+     MODÈLE À COPIER (musicien sans photo) :
+
+      <div class="member-card" data-section="PUPITRE_EN_MINUSCULES" data-aos
+           onclick="openMemberNoPhoto('PRENOM NOM','PUPITRE')">
+        <div class="member-photo-wrap">
+          <div class="member-no-photo"><i class="fa-solid fa-user" style="font-size:2rem"></i></div>
+        </div>
+        <div class="member-info"><div class="member-name">PRENOM NOM</div><div class="member-role">PUPITRE</div></div>
+      </div>
+
+     NOTE : PUPITRE_EN_MINUSCULES doit être exactement l'un de :
+     directeur, percussions, clairons, trompettes, trombones, cors,
+     basses, clarinettes, hautbois, flutes, saxophones
+     (c'est ce qui fait fonctionner les boutons de filtre en haut de page)
+
+     ~~~ SUPPRIMER UN MUSICIEN ~~~
+     1. Supprimez tout son bloc, de  <div class="member-card"  jusqu'au
+        </div> qui le ferme (5 ou 6 lignes).
+     2. Diminuez de 1 le  pupitre-count  du pupitre.
+     3. Mettez à jour le nombre total (voir plus haut).
+
+     #####################################################################
+     ##################################################################### -->
 
 <!-- MUSICIENS PAR PUPITRE -->
 <section class="section section-light" style="padding-top:clamp(1.5rem,3vw,2.5rem)">
@@ -360,6 +437,7 @@
         <div class="pupitre-count">4</div>
       </div>
       <div class="pupitre-line"></div>
+      <img src="images/instruments/batterie.png" alt="Batterie" class="pupitre-instr" loading="lazy">
     </div>
     <div class="members-grid">
       <div class="member-card" data-section="percussions" data-aos
@@ -391,6 +469,7 @@
         <div class="pupitre-count">5</div>
       </div>
       <div class="pupitre-line"></div>
+      <img src="images/instruments/clairon.png" alt="Clairon" class="pupitre-instr" loading="lazy">
     </div>
     <div class="members-grid">
       <div class="member-card" data-section="clairons" data-aos
@@ -427,6 +506,7 @@
         <div class="pupitre-count">6</div>
       </div>
       <div class="pupitre-line"></div>
+      <img src="images/instruments/trompette.png" alt="Trompette" class="pupitre-instr" loading="lazy">
     </div>
     <div class="members-grid">
       <div class="member-card" data-section="trompettes" data-aos
@@ -471,6 +551,7 @@
         <div class="pupitre-count">1</div>
       </div>
       <div class="pupitre-line"></div>
+      <img src="images/instruments/trombone.png" alt="Trombone" class="pupitre-instr" loading="lazy">
     </div>
     <div class="members-grid">
       <div class="member-card" data-section="trombones" data-aos
@@ -487,6 +568,7 @@
         <div class="pupitre-count">2</div>
       </div>
       <div class="pupitre-line"></div>
+      <img src="images/instruments/cor.png" alt="Cor" class="pupitre-instr" loading="lazy">
     </div>
     <div class="members-grid" style="max-width:440px">
       <div class="member-card" data-section="cors" data-aos
@@ -508,6 +590,7 @@
         <div class="pupitre-count">4</div>
       </div>
       <div class="pupitre-line"></div>
+      <img src="images/instruments/tuba.png" alt="Tuba" class="pupitre-instr" loading="lazy">
     </div>
     <div class="members-grid">
       <div class="member-card" data-section="basses" data-aos
@@ -539,6 +622,7 @@
         <div class="pupitre-count">9</div>
       </div>
       <div class="pupitre-line"></div>
+      <img src="images/instruments/clarinette.png" alt="Clarinette" class="pupitre-instr" loading="lazy">
     </div>
     <div class="members-grid">
       <div class="member-card" data-section="clarinettes" data-aos
@@ -611,6 +695,7 @@
         <div class="pupitre-count">7</div>
       </div>
       <div class="pupitre-line"></div>
+      <img src="images/instruments/flute.png" alt="Flûte traversière" class="pupitre-instr" loading="lazy">
     </div>
     <div class="members-grid">
       <div class="member-card" data-section="flutes" data-aos
@@ -657,6 +742,7 @@
         <div class="pupitre-count">7</div>
       </div>
       <div class="pupitre-line"></div>
+      <img src="images/instruments/saxophone.png" alt="Saxophone" class="pupitre-instr" loading="lazy">
     </div>
     <div class="members-grid">
       <div class="member-card" data-section="saxophones" data-aos
