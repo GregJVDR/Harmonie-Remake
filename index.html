@@ -638,6 +638,19 @@
       transform: translateY(-3px) scale(1.02);
       box-shadow: 0 10px 28px rgba(24,119,242,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
     }
+    .icard-social .card-icon { background: linear-gradient(135deg, #1877F2, #4293f5); box-shadow: 0 4px 20px rgba(24,119,242,0.4), inset 0 1px 0 rgba(255,255,255,0.3); }
+    .icard-social .social-links { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.85rem; }
+    .icard-social .social-links .btn { margin-top: 0; }
+    .btn-instagram {
+      background: linear-gradient(135deg, #833ab4, #e1306c 55%, #f77737);
+      color: #fff;
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 16px rgba(225,48,108,0.35), inset 0 1px 0 rgba(255,255,255,0.25);
+    }
+    .btn-instagram:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 28px rgba(225,48,108,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
+    }
 
     /* Rétrospective */
     .recent-item {
@@ -997,55 +1010,55 @@
         </div>
         <div class="event-info">
           <div class="event-title-row">
-            <h3>Manifestation de l'Harmonie</h3>
-            <span class="badge badge-gold">Événement</span>
+            <h3>À la découverte des associations</h3>
+            <span class="badge badge-green">Animation</span>
           </div>
           <div class="event-meta">
-            <span><i class="fa-solid fa-clock" aria-hidden="true"></i> 11h00</span>
-            <span><i class="fa-solid fa-calendar" aria-hidden="true"></i> Samedi 12 Septembre 2026</span>
+            <span><i class="fa-solid fa-clock" aria-hidden="true"></i> 10h00 – 16h30</span>
+            <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Pont de Roide-Vermondans</span>
           </div>
           <p class="event-desc">
-            Rendez-vous le samedi 12 septembre à 11h00. Programme détaillé communiqué prochainement.
+            Journée de présentation des associations locales. Venez rencontrer l'Harmonie et découvrir nos activités.
           </p>
         </div>
       </div>
 
       <div class="event-card" data-aos data-aos-delay="100">
         <div class="event-date-box">
-          <span class="day">03</span>
-          <span class="month">Mai</span>
+          <span class="day">10</span>
+          <span class="month">Oct</span>
         </div>
         <div class="event-info">
           <div class="event-title-row">
-            <h3>Concert de Printemps</h3>
-            <span class="badge badge-blue">Concert</span>
+            <h3>Loto</h3>
+            <span class="badge badge-gold">Événement</span>
           </div>
           <div class="event-meta">
-            <span><i class="fa-solid fa-clock" aria-hidden="true"></i> 16h00</span>
-            <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Grand Kursaal - Besançon</span>
+            <span><i class="fa-solid fa-clock" aria-hidden="true"></i> 20h00</span>
+            <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Pont de Roide-Vermondans</span>
           </div>
           <p class="event-desc">
-            Concert exceptionnel dans la magnifique salle du Grand Kursaal de Besançon. Entrée libre.
+            Grand loto organisé par l'Harmonie. Ouverture des portes en soirée, nombreux lots à gagner.
           </p>
         </div>
       </div>
 
       <div class="event-card" data-aos data-aos-delay="200">
         <div class="event-date-box">
-          <span class="day">08</span>
-          <span class="month">Mai</span>
+          <span class="day">11</span>
+          <span class="month">Oct</span>
         </div>
         <div class="event-info">
           <div class="event-title-row">
-            <h3>Commémoration du 8 Mai</h3>
-            <span class="badge badge-gold">Cérémonie</span>
+            <h3>Vide-grenier</h3>
+            <span class="badge badge-green">Animation</span>
           </div>
           <div class="event-meta">
-            <span><i class="fa-solid fa-clock" aria-hidden="true"></i> 9h45 – 12h00</span>
+            <span><i class="fa-solid fa-clock" aria-hidden="true"></i> 8h00 – 16h00</span>
             <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Pont de Roide-Vermondans</span>
           </div>
           <p class="event-desc">
-            Commémoration de la Victoire du 8 Mai 1945. Cérémonie patriotique avec défilé.
+            Vide-grenier annuel de l'Harmonie. Exposants et visiteurs bienvenus, buvette et restauration sur place.
           </p>
         </div>
       </div>
@@ -1090,14 +1103,19 @@
               <p>Retrouvez les informations publiques et annonces du comité directement sur le site.</p>
             </div>
           </div>
-          <div class="card icard icard-fb">
-            <div class="card-icon"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></div>
+          <div class="card icard icard-social">
+            <div class="card-icon"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i></div>
             <div>
-              <h4>Suivez-nous sur Facebook</h4>
+              <h4>Suivez-nous sur les réseaux</h4>
               <p>Retrouvez toute notre actualité, photos et vidéos en temps réel.</p>
-              <a href="https://www.facebook.com/people/Harmonie-Fanfare-Rudipontaine/100057406793498/" target="_blank" rel="noopener" class="btn btn-sm btn-facebook">
-                <i class="fa-brands fa-facebook-f" aria-hidden="true"></i> Notre page Facebook
-              </a>
+              <div class="social-links">
+                <a href="https://www.facebook.com/people/Harmonie-Fanfare-Rudipontaine/100057406793498/" target="_blank" rel="noopener" class="btn btn-sm btn-facebook">
+                  <i class="fa-brands fa-facebook-f" aria-hidden="true"></i> Facebook
+                </a>
+                <a href="https://www.instagram.com/harmonie_rudipontaine/" target="_blank" rel="noopener" class="btn btn-sm btn-instagram">
+                  <i class="fa-brands fa-instagram" aria-hidden="true"></i> Instagram
+                </a>
+              </div>
             </div>
           </div>
         </div>

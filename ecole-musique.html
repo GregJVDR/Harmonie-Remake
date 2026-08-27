@@ -14,6 +14,19 @@
   <link rel="stylesheet" href="css/style.css">
   <style>
     /* ── Vitrine des instruments ── */
+    /* Pastille d'icône contenant la photo d'un instrument */
+    .card-icon-instr {
+      background: linear-gradient(135deg, #ffffff, #e9eef5);
+      padding: 7px;
+      box-shadow: 0 4px 20px rgba(8,29,49,0.35), inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    .card-icon-instr img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
     .instru-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -109,7 +122,8 @@
         <p style="color:var(--c-text-muted);line-height:1.9">
           Nos enseignants sont certifiés par la <strong style="color:var(--c-white)">Confédération Musicale de France</strong>
           et proposent des cours adaptés à chaque profil : débutants, intermédiaires ou musiciens avancés.
-          L'école alimente naturellement l'orchestre junior et l'harmonie en nouveaux talents.
+          L'école alimente naturellement la classe d'orchestre, l'orchestre junior et l'harmonie
+          en nouveaux talents.
         </p>
         <div style="margin-top:2rem">
           <a href="#inscription" class="btn btn-primary">
@@ -133,7 +147,7 @@
             <div class="label">Élèves Inscrits</div>
           </div>
           <div class="stat-card">
-            <div class="num" data-count="11">11</div>
+            <div class="num" data-count="12">12</div>
             <div class="label">Instruments Enseignés</div>
           </div>
           <div class="stat-card">
@@ -176,7 +190,7 @@
       </div>
 
       <div class="card" data-aos data-aos-delay="200">
-        <div class="card-icon"><i class="fa-solid fa-trumpet" style="font-size:1.3rem">🎺</i></div>
+        <div class="card-icon card-icon-instr"><img src="images/instruments/trompette.png" alt="" aria-hidden="true" loading="lazy"></div>
         <h3 style="margin-bottom:.75rem">Cuivres</h3>
         <p style="color:var(--c-text-muted);font-size:.9rem">
           Trompette, cor, trombone, tuba, euphonium… Les cuivres constituent le cœur
@@ -188,7 +202,7 @@
       </div>
 
       <div class="card" data-aos data-aos-delay="300">
-        <div class="card-icon">🥁</div>
+        <div class="card-icon card-icon-instr"><img src="images/instruments/batterie.png" alt="" aria-hidden="true" loading="lazy"></div>
         <h3 style="margin-bottom:.75rem">Percussions</h3>
         <p style="color:var(--c-text-muted);font-size:.9rem">
           Caisse claire, batterie, timbales, marimba, xylophone… L'univers des percussions
@@ -200,7 +214,7 @@
       </div>
 
       <div class="card" data-aos data-aos-delay="100">
-        <div class="card-icon">🎷</div>
+        <div class="card-icon card-icon-instr"><img src="images/instruments/saxophone.png" alt="" aria-hidden="true" loading="lazy"></div>
         <h3 style="margin-bottom:.75rem">Bois</h3>
         <p style="color:var(--c-text-muted);font-size:.9rem">
           Clarinette, saxophone, flûte traversière, hautbois… Les instruments à vent en bois
@@ -213,11 +227,16 @@
 
       <div class="card" data-aos data-aos-delay="200">
         <div class="card-icon"><i class="fa-solid fa-users"></i></div>
-        <h3 style="margin-bottom:.75rem">Orchestre Junior</h3>
+        <h3 style="margin-bottom:.75rem">Pratique d'Ensemble</h3>
         <p style="color:var(--c-text-muted);font-size:.9rem">
-          Les élèves avancés rejoignent l'Orchestre Junior pour vivre l'expérience
-          de la musique d'ensemble avant d'intégrer l'harmonie principale.
+          Dès le niveau <strong>1B</strong>, la classe d'orchestre initie les élèves au jeu en groupe.
+          En <strong>1C</strong>, ils rejoignent l'Orchestre Junior, puis l'harmonie principale en
+          <strong>2A</strong> une fois la fin de cycle 1 validée.
         </p>
+        <div style="margin-top:1rem;display:flex;gap:.5rem;flex-wrap:wrap">
+          <span class="badge badge-green">Classe d'orchestre · 1B</span>
+          <span class="badge badge-gold">Orchestre Junior · 1C</span>
+        </div>
         <a href="orchestre-junior.html" style="margin-top:1rem;display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--c-accent);font-weight:500">
           En savoir plus <i class="fa-solid fa-arrow-right" style="font-size:.75rem"></i>
         </a>
@@ -280,48 +299,53 @@
         <div class="instru-fam">Bois</div>
       </div>
       <div class="instru-card" data-aos data-aos-delay="100">
+        <img src="images/instruments/haut-bois.png" alt="Hautbois" class="instru-img" loading="lazy">
+        <div class="instru-name">Hautbois</div>
+        <div class="instru-fam">Bois</div>
+      </div>
+      <div class="instru-card" data-aos data-aos-delay="150">
         <img src="images/instruments/clarinette.png" alt="Clarinette" class="instru-img" loading="lazy">
         <div class="instru-name">Clarinette</div>
         <div class="instru-fam">Bois</div>
       </div>
-      <div class="instru-card" data-aos data-aos-delay="150">
+      <div class="instru-card" data-aos data-aos-delay="200">
         <img src="images/instruments/saxophone.png" alt="Saxophone" class="instru-img" loading="lazy">
         <div class="instru-name">Saxophone</div>
         <div class="instru-fam">Bois</div>
       </div>
-      <div class="instru-card" data-aos data-aos-delay="200">
+      <div class="instru-card" data-aos data-aos-delay="250">
         <img src="images/instruments/trompette.png" alt="Trompette" class="instru-img" loading="lazy">
         <div class="instru-name">Trompette</div>
         <div class="instru-fam">Cuivres</div>
       </div>
-      <div class="instru-card" data-aos data-aos-delay="225">
+      <div class="instru-card" data-aos data-aos-delay="300">
         <img src="images/instruments/clairon.png" alt="Clairon" class="instru-img" loading="lazy">
         <div class="instru-name">Clairon</div>
         <div class="instru-fam">Cuivres</div>
       </div>
-      <div class="instru-card" data-aos data-aos-delay="250">
+      <div class="instru-card" data-aos data-aos-delay="350">
         <img src="images/instruments/cor.png" alt="Cor" class="instru-img" loading="lazy">
         <div class="instru-name">Cor</div>
         <div class="instru-fam">Cuivres</div>
       </div>
-      <div class="instru-card" data-aos data-aos-delay="300">
+      <div class="instru-card" data-aos data-aos-delay="400">
         <img src="images/instruments/trombone.png" alt="Trombone" class="instru-img" loading="lazy">
         <div class="instru-name">Trombone</div>
         <div class="instru-fam">Cuivres</div>
       </div>
-      <div class="instru-card" data-aos data-aos-delay="350">
+      <div class="instru-card" data-aos data-aos-delay="450">
         <img src="images/instruments/tuba.png" alt="Tuba" class="instru-img" loading="lazy">
         <div class="instru-name">Tuba</div>
         <div class="instru-fam">Cuivres</div>
       </div>
-      <div class="instru-card" data-aos data-aos-delay="400">
+      <div class="instru-card" data-aos data-aos-delay="500">
         <img src="images/instruments/sousaphone.png" alt="Sousaphone" class="instru-img" loading="lazy">
         <div class="instru-name">Sousaphone</div>
         <div class="instru-fam">Cuivres</div>
       </div>
-      <div class="instru-card" data-aos data-aos-delay="450">
-        <img src="images/instruments/batterie.png" alt="Batterie" class="instru-img" loading="lazy">
-        <div class="instru-name">Batterie</div>
+      <div class="instru-card" data-aos data-aos-delay="550">
+        <img src="images/instruments/batterie.png" alt="Percussions" class="instru-img" loading="lazy">
+        <div class="instru-name">Percussions</div>
         <div class="instru-fam">Percussions</div>
       </div>
     </div>

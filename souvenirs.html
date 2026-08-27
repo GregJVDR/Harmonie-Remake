@@ -144,7 +144,8 @@
              puis modifiez :
                1. data-year="2026"          : l'année (sert au filtre)
                2. onclick="openLightbox('...')" : le nom de l'album
-               3. L'émoji décoratif (🎭, 🎺, ...)
+               3. L'icône décorative : la classe fa-… dans
+                  <i class="fa-solid fa-…"> (voir fontawesome.com/icons)
                4. Le badge de l'année (en haut à droite de la carte)
                5. Le titre <h4> et la date sous la carte
              Si l'année n'existe pas dans les boutons de filtre plus haut,
@@ -159,7 +160,7 @@
           <div class="card" style="padding:0;overflow:hidden;cursor:pointer" data-year="2026" data-aos onclick="openLightbox('Carnaval 2026')">
             <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#1a2a4a 0%,#0d1b33 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.75rem;position:relative;overflow:hidden">
               <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 40% 40%,rgba(29,111,164,0.4),transparent 60%)"></div>
-              <span style="font-size:3rem;position:relative">🎭</span>
+              <span style="font-size:2.1rem;position:relative;color:var(--c-accent)"><i class="fa-solid fa-masks-theater" aria-hidden="true"></i></span>
               <span style="font-size:.82rem;color:var(--c-text-muted);position:relative">Cliquer pour agrandir</span>
               <div style="position:absolute;top:.75rem;right:.75rem"><span class="badge badge-blue">2026</span></div>
             </div>
@@ -175,7 +176,7 @@
           <div class="card" style="padding:0;overflow:hidden;cursor:pointer" data-year="2026" data-aos data-aos-delay="100" onclick="openLightbox('Concert de Printemps 2026')">
             <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#1a3344 0%,#0d2233 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.75rem;position:relative;overflow:hidden">
               <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 60% 30%,rgba(46,142,207,0.3),transparent 60%)"></div>
-              <span style="font-size:3rem;position:relative">🎺</span>
+              <span style="font-size:2.1rem;position:relative;color:var(--c-accent)"><i class="fa-solid fa-music" aria-hidden="true"></i></span>
               <span style="font-size:.82rem;color:var(--c-text-muted);position:relative">Cliquer pour agrandir</span>
               <div style="position:absolute;top:.75rem;right:.75rem"><span class="badge badge-blue">2026</span></div>
             </div>
@@ -191,7 +192,7 @@
           <div class="card" style="padding:0;overflow:hidden;cursor:pointer" data-year="2025" data-aos data-aos-delay="200" onclick="openLightbox('Concert de Noël 2025')">
             <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#1a2040 0%,#0d1428 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.75rem;position:relative;overflow:hidden">
               <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(200,168,75,0.2),transparent 60%)"></div>
-              <span style="font-size:3rem;position:relative">🎄</span>
+              <span style="font-size:2.1rem;position:relative;color:var(--c-gold-light)"><i class="fa-solid fa-tree" aria-hidden="true"></i></span>
               <span style="font-size:.82rem;color:var(--c-text-muted);position:relative">Cliquer pour agrandir</span>
               <div style="position:absolute;top:.75rem;right:.75rem"><span class="badge badge-gold">2025</span></div>
             </div>
@@ -206,7 +207,7 @@
 
           <div class="card" style="padding:0;overflow:hidden;cursor:pointer" data-year="2025" data-aos data-aos-delay="300" onclick="openLightbox('Galerie 2025')">
             <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#112040 0%,#0a1428 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.75rem;position:relative;overflow:hidden">
-              <span style="font-size:3rem;position:relative">📸</span>
+              <span style="font-size:2.1rem;position:relative;color:var(--c-gold-light)"><i class="fa-solid fa-camera-retro" aria-hidden="true"></i></span>
               <span style="font-size:.82rem;color:var(--c-text-muted);position:relative">Cliquer pour agrandir</span>
               <div style="position:absolute;top:.75rem;right:.75rem"><span class="badge badge-gold">2025</span></div>
             </div>
@@ -221,7 +222,7 @@
 
           <div class="card" style="padding:0;overflow:hidden;cursor:pointer" data-year="2024" data-aos data-aos-delay="100" onclick="openLightbox('Galerie 2024')">
             <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#0f1c38 0%,#081220 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.75rem;position:relative;overflow:hidden">
-              <span style="font-size:3rem;position:relative">🎵</span>
+              <span style="font-size:2.1rem;position:relative;color:#94a3b8"><i class="fa-solid fa-photo-film" aria-hidden="true"></i></span>
               <span style="font-size:.82rem;color:var(--c-text-muted);position:relative">Cliquer pour agrandir</span>
               <div style="position:absolute;top:.75rem;right:.75rem"><span class="badge" style="background:rgba(100,116,139,0.2);color:#94a3b8;border-color:rgba(100,116,139,0.2)">2024</span></div>
             </div>
@@ -288,7 +289,7 @@
         <div style="display:grid;gap:1.5rem;max-width:820px">
 
           <div class="press-card" data-aos>
-            <div style="flex-shrink:0;width:56px;height:56px;border-radius:var(--radius-md);background:rgba(29,111,164,0.15);border:1px solid rgba(29,111,164,0.2);display:flex;align-items:center;justify-content:center;font-size:1.5rem">📰</div>
+            <div style="flex-shrink:0;width:56px;height:56px;border-radius:var(--radius-md);background:rgba(29,111,164,0.15);border:1px solid rgba(29,111,164,0.2);display:flex;align-items:center;justify-content:center;font-size:1.35rem;color:var(--c-accent)"><i class="fa-solid fa-newspaper" aria-hidden="true"></i></div>
             <div style="flex:1">
               <div class="badge badge-blue" style="margin-bottom:.6rem">Mars 2026</div>
               <h4 style="margin-bottom:.4rem">Concert de Printemps - L'Harmonie en vedette</h4>
@@ -303,7 +304,7 @@
           </div>
 
           <div class="press-card" data-aos data-aos-delay="100">
-            <div style="flex-shrink:0;width:56px;height:56px;border-radius:var(--radius-md);background:rgba(29,111,164,0.15);border:1px solid rgba(29,111,164,0.2);display:flex;align-items:center;justify-content:center;font-size:1.5rem">📰</div>
+            <div style="flex-shrink:0;width:56px;height:56px;border-radius:var(--radius-md);background:rgba(29,111,164,0.15);border:1px solid rgba(29,111,164,0.2);display:flex;align-items:center;justify-content:center;font-size:1.35rem;color:var(--c-accent)"><i class="fa-solid fa-newspaper" aria-hidden="true"></i></div>
             <div style="flex:1">
               <div class="badge badge-gold" style="margin-bottom:.6rem">Janvier 2025</div>
               <h4 style="margin-bottom:.4rem">Un Nouveau Chapitre pour l'Harmonie Rudipontaine</h4>
@@ -318,7 +319,7 @@
           </div>
 
           <div class="press-card" data-aos data-aos-delay="200">
-            <div style="flex-shrink:0;width:56px;height:56px;border-radius:var(--radius-md);background:rgba(29,111,164,0.15);border:1px solid rgba(29,111,164,0.2);display:flex;align-items:center;justify-content:center;font-size:1.5rem">📰</div>
+            <div style="flex-shrink:0;width:56px;height:56px;border-radius:var(--radius-md);background:rgba(29,111,164,0.15);border:1px solid rgba(29,111,164,0.2);display:flex;align-items:center;justify-content:center;font-size:1.35rem;color:var(--c-accent)"><i class="fa-solid fa-newspaper" aria-hidden="true"></i></div>
             <div style="flex:1">
               <div class="badge badge-gold" style="margin-bottom:.6rem">Décembre 2024</div>
               <h4 style="margin-bottom:.4rem">Concert de Noël - Une Belle Réussite</h4>
@@ -333,7 +334,7 @@
           </div>
 
           <div class="press-card" data-aos data-aos-delay="300">
-            <div style="flex-shrink:0;width:56px;height:56px;border-radius:var(--radius-md);background:rgba(29,111,164,0.15);border:1px solid rgba(29,111,164,0.2);display:flex;align-items:center;justify-content:center;font-size:1.5rem">📰</div>
+            <div style="flex-shrink:0;width:56px;height:56px;border-radius:var(--radius-md);background:rgba(29,111,164,0.15);border:1px solid rgba(29,111,164,0.2);display:flex;align-items:center;justify-content:center;font-size:1.35rem;color:var(--c-accent)"><i class="fa-solid fa-newspaper" aria-hidden="true"></i></div>
             <div style="flex:1">
               <div class="badge" style="background:rgba(100,116,139,0.2);color:#94a3b8;border-color:rgba(100,116,139,0.2);margin-bottom:.6rem">2013</div>
               <h4 style="margin-bottom:.4rem">Inauguration de la Salle Georges Contal</h4>
@@ -358,7 +359,7 @@
 <div class="lightbox" id="lightbox">
   <button class="lightbox-close" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></button>
   <div style="text-align:center;padding:2rem;max-width:600px">
-    <div style="font-size:5rem;margin-bottom:1.5rem">📷</div>
+    <div style="font-size:3.4rem;margin-bottom:1.5rem;color:var(--c-accent)"><i class="fa-solid fa-camera-retro" aria-hidden="true"></i></div>
     <h3 id="lightbox-title" style="margin-bottom:.75rem">Album</h3>
     <p style="color:var(--c-text-muted);margin-bottom:2rem">
       Les photos de cet album seront disponibles après upload.<br>

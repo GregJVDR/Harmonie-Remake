@@ -117,6 +117,7 @@
   <div class="mobile-nav-footer">
     <div class="mobile-nav-socials">
       <a href="https://www.facebook.com/people/Harmonie-Fanfare-Rudipontaine/100057406793498/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="https://www.instagram.com/harmonie_rudipontaine/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
       <a href="mailto:contact@harmonie-pont-de-roide.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
     </div>
     <p class="mobile-nav-copyright">© 2026 Harmonie Fanfare Rudipontaine</p>
@@ -138,7 +139,7 @@
         <p class="desc">Association musicale fondée en 1922 à Pont de Roide-Vermondans. 38 musiciens actifs et 49 élèves à l'école de musique.</p>
         <div class="footer-social">
           <a href="https://www.facebook.com/harmoniefanfarerudipontaine" target="_blank" rel="noopener" class="social-btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="#" class="social-btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.instagram.com/harmonie_rudipontaine/" target="_blank" rel="noopener" class="social-btn" title="Instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
           <a href="mailto:contact@harmonie-pont-de-roide.com" class="social-btn" title="Email"><i class="fa-solid fa-envelope"></i></a>
         </div>
       </div>
