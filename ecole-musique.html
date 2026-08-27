@@ -425,6 +425,10 @@
             <label class="form-label">Message</label>
             <textarea id="insc-message" class="form-control" rows="3" placeholder="Âge, niveau, questions..."></textarea>
           </div>
+          <!-- Champ invisible : seuls les robots le remplissent, ce qui permet de les écarter. -->
+          <div style="position:absolute;left:-9999px" aria-hidden="true">
+            <label>Ne rien écrire ici <input type="text" id="insc-site" name="site" tabindex="-1" autocomplete="off"></label>
+          </div>
           <button type="submit" class="btn btn-primary" style="justify-content:center">
             <i class="fa-solid fa-paper-plane"></i> Envoyer la demande
           </button>
@@ -438,9 +442,12 @@
 <script>
   /* #################################################################
      ENVOI DU FORMULAIRE D'INSCRIPTION
-     Le bouton "Envoyer la demande" ouvre le logiciel de messagerie du
-     visiteur avec un e-mail tout prêt, adressé à l'association.
-     Pour changer l'adresse de réception, modifiez la ligne ci-dessous.
+     La demande part directement du site vers la boîte mail de
+     l'association (fichier contact.php).
+     POUR CHANGER L'ADRESSE DE RÉCEPTION : ouvrez  contact.php  et
+     modifiez la ligne  $DESTINATAIRE  (une seule ligne, tout en haut).
+     Si le serveur ne peut pas envoyer, le formulaire ouvre le logiciel
+     de messagerie du visiteur : rien n'est perdu.
      ################################################################# */
   var EMAIL_CONTACT = 'contact@harmonie-pont-de-roide.com';
 
@@ -451,15 +458,29 @@
     var tel        = document.getElementById('insc-tel').value;
     var instrument = document.getElementById('insc-instrument').value;
     var message    = document.getElementById('insc-message').value;
-    var corps = 'Nom : ' + nom
-      + '\nEmail : ' + email
-      + '\nTéléphone : ' + (tel || 'non renseigné')
-      + '\nInstrument souhaité : ' + (instrument || 'non renseigné')
-      + '\n\nMessage :\n' + (message || '(aucun)');
-    window.location.href = 'mailto:' + EMAIL_CONTACT
-      + '?subject=' + encodeURIComponent('[Site] Demande de renseignements école de musique - ' + nom)
-      + '&body=' + encodeURIComponent(corps);
-    showToast('Votre logiciel de messagerie va s\'ouvrir avec la demande prête à envoyer.');
+
+    var champs = new FormData();
+    champs.append('formulaire', 'ecole');
+    champs.append('nom', nom);
+    champs.append('email', email);
+    champs.append('telephone', tel);
+    champs.append('instrument', instrument);
+    champs.append('message', message);
+    champs.append('site', document.getElementById('insc-site').value);   // piège à robots
+
+    function parMessagerie() {
+      var corps = 'Nom : ' + nom
+        + '\nEmail : ' + email
+        + '\nTéléphone : ' + (tel || 'non renseigné')
+        + '\nInstrument souhaité : ' + (instrument || 'non renseigné')
+        + '\n\nMessage :\n' + (message || '(aucun)');
+      window.location.href = 'mailto:' + EMAIL_CONTACT
+        + '?subject=' + encodeURIComponent('[Site] Demande de renseignements école de musique - ' + nom)
+        + '&body=' + encodeURIComponent(corps);
+      showToast('Votre logiciel de messagerie va s\'ouvrir avec la demande prête à envoyer.');
+    }
+
+    envoyerFormulaire(this, champs, parMessagerie);
   });
 </script>
 </body>

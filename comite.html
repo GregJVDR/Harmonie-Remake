@@ -191,6 +191,10 @@
             <label class="form-label">Message *</label>
             <textarea id="contact-message" class="form-control" rows="5" placeholder="Votre message..." required></textarea>
           </div>
+          <!-- Champ invisible : seuls les robots le remplissent, ce qui permet de les écarter. -->
+          <div style="position:absolute;left:-9999px" aria-hidden="true">
+            <label>Ne rien écrire ici <input type="text" id="contact-site" name="site" tabindex="-1" autocomplete="off"></label>
+          </div>
           <button type="submit" class="btn btn-primary" style="justify-content:center">
             <i class="fa-solid fa-paper-plane"></i> Envoyer
           </button>
@@ -204,9 +208,12 @@
 <script>
   /* #################################################################
      ENVOI DU FORMULAIRE DE CONTACT
-     Le bouton "Envoyer" ouvre le logiciel de messagerie du visiteur
-     avec un e-mail tout prêt, adressé à l'association.
-     Pour changer l'adresse de réception, modifiez la ligne ci-dessous.
+     Le message part directement du site vers la boîte mail de
+     l'association (fichier contact.php).
+     POUR CHANGER L'ADRESSE DE RÉCEPTION : ouvrez  contact.php  et
+     modifiez la ligne  $DESTINATAIRE  (une seule ligne, tout en haut).
+     Si le serveur ne peut pas envoyer, le formulaire ouvre le logiciel
+     de messagerie du visiteur : rien n'est perdu.
      ################################################################# */
   var EMAIL_CONTACT = 'contact@harmonie-pont-de-roide.com';
 
@@ -216,11 +223,24 @@
     var email   = document.getElementById('contact-email').value;
     var sujet   = document.getElementById('contact-sujet').value;
     var message = document.getElementById('contact-message').value;
-    var corps = 'Nom : ' + nom + '\nEmail : ' + email + '\n\nMessage :\n' + message;
-    window.location.href = 'mailto:' + EMAIL_CONTACT
-      + '?subject=' + encodeURIComponent('[Site] ' + sujet + ' - ' + nom)
-      + '&body=' + encodeURIComponent(corps);
-    showToast('Votre logiciel de messagerie va s\'ouvrir avec le message prêt à envoyer.');
+
+    var champs = new FormData();
+    champs.append('formulaire', 'contact');
+    champs.append('nom', nom);
+    champs.append('email', email);
+    champs.append('sujet', sujet);
+    champs.append('message', message);
+    champs.append('site', document.getElementById('contact-site').value);   // piège à robots
+
+    function parMessagerie() {
+      var corps = 'Nom : ' + nom + '\nEmail : ' + email + '\n\nMessage :\n' + message;
+      window.location.href = 'mailto:' + EMAIL_CONTACT
+        + '?subject=' + encodeURIComponent('[Site] ' + sujet + ' - ' + nom)
+        + '&body=' + encodeURIComponent(corps);
+      showToast('Votre logiciel de messagerie va s\'ouvrir avec le message prêt à envoyer.');
+    }
+
+    envoyerFormulaire(this, champs, parMessagerie);
   });
 </script>
 </body>

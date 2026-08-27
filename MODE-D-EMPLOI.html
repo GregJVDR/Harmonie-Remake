@@ -290,6 +290,7 @@
         <tr><td>repertoire.html</td><td>Le répertoire joué</td></tr>
         <tr><td>orchestre-junior.html</td><td>L'orchestre junior</td></tr>
         <tr><td>js/chiffres.js</td><td>Le nombre d'élèves et l'année de fondation</td></tr>
+        <tr><td>contact.php</td><td>L'envoi des formulaires : l'adresse qui reçoit les messages</td></tr>
         <tr><td>images/souvenirs/</td><td>Les photos de la galerie (un dossier = un album)</td></tr>
         <tr><td>images/Membres/</td><td>Les portraits des musiciens et du comité</td></tr>
       </tbody>
@@ -306,6 +307,7 @@
     <a href="#instruments"><span class="n">6</span> Les instruments</a>
     <a href="#cd"><span class="n">7</span> Les disques</a>
     <a href="#textes"><span class="n">8</span> Un texte, une date</a>
+    <a href="#formulaires"><span class="n">9</span> Les formulaires</a>
   </div>
 
   <!-- ─────────────── FICHE 1 ─────────────── -->
@@ -615,6 +617,52 @@
     </div>
   </section>
 
+  <!-- ─────────────── FICHE 9 ─────────────── -->
+  <section class="fiche" id="formulaires">
+    <h2><span class="n">Fiche 9</span> Les formulaires</h2>
+    <p class="ligne-fichier">Fichier à ouvrir : <span class="fichier">contact.php</span></p>
+
+    <p>
+      Le site a deux formulaires : le contact du comité et la demande de renseignements
+      de l'école de musique. Quand un visiteur les envoie, le message arrive directement
+      dans la boîte mail de l'association. Il n'y a rien à surveiller ni à relever ailleurs.
+    </p>
+
+    <h3>Changer l'adresse qui reçoit les messages</h3>
+    <p>Ouvrez <code>contact.php</code>. Tout en haut, une seule ligne est à modifier :</p>
+
+    <div class="a-copier">
+      <div class="a-copier-titre">Dans contact.php</div>
+<pre>// Adresse qui reçoit les messages des visiteurs
+$DESTINATAIRE = '<span class="chg">contact@harmonie-pont-de-roide.com</span>';</pre>
+    </div>
+
+    <p>
+      Gardez les apostrophes autour de l'adresse et le point-virgule à la fin.
+      Ne touchez pas à la ligne <code>$EXPEDITEUR</code> juste en dessous : l'hébergeur
+      n'accepte d'envoyer que depuis une adresse du domaine du site.
+    </p>
+
+    <h3>Vérifier que les envois fonctionnent</h3>
+    <p>Ouvrez dans votre navigateur :</p>
+    <div class="a-copier">
+<pre>https://le-site.fr/contact.php?test=1</pre>
+    </div>
+    <p>
+      La page indique où arrivent les messages et propose un bouton
+      <strong>Envoyer un message de test</strong>. Faites-le : le message doit arriver dans
+      la boîte de l'association en quelques minutes (regardez aussi les indésirables).
+    </p>
+
+    <div class="encart astuce">
+      <span class="etiquette">Pour répondre à un visiteur</span>
+      <p>
+        Cliquez simplement sur « Répondre » dans votre messagerie : la réponse part vers
+        l'adresse du visiteur, pas vers le site.
+      </p>
+    </div>
+  </section>
+
   <hr>
 
   <h2>Envoyer les modifications en ligne</h2>
@@ -660,6 +708,10 @@
         <tr>
           <td>La galerie est vide</td>
           <td>Ouvrez <code>galerie.php?test=1</code> sur le site : la page dit ce qui manque.</td>
+        </tr>
+        <tr>
+          <td>Plus aucun message des formulaires</td>
+          <td>Ouvrez <code>contact.php?test=1</code> et envoyez un message de test.</td>
         </tr>
         <tr>
           <td>Le doute</td>

@@ -260,6 +260,39 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
+/* ── Envoi d'un formulaire au serveur ──────────────────────────────
+   Utilisé par les formulaires de contact et d'inscription. Le message
+   part par contact.php. Si le serveur ne répond pas ou ne sait pas
+   envoyer d'e-mail, on retombe sur le logiciel de messagerie du
+   visiteur (fonction `secours`) : une demande n'est jamais perdue. */
+function envoyerFormulaire(formulaire, champs, secours) {
+  const bouton = formulaire.querySelector('[type="submit"]');
+  const texteInitial = bouton ? bouton.innerHTML : '';
+  if (bouton) {
+    bouton.disabled = true;
+    bouton.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Envoi en cours...';
+  }
+
+  const rendreLeBouton = () => {
+    if (!bouton) return;
+    bouton.disabled = false;
+    bouton.innerHTML = texteInitial;
+  };
+
+  fetch('contact.php', { method: 'POST', body: champs })
+    .then(reponse => reponse.json().then(donnees => ({ ok: reponse.ok, donnees })))
+    .then(({ ok, donnees }) => {
+      if (!ok || !donnees.ok) throw new Error(donnees.message || '');
+      showToast(donnees.message || 'Votre message a bien été envoyé.');
+      formulaire.reset();
+      rendreLeBouton();
+    })
+    .catch(() => {
+      rendreLeBouton();
+      secours();
+    });
+}
+
 function showToast(message, type = 'success') {
   const existing = document.querySelector('.toast');
   if (existing) existing.remove();
