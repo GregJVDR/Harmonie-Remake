@@ -162,25 +162,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ── Photo upload ── */
-  const photoUpload = document.getElementById('photo-upload');
-  const photoPreview = document.getElementById('photo-preview');
-  if (photoUpload && photoPreview) {
-    photoUpload.addEventListener('change', function() {
-      photoPreview.innerHTML = '';
-      Array.from(this.files).forEach(file => {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const div = document.createElement('div');
-          div.className = 'gallery-item';
-          div.innerHTML = `<img src="${e.target.result}" alt="${escapeHtml(file.name)}" style="width:100%;height:100%;object-fit:cover">`;
-          photoPreview.appendChild(div);
-        };
-        reader.readAsDataURL(file);
-      });
-    });
-  }
-
   /* ── Active nav link ── */
   const currentPage = location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-link[href]').forEach(link => {

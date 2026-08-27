@@ -1,0 +1,119 @@
+LES PHOTOS DU SITE
+==================
+
+UN DOSSIER = UN ALBUM sur la page Souvenirs du site.
+
+Vous n'avez que trois gestes à connaître : créer un dossier,
+y glisser des photos, en supprimer. Rien d'autre.
+Pas de fichier à modifier, pas de photo à renommer, pas de
+conversion à faire : le site s'occupe du reste tout seul.
+
+
+AJOUTER DES PHOTOS À UN ALBUM
+-----------------------------
+Glissez vos photos dans le dossier de l'album. C'est tout.
+
+
+SUPPRIMER UNE PHOTO
+-------------------
+Mettez le fichier à la corbeille. C'est tout.
+
+
+CRÉER UN NOUVEL ALBUM
+---------------------
+Créez un dossier ici et glissez-y les photos.
+
+Le nom du dossier donne la date et le titre affichés sur le site.
+Écrivez-le dans cet ordre : la date à l'envers, puis le titre.
+
+    2026-03-28 Concert de Printemps
+    ^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^
+    28 mars 2026    le titre affiché
+
+Autres exemples valables :
+
+    2026-06-21 Fête de la Musique      -> 21 juin 2026
+    2025-12 Concert de Noël            -> Décembre 2025
+    2024 Galerie de l'année            -> Année 2024
+
+Les albums s'affichent du plus récent au plus ancien, et les
+boutons d'années en haut de la galerie se créent tout seuls.
+
+Pour renommer un album ou corriger sa date : renommez le dossier.
+Pour supprimer un album : supprimez le dossier.
+
+
+METTRE EN LIGNE AVEC FILEZILLA
+------------------------------
+1. Ouvrez FileZilla et connectez-vous à l'hébergement.
+
+2. À gauche (votre ordinateur), ouvrez le dossier
+       images/souvenirs/
+   À droite (le site), ouvrez le même dossier
+       www/images/souvenirs/   (ou public_html/images/souvenirs/)
+
+3. Faites glisser le dossier de l'album de gauche à droite.
+   Pour supprimer une photo ou un album en ligne : clic droit sur
+   l'élément à DROITE > Supprimer.
+
+4. Rechargez la page Souvenirs du site : l'album est là.
+
+Il n'y a rien d'autre à envoyer : la galerie se construit à partir
+de ce que le serveur trouve dans le dossier. Vous n'avez jamais à
+toucher aux fichiers du site (.html, .js, .php).
+
+Astuce : gardez sur votre ordinateur le dossier images/souvenirs/
+identique à celui du site, vous saurez toujours ce qui est en ligne.
+
+
+CE QUE LE SITE FAIT TOUT SEUL
+-----------------------------
+Quand un visiteur regarde la galerie, le serveur :
+  - prépare une version légère de vos photos (format webp) pour que
+    la page s'affiche vite, même sur téléphone ;
+  - les réduit si elles sont très grandes ;
+  - retire au passage les données cachées de l'appareil photo
+    (lieu, date) de ce qui est envoyé aux visiteurs ;
+  - garde ces versions allégées en mémoire dans un dossier .cache
+    qu'il crée lui-même. Vous pouvez l'ignorer.
+
+Vos fichiers d'origine ne sont jamais modifiés.
+
+
+À SAVOIR
+--------
+- Formats acceptés : jpg, jpeg, png, gif, webp. Vous n'avez rien à
+  convertir vous-même.
+
+- Photos d'iPhone : réglez une fois pour toutes l'iPhone sur
+  Réglages > Appareil photo > Formats > « Le plus compatible ».
+  Sinon vos photos sont en .heic, un format que les navigateurs ne
+  savent pas afficher, et elles n'apparaîtront pas dans la galerie.
+
+- Le nom des fichiers photos n'a aucune importance : IMG_4587.jpg
+  convient très bien. Ils s'affichent par ordre alphabétique.
+
+- La première photo de l'album sert de vignette de couverture.
+  Pour choisir laquelle, renommez-la  couverture  (couverture.jpg).
+
+- Un dossier sans photo s'affiche comme « Album en cours » : pratique
+  pour annoncer un événement à venir.
+
+- Évitez les albums démesurés (au-delà de 60-80 photos, la page
+  devient longue à parcourir).
+
+- Attention au droit à l'image : ne publiez que des photos dont vous
+  avez l'accord des personnes reconnaissables, et en particulier des
+  parents pour les enfants de l'école de musique.
+
+
+SI LA GALERIE NE S'AFFICHE PAS
+------------------------------
+Ouvrez dans votre navigateur :
+
+    https://le-site.fr/galerie.php?test=1
+
+Cette page vérifie tout et affiche la liste des albums qu'elle voit.
+Chaque ligne doit être « OK » (la ligne « INFO » sur les photos
+iPhone est normale). En cas de doute, montrez cette page à la
+personne qui s'occupe du site.

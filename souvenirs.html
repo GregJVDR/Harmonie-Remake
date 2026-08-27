@@ -26,19 +26,6 @@
     .tab-content { display:none; }
     .tab-content.active { display:block; }
 
-    .upload-zone {
-      border: 2px dashed var(--c-border);
-      border-radius: var(--radius-lg);
-      padding: 3rem;
-      text-align: center;
-      transition: var(--transition);
-      cursor: pointer;
-    }
-    .upload-zone:hover, .upload-zone.drag-over {
-      border-color: var(--c-blue-light);
-      background: rgba(29,111,164,0.05);
-    }
-
     .press-card {
       background: var(--c-glass);
       border: 1px solid var(--c-border);
@@ -88,6 +75,54 @@
       transition: var(--transition);
     }
     .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+    /* Cartes d'albums */
+    .albums-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.5rem; }
+    .album-cover {
+      aspect-ratio:16/9; position:relative; overflow:hidden;
+      background:linear-gradient(135deg,#1a2a4a 0%,#0d1b33 100%);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .album-cover img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .5s ease; }
+    .card:hover .album-cover img { transform:scale(1.05); }
+    .album-vide { color:var(--c-accent); font-size:2.1rem; }
+    .album-badge { position:absolute; top:.75rem; right:.75rem; }
+
+    /* Galerie dans la fenêtre d'agrandissement */
+    .lb-panel { width: min(1100px, 92vw); max-height: 88vh; overflow-y: auto; padding: 3.5rem 1rem 2rem; }
+    .lb-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: .75rem;
+      margin-top: 1.5rem;
+    }
+    .lb-thumb {
+      aspect-ratio: 4/3;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: rgba(255,255,255,0.06);
+      border: none;
+      padding: 0;
+      cursor: zoom-in;
+    }
+    .lb-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s ease; }
+    .lb-thumb:hover img { transform: scale(1.06); }
+    .lb-solo { position: fixed; inset: 0; background: rgba(0,0,0,0.96); display: none; align-items: center; justify-content: center; z-index: 10; }
+    .lb-solo.open { display: flex; }
+    .lb-solo img { max-width: 92vw; max-height: 84vh; object-fit: contain; border-radius: var(--radius-md); }
+    .lb-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(255,255,255,0.12); border: none; color: #fff;
+      font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .lb-nav:hover { background: rgba(255,255,255,0.24); }
+    .lb-prev { left: 1.5rem; } .lb-next { right: 1.5rem; }
+    @media(max-width:600px) {
+      .lb-grid { grid-template-columns: repeat(2, 1fr); }
+      .lb-nav { width: 40px; height: 40px; }
+      .lb-prev { left: .5rem; } .lb-next { right: .5rem; }
+    }
   </style>
 </head>
 <body>
@@ -118,9 +153,6 @@
       <button class="tab-nav-btn active" data-tab="photos">
         <i class="fa-solid fa-images"></i> Photos
       </button>
-      <button class="tab-nav-btn" data-tab="partage">
-        <i class="fa-solid fa-share-nodes"></i> Partage de Photos
-      </button>
       <button class="tab-nav-btn" data-tab="presse">
         <i class="fa-solid fa-newspaper"></i> Presse
       </button>
@@ -129,157 +161,26 @@
     <!-- PHOTOS -->
     <div class="tab-content active" id="tab-photos">
       <div id="photos">
-        <!-- Filtre années -->
-        <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem" data-aos>
-          <button class="filter-btn active" onclick="filterAlbum(this,'all')" style="padding:.5rem 1.1rem;border-radius:100px;border:1px solid var(--c-border);background:var(--c-blue);color:white;font-family:var(--font-sans);cursor:pointer;font-size:.85rem">Tous</button>
-          <button class="filter-btn" onclick="filterAlbum(this,'2026')" style="padding:.5rem 1.1rem;border-radius:100px;border:1px solid var(--c-border);background:transparent;color:var(--c-text-muted);font-family:var(--font-sans);cursor:pointer;font-size:.85rem">2026</button>
-          <button class="filter-btn" onclick="filterAlbum(this,'2025')" style="padding:.5rem 1.1rem;border-radius:100px;border:1px solid var(--c-border);background:transparent;color:var(--c-text-muted);font-family:var(--font-sans);cursor:pointer;font-size:.85rem">2025</button>
-          <button class="filter-btn" onclick="filterAlbum(this,'2024')" style="padding:.5rem 1.1rem;border-radius:100px;border:1px solid var(--c-border);background:transparent;color:var(--c-text-muted);font-family:var(--font-sans);cursor:pointer;font-size:.85rem">2024</button>
-        </div>
 
         <!-- #############################################################
-             ALBUMS PHOTOS
-             Chaque album est un bloc <div class="card" ... data-year="2026">
-             Pour ajouter un album : copiez un bloc existant en entier,
-             puis modifiez :
-               1. data-year="2026"          : l'année (sert au filtre)
-               2. onclick="openLightbox('...')" : le nom de l'album
-               3. L'icône décorative : la classe fa-… dans
-                  <i class="fa-solid fa-…"> (voir fontawesome.com/icons)
-               4. Le badge de l'année (en haut à droite de la carte)
-               5. Le titre <h4> et la date sous la carte
-             Si l'année n'existe pas dans les boutons de filtre plus haut,
-             copiez un bouton existant et changez l'année aux 2 endroits
-             (le texte du bouton ET dans filterAlbum(this,'2027')).
-             Pensez aussi à ajouter l'événement dans la liste déroulante
-             du formulaire de partage (cherchez <option> plus bas).
+             LA GALERIE SE GÈRE DANS  images/souvenirs/  , PAS ICI.
+
+             Un dossier = un album. Envoyez-y vos photos par FileZilla,
+             c'est tout : le serveur lit les dossiers et construit la
+             galerie tout seul (voir galerie.php).
+             Nom du dossier :  2026-03-28 Concert de Printemps
+             Mode d'emploi :   images/souvenirs/INSTRUCTIONS.txt
+             Vérification :    https://le-site.fr/galerie.php?test=1
              ############################################################# -->
-        <!-- Albums -->
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem" id="albums-grid">
 
-          <div class="card" style="padding:0;overflow:hidden;cursor:pointer" data-year="2026" data-aos onclick="openLightbox('Carnaval 2026')">
-            <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#1a2a4a 0%,#0d1b33 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.75rem;position:relative;overflow:hidden">
-              <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 40% 40%,rgba(29,111,164,0.4),transparent 60%)"></div>
-              <span style="font-size:2.1rem;position:relative;color:var(--c-accent)"><i class="fa-solid fa-masks-theater" aria-hidden="true"></i></span>
-              <span style="font-size:.82rem;color:var(--c-text-muted);position:relative">Cliquer pour agrandir</span>
-              <div style="position:absolute;top:.75rem;right:.75rem"><span class="badge badge-blue">2026</span></div>
-            </div>
-            <div style="padding:1.25rem">
-              <h4 style="margin-bottom:.3rem">Carnaval de Goux-lès-Dambelin</h4>
-              <div style="font-size:.82rem;color:var(--c-text-muted)">
-                <i class="fa-solid fa-calendar"></i> 29 Mars 2026 &nbsp;·&nbsp;
-                <i class="fa-solid fa-images"></i> Album en cours
-              </div>
-            </div>
-          </div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem" id="filtres-annees" data-aos></div>
 
-          <div class="card" style="padding:0;overflow:hidden;cursor:pointer" data-year="2026" data-aos data-aos-delay="100" onclick="openLightbox('Concert de Printemps 2026')">
-            <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#1a3344 0%,#0d2233 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.75rem;position:relative;overflow:hidden">
-              <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 60% 30%,rgba(46,142,207,0.3),transparent 60%)"></div>
-              <span style="font-size:2.1rem;position:relative;color:var(--c-accent)"><i class="fa-solid fa-music" aria-hidden="true"></i></span>
-              <span style="font-size:.82rem;color:var(--c-text-muted);position:relative">Cliquer pour agrandir</span>
-              <div style="position:absolute;top:.75rem;right:.75rem"><span class="badge badge-blue">2026</span></div>
-            </div>
-            <div style="padding:1.25rem">
-              <h4 style="margin-bottom:.3rem">Concert de Printemps</h4>
-              <div style="font-size:.82rem;color:var(--c-text-muted)">
-                <i class="fa-solid fa-calendar"></i> 28 Mars 2026 &nbsp;·&nbsp;
-                <i class="fa-solid fa-images"></i> Album en cours
-              </div>
-            </div>
-          </div>
+        <div class="albums-grid" id="albums-grid"></div>
 
-          <div class="card" style="padding:0;overflow:hidden;cursor:pointer" data-year="2025" data-aos data-aos-delay="200" onclick="openLightbox('Concert de Noël 2025')">
-            <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#1a2040 0%,#0d1428 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.75rem;position:relative;overflow:hidden">
-              <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(200,168,75,0.2),transparent 60%)"></div>
-              <span style="font-size:2.1rem;position:relative;color:var(--c-gold-light)"><i class="fa-solid fa-tree" aria-hidden="true"></i></span>
-              <span style="font-size:.82rem;color:var(--c-text-muted);position:relative">Cliquer pour agrandir</span>
-              <div style="position:absolute;top:.75rem;right:.75rem"><span class="badge badge-gold">2025</span></div>
-            </div>
-            <div style="padding:1.25rem">
-              <h4 style="margin-bottom:.3rem">Concert de Noël 2025</h4>
-              <div style="font-size:.82rem;color:var(--c-text-muted)">
-                <i class="fa-solid fa-calendar"></i> Décembre 2025 &nbsp;·&nbsp;
-                <i class="fa-solid fa-images"></i> 24 photos
-              </div>
-            </div>
-          </div>
+        <p id="albums-vide" style="display:none;color:var(--c-text-muted);text-align:center;padding:3rem 0">
+          Aucun album pour le moment.
+        </p>
 
-          <div class="card" style="padding:0;overflow:hidden;cursor:pointer" data-year="2025" data-aos data-aos-delay="300" onclick="openLightbox('Galerie 2025')">
-            <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#112040 0%,#0a1428 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.75rem;position:relative;overflow:hidden">
-              <span style="font-size:2.1rem;position:relative;color:var(--c-gold-light)"><i class="fa-solid fa-camera-retro" aria-hidden="true"></i></span>
-              <span style="font-size:.82rem;color:var(--c-text-muted);position:relative">Cliquer pour agrandir</span>
-              <div style="position:absolute;top:.75rem;right:.75rem"><span class="badge badge-gold">2025</span></div>
-            </div>
-            <div style="padding:1.25rem">
-              <h4 style="margin-bottom:.3rem">Galerie 2025 - Highlights</h4>
-              <div style="font-size:.82rem;color:var(--c-text-muted)">
-                <i class="fa-solid fa-calendar"></i> Année 2025 &nbsp;·&nbsp;
-                <i class="fa-solid fa-images"></i> 48 photos
-              </div>
-            </div>
-          </div>
-
-          <div class="card" style="padding:0;overflow:hidden;cursor:pointer" data-year="2024" data-aos data-aos-delay="100" onclick="openLightbox('Galerie 2024')">
-            <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#0f1c38 0%,#081220 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.75rem;position:relative;overflow:hidden">
-              <span style="font-size:2.1rem;position:relative;color:#94a3b8"><i class="fa-solid fa-photo-film" aria-hidden="true"></i></span>
-              <span style="font-size:.82rem;color:var(--c-text-muted);position:relative">Cliquer pour agrandir</span>
-              <div style="position:absolute;top:.75rem;right:.75rem"><span class="badge" style="background:rgba(100,116,139,0.2);color:#94a3b8;border-color:rgba(100,116,139,0.2)">2024</span></div>
-            </div>
-            <div style="padding:1.25rem">
-              <h4 style="margin-bottom:.3rem">Galerie 2024</h4>
-              <div style="font-size:.82rem;color:var(--c-text-muted)">
-                <i class="fa-solid fa-calendar"></i> Année 2024 &nbsp;·&nbsp;
-                <i class="fa-solid fa-images"></i> 62 photos
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <!-- PARTAGE -->
-    <div class="tab-content" id="tab-partage">
-      <div id="partage" style="max-width:700px;margin:0 auto">
-        <div class="section-header" style="text-align:left;margin-bottom:2rem">
-          <h3>Partagez vos Photos</h3>
-          <p style="color:var(--c-text-muted)">Vous avez assisté à un de nos concerts ou événements ? Partagez vos photos avec la communauté !</p>
-        </div>
-
-        <div class="upload-zone" id="upload-zone" onclick="document.getElementById('photo-upload').click()">
-          <i class="fa-solid fa-cloud-arrow-up" style="font-size:2.5rem;color:var(--c-blue-light);margin-bottom:1rem;display:block;opacity:.6"></i>
-          <h4 style="margin-bottom:.5rem">Déposer vos photos ici</h4>
-          <p style="color:var(--c-text-muted);font-size:.9rem;margin-bottom:1rem">ou cliquer pour parcourir vos fichiers</p>
-          <span class="badge badge-blue">JPG, PNG, WEBP - Max 10 Mo par photo</span>
-          <input type="file" id="photo-upload" multiple accept="image/*" style="display:none">
-        </div>
-
-        <div id="photo-preview" class="gallery-grid" style="margin-top:1.5rem;min-height:0"></div>
-
-        <form id="share-form" style="margin-top:2rem;display:grid;gap:1.25rem">
-          <div class="form-group" style="margin:0">
-            <label class="form-label">Votre Nom</label>
-            <input type="text" class="form-control" placeholder="Prénom Nom" name="name" required>
-          </div>
-          <div class="form-group" style="margin:0">
-            <label class="form-label">Événement concerné</label>
-            <!-- ##### LISTE DES ÉVÉNEMENTS DU FORMULAIRE : ajoutez une ligne <option>NOM</option> par événement récent ##### -->
-            <select class="form-control" name="event">
-              <option>Carnaval 2026</option>
-              <option>Concert de Printemps 2026</option>
-              <option>Concert de Noël 2025</option>
-              <option>Autre manifestation...</option>
-            </select>
-          </div>
-          <div class="form-group" style="margin:0">
-            <label class="form-label">Description (optionnel)</label>
-            <textarea class="form-control" rows="3" placeholder="Quelques mots sur ces photos..." name="description"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary" style="justify-content:center">
-            <i class="fa-solid fa-paper-plane"></i> Envoyer mes photos
-          </button>
-        </form>
       </div>
     </div>
 
@@ -357,18 +258,20 @@
 
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox">
-  <button class="lightbox-close" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></button>
-  <div style="text-align:center;padding:2rem;max-width:600px">
-    <div style="font-size:3.4rem;margin-bottom:1.5rem;color:var(--c-accent)"><i class="fa-solid fa-camera-retro" aria-hidden="true"></i></div>
-    <h3 id="lightbox-title" style="margin-bottom:.75rem">Album</h3>
-    <p style="color:var(--c-text-muted);margin-bottom:2rem">
-      Les photos de cet album seront disponibles après upload.<br>
-      Partagez vos photos dans l'onglet "Partage de Photos" !
-    </p>
-    <button onclick="closeLightbox()" class="btn btn-outline">Fermer</button>
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button>
+  <div class="lb-panel">
+    <h3 id="lightbox-title" style="text-align:center;margin-bottom:.5rem">Album</h3>
+    <p id="lightbox-info" style="color:var(--c-text-muted);text-align:center;margin:0"></p>
+    <div class="lb-grid" id="lightbox-grid"></div>
+  </div>
+  <div class="lb-solo" id="lb-solo">
+    <button class="lb-nav lb-prev" onclick="soloNav(-1)" aria-label="Photo précédente"><i class="fa-solid fa-chevron-left"></i></button>
+    <img id="lb-solo-img" src="" alt="">
+    <button class="lb-nav lb-next" onclick="soloNav(1)" aria-label="Photo suivante"><i class="fa-solid fa-chevron-right"></i></button>
   </div>
 </div>
 
+<script src="js/albums.js"></script>
 <script src="js/main.js"></script>
 <script>
   // Tabs
@@ -389,90 +292,229 @@
     if (btn) btn.click();
   }
 
-  // Album filter
-  function filterAlbum(btn, year) {
-    document.querySelectorAll('.filter-btn').forEach(b => {
-      b.style.background = 'transparent';
-      b.style.color = 'var(--c-text-muted)';
+  /* ── Construction de la galerie ──────────────────────────────────
+     La liste des albums est lue sur le serveur par galerie.php, qui
+     regarde simplement ce que contient le dossier images/souvenirs/.
+     Si PHP n'est pas disponible, on retombe sur la liste de secours
+     écrite dans js/albums.js.
+     ─────────────────────────────────────────────────────────────── */
+  var DOSSIER_PHOTOS = 'images/souvenirs/';
+  var albums = [];
+  var vignettesServeur = false;   // le serveur sait-il alléger les photos ?
+  var anneeActive = 'all';
+
+  function photosDe(album) {
+    return Array.isArray(album.photos) ? album.photos : [];
+  }
+
+  // largeur : 400 (vignette), 800 (couverture) ou 1600 (plein écran)
+  function urlPhoto(album, nomFichier, largeur) {
+    if (vignettesServeur) {
+      return 'galerie.php?photo=' + encodeURIComponent(album.dossier + '/' + nomFichier)
+           + '&l=' + largeur;
+    }
+    return DOSSIER_PHOTOS + encodeURIComponent(album.dossier)
+         + '/' + encodeURIComponent(nomFichier);
+  }
+
+  function libelleNombre(n) {
+    if (!n)      return 'Album en cours';
+    if (n === 1) return '1 photo';
+    return n + ' photos';
+  }
+
+  function couleurBadge(annee) {
+    var actuelle = new Date().getFullYear();
+    if (+annee >= actuelle)     return 'badge badge-blue';
+    if (+annee === actuelle - 1) return 'badge badge-gold';
+    return 'badge';
+  }
+
+  function construireFiltres() {
+    var annees = [];
+    albums.forEach(function(a) { if (annees.indexOf(a.annee) === -1) annees.push(a.annee); });
+    annees.sort().reverse();
+
+    var zone = document.getElementById('filtres-annees');
+    zone.innerHTML = '';
+    [['all', 'Tous']].concat(annees.map(function(a) { return [a, a]; })).forEach(function(paire) {
+      var b = document.createElement('button');
+      b.className = 'filter-btn';
+      b.textContent = paire[1];
+      b.style.cssText = 'padding:.5rem 1.1rem;border-radius:100px;border:1px solid var(--c-border);'
+                      + 'font-family:var(--font-sans);cursor:pointer;font-size:.85rem;'
+                      + 'background:transparent;color:var(--c-text-muted)';
+      b.addEventListener('click', function() { filtrerAnnee(paire[0]); });
+      zone.appendChild(b);
     });
-    btn.style.background = 'var(--c-blue)';
-    btn.style.color = 'white';
-    document.querySelectorAll('#albums-grid > div').forEach(card => {
-      card.style.display = (year === 'all' || card.dataset.year === year) ? 'block' : 'none';
+    marquerFiltre();
+  }
+
+  function marquerFiltre() {
+    document.querySelectorAll('#filtres-annees .filter-btn').forEach(function(b) {
+      var actif = (b.textContent === 'Tous' && anneeActive === 'all') || b.textContent === anneeActive;
+      b.style.background = actif ? 'var(--c-blue)' : 'transparent';
+      b.style.color      = actif ? 'white' : 'var(--c-text-muted)';
     });
   }
 
-  // Lightbox
-  function openLightbox(title) {
-    document.getElementById('lightbox-title').textContent = title;
+  function filtrerAnnee(annee) {
+    anneeActive = annee;
+    marquerFiltre();
+    construireAlbums();
+  }
+
+  function construireAlbums() {
+    var grille = document.getElementById('albums-grid');
+    var vide   = document.getElementById('albums-vide');
+    grille.innerHTML = '';
+
+    var visibles = albums.filter(function(a) { return anneeActive === 'all' || a.annee === anneeActive; });
+    vide.style.display = visibles.length ? 'none' : 'block';
+
+    visibles.forEach(function(album, i) {
+      var carte = document.createElement('div');
+      carte.className = 'card';
+      carte.style.cssText = 'padding:0;overflow:hidden';
+      carte.setAttribute('data-aos', '');
+
+      var couverture = document.createElement('div');
+      couverture.className = 'album-cover';
+      var photos = photosDe(album);
+      if (photos.length) {
+        couverture.style.cursor = 'pointer';
+        var img = document.createElement('img');
+        img.src = urlPhoto(album, photos[0], 800);
+        img.alt = album.titre;
+        img.loading = 'lazy';
+        img.addEventListener('error', function() {
+          couverture.innerHTML = '<span class="album-vide"><i class="fa-solid fa-image"></i></span>';
+        });
+        couverture.appendChild(img);
+        couverture.addEventListener('click', function() { ouvrirAlbum(album); });
+      } else {
+        couverture.innerHTML = '<span class="album-vide"><i class="fa-solid fa-camera-retro"></i></span>';
+      }
+
+      var badge = document.createElement('div');
+      badge.className = 'album-badge';
+      var b = document.createElement('span');
+      b.className = couleurBadge(album.annee);
+      if (b.className === 'badge') {
+        b.style.cssText = 'background:rgba(100,116,139,0.2);color:#94a3b8;border-color:rgba(100,116,139,0.2)';
+      }
+      b.textContent = album.annee;
+      badge.appendChild(b);
+      couverture.appendChild(badge);
+
+      var bas = document.createElement('div');
+      bas.style.padding = '1.25rem';
+      var titre = document.createElement('h4');
+      titre.style.marginBottom = '.3rem';
+      titre.textContent = album.titre;
+      var meta = document.createElement('div');
+      meta.style.cssText = 'font-size:.82rem;color:var(--c-text-muted)';
+      meta.innerHTML = '<i class="fa-solid fa-calendar"></i> ' + album.date
+                     + ' &nbsp;·&nbsp; <i class="fa-solid fa-images"></i> ' + libelleNombre(photos.length);
+      bas.appendChild(titre);
+      bas.appendChild(meta);
+
+      carte.appendChild(couverture);
+      carte.appendChild(bas);
+      grille.appendChild(carte);
+    });
+
+    requestAnimationFrame(function() {
+      grille.querySelectorAll('[data-aos]').forEach(function(c, i) {
+        setTimeout(function() { c.classList.add('aos-animate'); }, Math.min(i, 6) * 70);
+      });
+    });
+  }
+
+  /* ── Fenêtre d'agrandissement ── */
+  var photosCourantes = [], indexSolo = 0;
+
+  function ouvrirAlbum(album) {
+    var grille = document.getElementById('lightbox-grid');
+    var info   = document.getElementById('lightbox-info');
+    document.getElementById('lightbox-title').textContent = album.titre;
+    grille.innerHTML = '';
+    photosCourantes = [];
+
+    photosCourantes = photosDe(album).map(function(nom) {
+      return { vignette: urlPhoto(album, nom, 400), grande: urlPhoto(album, nom, 1600) };
+    });
+    info.textContent = album.date + ' · ' + libelleNombre(photosCourantes.length);
+
+    photosCourantes.forEach(function(photo, i) {
+      var b = document.createElement('button');
+      b.className = 'lb-thumb';
+      b.setAttribute('aria-label', 'Agrandir la photo ' + (i + 1));
+      var img = document.createElement('img');
+      img.src = photo.vignette;
+      img.loading = 'lazy';
+      img.alt = album.titre + ' - photo ' + (i + 1);
+      img.addEventListener('error', function() { b.remove(); });
+      b.appendChild(img);
+      b.addEventListener('click', function() { ouvrirSolo(i); });
+      grille.appendChild(b);
+    });
+
     document.getElementById('lightbox').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
+
   function closeLightbox() {
+    fermerSolo();
     document.getElementById('lightbox').classList.remove('open');
     document.body.style.overflow = '';
   }
-  document.getElementById('lightbox').addEventListener('click', function(e) {
-    if (e.target === this) closeLightbox();
-  });
-
-  // Share form
-  /* #################################################################
-     ENVOI DU FORMULAIRE DE PARTAGE DE PHOTOS
-     Le bouton "Envoyer mes photos" ouvre le logiciel de messagerie du
-     visiteur avec un e-mail tout prêt, adressé à l'association.
-     Le visiteur doit joindre lui-même ses photos à l'e-mail
-     (un site sans serveur ne peut pas transférer de fichiers).
-     Pour changer l'adresse de réception, modifiez la ligne ci-dessous.
-     ################################################################# */
-  var EMAIL_CONTACT = 'contact@harmonie-pont-de-roide.com';
-
-  document.getElementById('share-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    var nom         = this.elements['name'].value;
-    var evenement   = this.elements['event'].value;
-    var description = this.elements['description'].value;
-    var corps = 'Nom : ' + nom
-      + '\nÉvénement : ' + evenement
-      + '\n\nDescription :\n' + (description || '(aucune)')
-      + '\n\nIMPORTANT : joignez vos photos à cet e-mail avant de l\'envoyer !';
-    window.location.href = 'mailto:' + EMAIL_CONTACT
-      + '?subject=' + encodeURIComponent('[Site] Partage de photos - ' + evenement + ' - ' + nom)
-      + '&body=' + encodeURIComponent(corps);
-    showToast('Votre logiciel de messagerie va s\'ouvrir : joignez-y vos photos avant d\'envoyer.');
-    this.reset();
-    document.getElementById('photo-preview').innerHTML = '';
-  });
-
-  // Drag & drop
-  const zone = document.getElementById('upload-zone');
-  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
-  zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
-  zone.addEventListener('drop', e => {
-    e.preventDefault();
-    zone.classList.remove('drag-over');
-    const files = e.dataTransfer.files;
-    handleFiles(files);
-  });
-
-  document.getElementById('photo-upload').addEventListener('change', function() {
-    handleFiles(this.files);
-  });
-
-  function handleFiles(files) {
-    const preview = document.getElementById('photo-preview');
-    Array.from(files).forEach(file => {
-      if (!file.type.startsWith('image/')) return;
-      const reader = new FileReader();
-      reader.onload = e => {
-        const div = document.createElement('div');
-        div.className = 'gallery-item';
-        div.innerHTML = `<img src="${e.target.result}" alt="${file.name}" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius-md)">`;
-        preview.appendChild(div);
-      };
-      reader.readAsDataURL(file);
-    });
+  function ouvrirSolo(i) {
+    indexSolo = i;
+    document.getElementById('lb-solo-img').src = photosCourantes[i].grande;
+    document.getElementById('lb-solo').classList.add('open');
   }
+  function fermerSolo() { document.getElementById('lb-solo').classList.remove('open'); }
+  function soloNav(pas) {
+    if (!photosCourantes.length) return;
+    indexSolo = (indexSolo + pas + photosCourantes.length) % photosCourantes.length;
+    ouvrirSolo(indexSolo);
+  }
+
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this || e.target.classList.contains('lb-panel')) closeLightbox();
+  });
+  document.getElementById('lb-solo').addEventListener('click', function(e) {
+    if (e.target === this) fermerSolo();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') {
+      document.getElementById('lb-solo').classList.contains('open') ? fermerSolo() : closeLightbox();
+    }
+    if (document.getElementById('lb-solo').classList.contains('open')) {
+      if (e.key === 'ArrowLeft')  soloNav(-1);
+      if (e.key === 'ArrowRight') soloNav(1);
+    }
+  });
+
+  function demarrer(liste, vignettes) {
+    albums = liste;
+    vignettesServeur = !!vignettes;
+    construireFiltres();
+    construireAlbums();
+  }
+
+  fetch('galerie.php', { cache: 'no-store' })
+    .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
+    .then(function(d) {
+      if (!d || !Array.isArray(d.albums)) return Promise.reject();
+      demarrer(d.albums, d.vignettes);
+    })
+    .catch(function() {
+      // Pas de PHP (ou page ouverte hors serveur) : liste de secours.
+      demarrer(typeof ALBUMS !== 'undefined' ? ALBUMS : [], false);
+    });
 </script>
 </body>
 </html>
