@@ -883,17 +883,17 @@
 
     <!-- #################################################################
          LES 3 CHIFFRES DE LA PAGE D'ACCUEIL
-         Pour changer un chiffre (années, musiciens, élèves), modifiez
-         À DEUX ENDROITS sur la même ligne :
-           1. data-count="45"   (le chiffre de l'animation)
-           2. >45<              (le chiffre affiché)
-         Exemple : <span class="num" data-count="50">50</span>
+         NE LES MODIFIEZ PAS ICI, ils se remplissent tout seuls :
+           * musiciens : compté sur la page musiciens.html
+           * élèves    : écrit dans  js/chiffres.js
+           * années    : calculé depuis l'année de fondation
+         Le chiffre écrit ci-dessous n'est qu'une valeur d'attente.
          ################################################################# -->
     <div class="hhero-stats">
       <div class="hhero-stat">
         <div class="stat-ic"><i class="fa-solid fa-users" aria-hidden="true"></i></div>
         <div class="stat-txt">
-          <span class="num" data-count="103">103</span>
+          <span class="num" data-chiffre="annees">104</span>
           <span class="label">Années d'histoire</span>
           <span class="sub">depuis 1922</span>
         </div>
@@ -901,7 +901,7 @@
       <div class="hhero-stat">
         <div class="stat-ic"><i class="fa-solid fa-music" aria-hidden="true"></i></div>
         <div class="stat-txt">
-          <span class="num" data-count="45">45</span>
+          <span class="num" data-chiffre="musiciens">46</span>
           <span class="label">Musiciens actifs</span>
           <span class="sub">de tous âges</span>
         </div>
@@ -909,7 +909,7 @@
       <div class="hhero-stat">
         <div class="stat-ic"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></div>
         <div class="stat-txt">
-          <span class="num" data-count="49">49</span>
+          <span class="num" data-chiffre="eleves">49</span>
           <span class="label">Élèves à l'école</span>
           <span class="sub">futurs musiciens</span>
         </div>
@@ -1204,21 +1204,22 @@
 
       <!-- #############################################################
            STATISTIQUES "NOTRE ASSOCIATION"
-           Comme pour les chiffres du haut de page : modifiez
-           data-count="45" ET le chiffre affiché juste après.
+           Les nombres marqués data-chiffre se remplissent tout seuls
+           (voir l'explication au niveau des chiffres du haut de page) :
+           ne les modifiez pas ici.
            ############################################################# -->
       <div data-aos="fade-left">
         <div class="stats-grid" style="grid-template-columns:repeat(2,1fr)">
           <div class="stat-card">
-            <div class="num" data-count="1922">1 922</div>
+            <div class="num" data-chiffre="fondation">1 922</div>
             <div class="label">Fondation</div>
           </div>
           <div class="stat-card">
-            <div class="num" data-count="45">45</div>
+            <div class="num" data-chiffre="musiciens">46</div>
             <div class="label">Musiciens</div>
           </div>
           <div class="stat-card">
-            <div class="num" data-count="49">49</div>
+            <div class="num" data-chiffre="eleves">49</div>
             <div class="label">Élèves</div>
           </div>
           <div class="stat-card">
@@ -1258,8 +1259,7 @@
       <a href="musiciens.html" class="card explore-card" data-aos data-aos-delay="150">
         <div class="card-icon"><i class="fa-solid fa-users" aria-hidden="true"></i></div>
         <h3>Nos Musiciens</h3>
-        <!-- ##### NOMBRE DE MUSICIENS : pensez à changer le chiffre ci-dessous aussi ##### -->
-        <p>Découvrez les 45 musiciens qui font vibrer l'harmonie lors de chaque concert.</p>
+        <p>Découvrez les <span data-chiffre="musiciens">46</span> musiciens qui font vibrer l'harmonie lors de chaque concert.</p>
         <div class="more">En savoir plus <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></div>
       </a>
       <a href="repertoire.html" class="card explore-card" data-aos data-aos-delay="200">
@@ -1343,6 +1343,7 @@
 
 </main>
 
+<script src="js/chiffres.js"></script>
 <script src="js/main.js"></script>
 <script>
   (function () {

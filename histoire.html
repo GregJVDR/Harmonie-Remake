@@ -61,11 +61,12 @@
 
       <!-- #############################################################
            STATISTIQUES DE LA PAGE HISTOIRE
-           Pour changer un chiffre, modifiez À DEUX ENDROITS sur la ligne :
-             1. data-count="45"   (le chiffre de l'animation)
-             2. >45<              (le chiffre affiché)
-           Le nombre de musiciens doit être le même que sur l'accueil
-           et la page musiciens.
+           Les nombres marqués data-chiffre se remplissent tout seuls :
+           « Musiciens Actuels » est compté sur la page musiciens.html,
+           il n'y a rien à recopier ici. Pour les autres chiffres,
+           modifiez À DEUX ENDROITS sur la ligne :
+             1. data-count="123"   (le chiffre de l'animation)
+             2. >123<              (le chiffre affiché)
            ############################################################# -->
       <div data-aos="fade-left">
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr));gap:1rem">
@@ -78,7 +79,7 @@
             <div class="label">Musiciens à l'Apogée</div>
           </div>
           <div class="stat-card">
-            <div class="num" data-count="45">45</div>
+            <div class="num" data-chiffre="musiciens">46</div>
             <div class="label">Musiciens Actuels</div>
           </div>
           <div class="stat-card">
@@ -168,7 +169,7 @@
         <div class="timeline-item" data-aos>
           <span class="year">Aujourd'hui</span>
           <h3>Une Association Vivante</h3>
-          <p>Avec 45 musiciens actifs et 49 élèves à l'école de musique, l'Harmonie Fanfare Rudipontaine continue de faire rayonner la musique dans tout le Doubs. Affiliée à la Confédération Musicale de France, elle est portée par des professeurs certifiés.</p>
+          <p>Avec <span data-chiffre="musiciens">46</span> musiciens actifs et <span data-chiffre="eleves">49</span> élèves à l'école de musique, l'Harmonie Fanfare Rudipontaine continue de faire rayonner la musique dans tout le Doubs. Affiliée à la Confédération Musicale de France, elle est portée par des professeurs certifiés.</p>
         </div>
 
       </div>
@@ -219,6 +220,7 @@
   </div>
 </section>
 
+<script src="js/chiffres.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

@@ -102,6 +102,11 @@ Vos fichiers d'origine ne sont jamais modifiés.
 - Évitez les albums démesurés (au-delà de 60-80 photos, la page
   devient longue à parcourir).
 
+- Si vous REMPLACEZ une photo par une autre en lui donnant le même
+  nom de fichier, les visiteurs déjà venus peuvent voir l'ancienne
+  pendant un jour (leur navigateur l'a gardée en mémoire). Donnez
+  plutôt un nom différent à la nouvelle photo.
+
 - Attention au droit à l'image : ne publiez que des photos dont vous
   avez l'accord des personnes reconnaissables, et en particulier des
   parents pour les enfants de l'école de musique.

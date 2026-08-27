@@ -127,8 +127,45 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 16);
   }
 
-  const counterEls = document.querySelectorAll('[data-count]');
-  if (counterEls.length) {
+  /* ── Chiffres partagés ──────────────────────────────────────────
+     Les nombres marqués  data-chiffre="..."  s'affichent sur plusieurs
+     pages. Personne ne les recopie à la main :
+
+       * musiciens  est COMPTÉ sur les cartes de la page musiciens.html
+                    (le directeur n'est pas compté comme musicien) ;
+       * eleves     vient de js/chiffres.js ;
+       * annees     se calcule depuis l'année de fondation.
+
+     Le chiffre écrit dans la page n'est qu'une valeur d'attente,
+     remplacée dès que le comptage est connu.
+     ────────────────────────────────────────────────────────────── */
+  const chiffres  = (typeof CHIFFRES !== 'undefined') ? CHIFFRES : {};
+  const fondation = chiffres.fondation || 1922;
+
+  function afficherChiffres(valeurs) {
+    document.querySelectorAll('[data-chiffre]').forEach(el => {
+      const valeur = valeurs[el.dataset.chiffre];
+      if (valeur === undefined) return;
+      el.textContent = valeur.toLocaleString('fr-FR');
+      if (el.classList.contains('num')) el.dataset.count = valeur;   // chiffre animé
+    });
+  }
+
+  function compterMusiciens(racine) {
+    const cartes = racine.querySelectorAll('.member-card[data-section]').length;
+    const directeurs = racine.querySelectorAll('.member-card[data-section="directeur"]').length;
+    return cartes - directeurs;
+  }
+
+  afficherChiffres({
+    eleves    : chiffres.eleves,
+    fondation : fondation,
+    annees    : new Date().getFullYear() - fondation
+  });
+
+  function demarrerCompteurs() {
+    const counterEls = document.querySelectorAll('[data-count]');
+    if (!counterEls.length) return;
     const counterObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -138,6 +175,25 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }, { threshold: 0.5 });
     counterEls.forEach(el => counterObserver.observe(el));
+  }
+
+  if (document.querySelector('.member-card[data-section]')) {
+    // Page musiciens : les cartes sont là, on compte directement.
+    afficherChiffres({ musiciens: compterMusiciens(document) });
+    demarrerCompteurs();
+  } else if (document.querySelector('[data-chiffre="musiciens"]')) {
+    // Autres pages : on va lire la page musiciens et on compte ses cartes.
+    fetch('musiciens.html')
+      .then(reponse => reponse.ok ? reponse.text() : Promise.reject())
+      .then(html => {
+        const page = new DOMParser().parseFromString(html, 'text/html');
+        const nombre = compterMusiciens(page);
+        if (nombre > 0) afficherChiffres({ musiciens: nombre });
+      })
+      .catch(() => { /* page illisible : la valeur d'attente reste affichée */ })
+      .then(demarrerCompteurs);
+  } else {
+    demarrerCompteurs();
   }
 
   /* ── Accordion ── */

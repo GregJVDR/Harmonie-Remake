@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Carnet de Bord du Site</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --papier:      #F6F8FC;
+    --papier-haut: #FFFFFF;
+    --encre:       #101B2D;
+    --encre-douce: #55647C;
+    --trait:       #DBE2EC;
+    --bleu:        #1A52A8;
+    --bleu-pale:   #E8EFFA;
+    --or:          #8A6D14;
+    --or-pale:     #FBF3DC;
+    --rouge:       #A81C1C;
+    --rouge-pale:  #FBEAEA;
+    --code-fond:   #0E1A2B;
+    --code-encre:  #DCE6F5;
+    --serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --sans:  'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --mono:  ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --papier:      #0C1420;
+      --papier-haut: #121D2E;
+      --encre:       #E7EDF7;
+      --encre-douce: #93A3BB;
+      --trait:       #253247;
+      --bleu:        #7FA9EC;
+      --bleu-pale:   #16243C;
+      --or:          #D9BB63;
+      --or-pale:     #241E0E;
+      --rouge:       #EE8080;
+      --rouge-pale:  #2A1414;
+      --code-fond:   #060D18;
+      --code-encre:  #DCE6F5;
+    }
+  }
+  :root[data-theme="dark"] {
+    --papier:      #0C1420;
+    --papier-haut: #121D2E;
+    --encre:       #E7EDF7;
+    --encre-douce: #93A3BB;
+    --trait:       #253247;
+    --bleu:        #7FA9EC;
+    --bleu-pale:   #16243C;
+    --or:          #D9BB63;
+    --or-pale:     #241E0E;
+    --rouge:       #EE8080;
+    --rouge-pale:  #2A1414;
+    --code-fond:   #060D18;
+    --code-encre:  #DCE6F5;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--papier);
+    color: var(--encre);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .feuille { max-width: 47rem; margin: 0 auto; padding: 3.5rem 1.5rem 6rem; }
+
+  /* ── Titre ── */
+  .titre-bloc { border-bottom: 3px solid var(--encre); padding-bottom: 1.75rem; margin-bottom: 2.5rem; }
+  .surtitre {
+    font-size: .78rem; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--bleu); font-weight: 600; margin-bottom: .9rem;
+  }
+  h1 {
+    font-family: var(--serif); font-weight: 800;
+    font-size: clamp(2.1rem, 6vw, 3.1rem); line-height: 1.08;
+    margin: 0 0 .7rem; text-wrap: balance;
+  }
+  .chapo { font-size: 1.08rem; color: var(--encre-douce); margin: 0; max-width: 34rem; }
+
+  h2 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 1.75rem; line-height: 1.2; margin: 3.5rem 0 1.1rem;
+    text-wrap: balance;
+  }
+  h3 { font-size: 1.06rem; font-weight: 600; margin: 2rem 0 .6rem; }
+  p { margin: 0 0 1rem; }
+  a { color: var(--bleu); }
+
+  /* ── Règles d'or ── */
+  .regles { display: grid; gap: .8rem; padding: 0; margin: 0 0 1rem; list-style: none; counter-reset: regle; }
+  .regles li {
+    display: grid; grid-template-columns: 2rem 1fr; gap: 1rem; align-items: baseline;
+    background: var(--papier-haut); border: 1px solid var(--trait);
+    border-left: 4px solid var(--bleu); border-radius: 3px; padding: 1rem 1.2rem;
+  }
+  .regles li::before {
+    counter-increment: regle; content: counter(regle);
+    font-family: var(--serif); font-size: 1.5rem; font-weight: 700; color: var(--bleu);
+  }
+  .regles strong { display: block; grid-column: 2; }
+  .regles li > span { grid-column: 2; color: var(--encre-douce); font-size: .95rem; }
+
+  /* ── Sommaire ── */
+  .sommaire { display: grid; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: .6rem; }
+  .sommaire a {
+    display: flex; align-items: baseline; gap: .6rem;
+    background: var(--papier-haut); border: 1px solid var(--trait); border-radius: 3px;
+    padding: .75rem .9rem; text-decoration: none; color: var(--encre); font-weight: 500;
+  }
+  .sommaire a:hover, .sommaire a:focus-visible { border-color: var(--bleu); background: var(--bleu-pale); }
+  .sommaire .n { font-family: var(--serif); font-weight: 700; color: var(--bleu); }
+
+  /* ── Fiches ── */
+  .fiche {
+    background: var(--papier-haut); border: 1px solid var(--trait); border-radius: 4px;
+    padding: 1.75rem 1.75rem 1.5rem; margin: 1.25rem 0 0;
+  }
+  .fiche > h2 { margin-top: 0; display: flex; align-items: baseline; gap: .75rem; }
+  .fiche > h2 .n {
+    font-size: .72rem; font-family: var(--sans); font-weight: 700; letter-spacing: .1em;
+    color: var(--bleu); background: var(--bleu-pale); border-radius: 2px;
+    padding: .25rem .5rem; text-transform: uppercase; white-space: nowrap;
+  }
+  .fichier {
+    font-family: var(--mono); font-size: .87rem;
+    background: var(--bleu-pale); color: var(--bleu); border-radius: 2px;
+    padding: .15rem .45rem; font-weight: 600;
+  }
+  .ligne-fichier { margin: 0 0 1.35rem; color: var(--encre-douce); font-size: .93rem; }
+
+  ol.etapes { padding-left: 1.35rem; margin: 0 0 1rem; }
+  ol.etapes > li { margin-bottom: .55rem; padding-left: .25rem; }
+  ul.puces { padding-left: 1.35rem; margin: 0 0 1rem; }
+  ul.puces > li { margin-bottom: .4rem; }
+
+  /* ── Blocs de code ── */
+  .a-copier { margin: 1.1rem 0 1.35rem; }
+  .a-copier-titre {
+    font-size: .74rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--encre-douce); font-weight: 600; margin-bottom: .45rem;
+  }
+  pre {
+    background: var(--code-fond); color: var(--code-encre);
+    border-radius: 4px; padding: 1.1rem 1.2rem; margin: 0;
+    overflow-x: auto; font-family: var(--mono); font-size: .8rem; line-height: 1.7;
+    tab-size: 2;
+  }
+  pre .chg { color: #FFD98A; font-weight: 600; }
+  code {
+    font-family: var(--mono); font-size: .88em;
+    background: var(--bleu-pale); color: var(--bleu); border-radius: 2px; padding: .1rem .35rem;
+  }
+
+  /* ── Encarts ── */
+  .encart {
+    border-radius: 3px; padding: 1rem 1.2rem; margin: 1.2rem 0;
+    font-size: .95rem; border-left: 4px solid;
+  }
+  .encart p:last-child { margin-bottom: 0; }
+  .encart .etiquette {
+    display: block; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+    font-weight: 700; margin-bottom: .3rem;
+  }
+  .attention { background: var(--rouge-pale); border-color: var(--rouge); }
+  .attention .etiquette { color: var(--rouge); }
+  .astuce { background: var(--or-pale); border-color: var(--or); }
+  .astuce .etiquette { color: var(--or); }
+  .info { background: var(--bleu-pale); border-color: var(--bleu); }
+  .info .etiquette { color: var(--bleu); }
+
+  /* ── Tableau ── */
+  .tableau-enveloppe { overflow-x: auto; margin: 1rem 0 1.5rem; }
+  table { border-collapse: collapse; width: 100%; font-size: .93rem; }
+  th, td { text-align: left; padding: .6rem .75rem; border-bottom: 1px solid var(--trait); vertical-align: top; }
+  th { font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-douce); }
+  td:first-child { font-family: var(--mono); font-size: .84rem; white-space: nowrap; color: var(--bleu); }
+
+  .oui-non { display: grid; gap: .9rem; grid-template-columns: 1fr 1fr; margin: 1.2rem 0; }
+  @media (max-width: 34rem) { .oui-non { grid-template-columns: 1fr; } }
+  .oui-non > div { border: 1px solid var(--trait); border-radius: 3px; padding: .9rem 1rem; background: var(--papier); }
+  .oui-non h4 { margin: 0 0 .5rem; font-size: .95rem; }
+  .oui-non ul { margin: 0; padding-left: 1.1rem; font-size: .92rem; color: var(--encre-douce); }
+  .oui-non .ok h4 { color: var(--bleu); }
+  .oui-non .ko h4 { color: var(--rouge); }
+
+  hr { border: none; border-top: 1px solid var(--trait); margin: 3rem 0; }
+
+  .pied { margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--trait);
+          font-size: .9rem; color: var(--encre-douce); }
+
+  @media print {
+    body { background: #fff; font-size: 11pt; }
+    .feuille { padding: 0; max-width: none; }
+    .fiche { break-inside: avoid; border-color: #bbb; }
+    pre { background: #f2f4f8; color: #16233a; border: 1px solid #ccc; }
+    .sommaire { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="feuille">
+
+  <div class="titre-bloc">
+    <div class="surtitre">Harmonie Fanfare Rudipontaine</div>
+    <h1>Le carnet de bord du site</h1>
+    <p class="chapo">
+      Tout ce qu'il faut savoir pour mettre le site à jour : ajouter un membre du comité,
+      un musicien, un événement, des photos. Aucune connaissance en informatique n'est
+      nécessaire — il suffit de recopier des modèles.
+    </p>
+  </div>
+
+  <h2>Les quatre règles d'or</h2>
+  <ol class="regles">
+    <li>
+      <strong>Faites une copie avant de modifier.</strong>
+      <span>Dupliquez le fichier (clic droit → Dupliquer) avant d'y toucher. Si quelque chose se passe mal, vous remettez la copie à sa place et tout redevient comme avant.</span>
+    </li>
+    <li>
+      <strong>Ne tapez jamais un bloc de zéro : copiez-en un qui existe.</strong>
+      <span>Pour ajouter un musicien, copiez le bloc d'un musicien déjà présent et changez les mots. C'est la méthode la plus sûre.</span>
+    </li>
+    <li>
+      <strong>Ne modifiez que les mots, jamais ce qui les entoure.</strong>
+      <span>Dans <code>&lt;h3&gt;Anthony Merique&lt;/h3&gt;</code>, seul « Anthony Merique » se change. Les <code>&lt;h3&gt;</code> font tenir la page : ils restent.</span>
+    </li>
+    <li>
+      <strong>Regardez le résultat avant de l'envoyer en ligne.</strong>
+      <span>Double-cliquez sur le fichier modifié : il s'ouvre dans votre navigateur, exactement comme sur le site. Si c'est bon, vous envoyez.</span>
+    </li>
+  </ol>
+
+  <h2>Avec quel logiciel ouvrir les fichiers ?</h2>
+  <div class="oui-non">
+    <div class="ok">
+      <h4>À utiliser</h4>
+      <ul>
+        <li><strong>Visual Studio Code</strong> (gratuit, code.visualstudio.com)</li>
+        <li>Ou tout « éditeur de texte brut »</li>
+      </ul>
+    </div>
+    <div class="ko">
+      <h4>À ne jamais utiliser</h4>
+      <ul>
+        <li>Word, Pages, LibreOffice</li>
+        <li>TextEdit en mode normal</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    Ces logiciels-là ajoutent de la mise en forme invisible qui casse la page.
+    Dans l'éditeur, <strong>Cmd+F</strong> (Mac) ou <strong>Ctrl+F</strong> (Windows) cherche un mot
+    dans le fichier : c'est votre meilleur outil pour retrouver un nom ou un chiffre.
+  </p>
+
+  <div class="encart info">
+    <span class="etiquette">Le repère à connaître</span>
+    <p>
+      Dans les fichiers, les zones que vous pouvez modifier sont signalées par des blocs
+      de dièses <code>####</code> qui expliquent quoi faire. Ces textes n'apparaissent
+      jamais sur le site : ce sont des notes laissées pour vous.
+    </p>
+  </div>
+
+  <h2>Quelle page se trouve dans quel fichier ?</h2>
+  <div class="tableau-enveloppe">
+    <table>
+      <thead>
+        <tr><th>Fichier</th><th>Ce qu'il contient</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>index.html</td><td>La page d'accueil : les chiffres, les prochains événements</td></tr>
+        <tr><td>comite.html</td><td>Les membres du comité et le contact</td></tr>
+        <tr><td>musiciens.html</td><td>Les musiciens, rangés par pupitre</td></tr>
+        <tr><td>manifestations.html</td><td>Les événements à venir et passés</td></tr>
+        <tr><td>souvenirs.html</td><td>La galerie photos et la revue de presse</td></tr>
+        <tr><td>ecole-musique.html</td><td>L'école : cours, tarifs, instruments enseignés</td></tr>
+        <tr><td>histoire.html</td><td>La chronologie de l'harmonie</td></tr>
+        <tr><td>cds.html</td><td>Les disques enregistrés</td></tr>
+        <tr><td>repertoire.html</td><td>Le répertoire joué</td></tr>
+        <tr><td>orchestre-junior.html</td><td>L'orchestre junior</td></tr>
+        <tr><td>js/chiffres.js</td><td>Le nombre d'élèves et l'année de fondation</td></tr>
+        <tr><td>images/souvenirs/</td><td>Les photos de la galerie (un dossier = un album)</td></tr>
+        <tr><td>images/Membres/</td><td>Les portraits des musiciens et du comité</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Les fiches</h2>
+  <div class="sommaire">
+    <a href="#comite"><span class="n">1</span> Le comité</a>
+    <a href="#musiciens"><span class="n">2</span> Les musiciens</a>
+    <a href="#evenements"><span class="n">3</span> Les événements</a>
+    <a href="#photos"><span class="n">4</span> Les photos</a>
+    <a href="#chiffres"><span class="n">5</span> Les chiffres</a>
+    <a href="#instruments"><span class="n">6</span> Les instruments</a>
+    <a href="#cd"><span class="n">7</span> Les disques</a>
+    <a href="#textes"><span class="n">8</span> Un texte, une date</a>
+  </div>
+
+  <!-- ─────────────── FICHE 1 ─────────────── -->
+  <section class="fiche" id="comite">
+    <h2><span class="n">Fiche 1</span> Le comité</h2>
+    <p class="ligne-fichier">Fichier à ouvrir : <span class="fichier">comite.html</span></p>
+
+    <h3>Ajouter un membre</h3>
+    <ol class="etapes">
+      <li>Mettez son portrait dans le dossier <code>images/Membres/</code>, nommé <code>nom_prenom.jpg</code> (sans accent, sans espace, tout en minuscules).</li>
+      <li>Dans le fichier, cherchez <code>Camille Coustaury</code> : c'est le dernier membre de la liste.</li>
+      <li>Copiez son bloc entier, de <code>&lt;div class="card"</code> jusqu'au <code>&lt;/div&gt;</code> qui le ferme (6 lignes), et collez-le juste en dessous.</li>
+      <li>Dans la copie, remplacez les parties en jaune ci-dessous.</li>
+    </ol>
+
+    <div class="a-copier">
+      <div class="a-copier-titre">Le bloc, avec ce qui se change</div>
+<pre>&lt;div class="card" style="text-align:center" data-aos&gt;
+  &lt;img src="images/Membres/<span class="chg">nom_prenom.jpg</span>" alt="<span class="chg">Prénom Nom</span>"
+       style="width:120px;height:120px;border-radius:50%;object-fit:cover;object-position:center top;display:block;margin:0 auto 1rem;box-shadow:0 6px 24px rgba(0,0,0,0.35)"&gt;
+  &lt;div class="badge badge-blue" style="margin-bottom:.75rem"&gt;<span class="chg">Membre</span>&lt;/div&gt;
+  &lt;h3 style="font-size:1.25rem;margin-bottom:.4rem"&gt;<span class="chg">Prénom Nom</span>&lt;/h3&gt;
+  &lt;p style="color:var(--c-text-muted);font-size:.88rem;margin:0"&gt;<span class="chg">Sa fonction en une phrase.</span>&lt;/p&gt;
+&lt;/div&gt;</pre>
+    </div>
+
+    <ul class="puces">
+      <li><strong>Le nom du fichier photo</strong> apparaît une fois, le <strong>nom de la personne</strong> deux fois : n'en oubliez aucun.</li>
+      <li><strong>L'étiquette de couleur</strong> : <code>badge-gold</code> pour le président, <code>badge-blue</code> pour les autres, <code>badge-green</code> pour l'école de musique.</li>
+    </ul>
+
+    <h3>Supprimer un membre</h3>
+    <p>
+      Cherchez son nom, puis supprimez tout son bloc : de la ligne <code>&lt;div class="card"</code>
+      jusqu'au <code>&lt;/div&gt;</code> tout seul qui vient après sa description. Rien d'autre à faire.
+    </p>
+
+    <div class="encart astuce">
+      <span class="etiquette">Repère</span>
+      <p>Les membres s'affichent dans l'ordre où leurs blocs sont écrits. Pour changer l'ordre, déplacez le bloc entier.</p>
+    </div>
+  </section>
+
+  <!-- ─────────────── FICHE 2 ─────────────── -->
+  <section class="fiche" id="musiciens">
+    <h2><span class="n">Fiche 2</span> Les musiciens</h2>
+    <p class="ligne-fichier">Fichier à ouvrir : <span class="fichier">musiciens.html</span></p>
+
+    <h3>Ajouter un musicien</h3>
+    <ol class="etapes">
+      <li>Mettez son portrait dans <code>images/Membres/</code>, nommé <code>nom_prenom.jpg</code>.</li>
+      <li>Dans <code>musiciens.html</code>, cherchez le nom de son pupitre (par exemple <code>Trompettes</code>) pour trouver le bon endroit.</li>
+      <li>Copiez le bloc d'un musicien du même pupitre et collez-le juste en dessous.</li>
+      <li>Remplacez les parties en jaune. C'est fini : aucun chiffre à corriger.</li>
+    </ol>
+
+    <div class="a-copier">
+      <div class="a-copier-titre">Musicien avec photo</div>
+<pre>&lt;div class="member-card" data-section="<span class="chg">trompettes</span>" data-aos
+     onclick="openMember('<span class="chg">Prénom Nom</span>','<span class="chg">Trompette</span>','images/Membres/<span class="chg">nom_prenom.jpg</span>')"&gt;
+  &lt;div class="member-photo-wrap"&gt;&lt;img src="images/Membres/<span class="chg">nom_prenom.jpg</span>" alt="<span class="chg">Prénom Nom</span>" class="member-photo"&gt;&lt;/div&gt;
+  &lt;div class="member-info"&gt;&lt;div class="member-name"&gt;<span class="chg">Prénom Nom</span>&lt;/div&gt;&lt;div class="member-role"&gt;<span class="chg">Trompette</span>&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+    </div>
+
+    <div class="a-copier">
+      <div class="a-copier-titre">Musicien sans photo</div>
+<pre>&lt;div class="member-card" data-section="<span class="chg">trompettes</span>" data-aos
+     onclick="openMemberNoPhoto('<span class="chg">Prénom Nom</span>','<span class="chg">Trompette</span>')"&gt;
+  &lt;div class="member-photo-wrap"&gt;
+    &lt;div class="member-no-photo"&gt;&lt;i class="fa-solid fa-user" style="font-size:2rem"&gt;&lt;/i&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="member-info"&gt;&lt;div class="member-name"&gt;<span class="chg">Prénom Nom</span>&lt;/div&gt;&lt;div class="member-role"&gt;<span class="chg">Trompette</span>&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+    </div>
+
+    <div class="encart attention">
+      <span class="etiquette">Le mot à ne pas inventer</span>
+      <p>
+        <code>data-section</code> doit être écrit exactement comme l'un de ceux-ci, en minuscules et sans accent :
+        <code>directeur</code>, <code>percussions</code>, <code>clairons</code>, <code>trompettes</code>,
+        <code>trombones</code>, <code>cors</code>, <code>basses</code>, <code>clarinettes</code>,
+        <code>hautbois</code>, <code>flutes</code>, <code>saxophones</code>.
+        C'est ce mot qui fait fonctionner les boutons de tri en haut de la page.
+        En copiant le bloc d'un musicien du même pupitre, il est déjà bon.
+      </p>
+    </div>
+
+    <h3>Supprimer un musicien</h3>
+    <p>
+      Cherchez son nom et supprimez son bloc en entier, de <code>&lt;div class="member-card"</code> au
+      <code>&lt;/div&gt;</code> qui le ferme. Là encore, rien d'autre à faire.
+    </p>
+
+    <div class="encart info">
+      <span class="etiquette">Les chiffres se comptent tout seuls</span>
+      <p>
+        Le nombre affiché à côté de chaque pupitre (« Trompettes 6 »), le nombre de pupitres,
+        et le nombre de musiciens annoncé sur l'accueil et sur la page Histoire sont
+        <strong>comptés sur les musiciens réellement présents dans cette page</strong>.
+        Vous ajoutez un musicien : tout le site affiche un musicien de plus.
+        Ne cherchez aucun total à corriger, il n'y en a pas.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─────────────── FICHE 3 ─────────────── -->
+  <section class="fiche" id="evenements">
+    <h2><span class="n">Fiche 3</span> Les événements</h2>
+    <p class="ligne-fichier">Fichiers à ouvrir : <span class="fichier">manifestations.html</span> et <span class="fichier">index.html</span></p>
+
+    <p>
+      La page des manifestations a deux onglets : <strong>À Venir</strong> et <strong>Passées</strong>.
+      Ce sont deux listes séparées dans le fichier ; l'événement se déplace de l'une à l'autre à la main.
+    </p>
+
+    <h3>Annoncer un événement</h3>
+    <ol class="etapes">
+      <li>Dans <code>manifestations.html</code>, cherchez <code>À Venir</code> pour trouver la première liste.</li>
+      <li>Copiez le bloc d'un événement déjà annoncé et collez-le à sa place dans l'ordre des dates (du plus proche au plus lointain).</li>
+      <li>Remplacez les parties en jaune.</li>
+    </ol>
+
+    <div class="a-copier">
+      <div class="a-copier-titre">Le bloc d'un événement</div>
+<pre>&lt;div class="event-card <span class="chg">ev-blue</span>" data-aos&gt;
+  &lt;div class="event-date-box"&gt;
+    &lt;span class="day"&gt;<span class="chg">21</span>&lt;/span&gt;
+    &lt;span class="month"&gt;<span class="chg">Juin</span>&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="event-info"&gt;
+    &lt;div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem;flex-wrap:wrap"&gt;
+      &lt;h3&gt;<span class="chg">Fête de la Musique</span>&lt;/h3&gt;
+      &lt;span class="badge <span class="chg">badge-blue</span>"&gt;<span class="chg">Concert</span>&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="event-meta"&gt;
+      &lt;span&gt;&lt;i class="fa-solid fa-clock"&gt;&lt;/i&gt; <span class="chg">20h00</span>&lt;/span&gt;
+      &lt;span&gt;&lt;i class="fa-solid fa-location-dot"&gt;&lt;/i&gt; <span class="chg">Place de la Mairie</span>&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;p style="margin:.5rem 0 0;font-size:.88rem;color:var(--c-text-muted)"&gt;
+      <span class="chg">Une phrase de présentation.</span>
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+    </div>
+
+    <p><strong>Les couleurs vont par paire</strong> — la barre de gauche et l'étiquette :</p>
+    <ul class="puces">
+      <li>Concert : <code>ev-blue</code> + <code>badge-blue</code></li>
+      <li>Cérémonie : <code>ev-gold</code> + <code>badge-gold</code></li>
+      <li>Animation : <code>ev-green</code> + <code>badge-green</code></li>
+    </ul>
+
+    <h3>L'événement a eu lieu</h3>
+    <ol class="etapes">
+      <li>Coupez son bloc entier de la liste « À Venir ».</li>
+      <li>Cherchez <code>ÉVÉNEMENTS PASSÉS</code> et collez le bloc tout en haut de cette seconde liste.</li>
+      <li>Trois retouches pour lui donner l'aspect « terminé » :
+        <ul class="puces">
+          <li>sur la ligne <code>&lt;div class="event-date-box"&gt;</code>, ajoutez <code>style="background:var(--c-navy-mid)"</code> ;</li>
+          <li>juste après l'étiquette de couleur, ajoutez <code>&lt;span class="badge badge-muted"&gt;Terminé&lt;/span&gt;</code> ;</li>
+          <li>remplacez la ligne de l'heure par la date complète :<br>
+              <code>&lt;span&gt;&lt;i class="fa-solid fa-calendar"&gt;&lt;/i&gt; 21 Juin 2026&lt;/span&gt;</code></li>
+        </ul>
+      </li>
+    </ol>
+    <p>Le plus simple : comparez avec un événement déjà passé juste en dessous, et copiez sa façon de faire.</p>
+
+    <div class="encart attention">
+      <span class="etiquette">À ne pas oublier</span>
+      <p>
+        La page d'accueil affiche aussi les <strong>3 prochains</strong> événements et les <strong>3 derniers</strong> passés.
+        Ouvrez <code>index.html</code>, cherchez <code>Prochains</code>, et faites-y le même changement.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─────────────── FICHE 4 ─────────────── -->
+  <section class="fiche" id="photos">
+    <h2><span class="n">Fiche 4</span> Les photos</h2>
+    <p class="ligne-fichier">Dossier à ouvrir : <span class="fichier">images/souvenirs/</span></p>
+
+    <p>
+      C'est la partie la plus simple du site : <strong>aucun fichier à modifier</strong>.
+      Un dossier de photos = un album sur la page Souvenirs.
+    </p>
+    <ul class="puces">
+      <li><strong>Ajouter des photos</strong> : glissez-les dans le dossier de l'album.</li>
+      <li><strong>Supprimer une photo</strong> : mettez-la à la corbeille.</li>
+      <li><strong>Créer un album</strong> : créez un dossier nommé <code>2026-06-21 Fête de la Musique</code> — la date à l'envers, puis le titre.</li>
+      <li><strong>Renommer un album</strong> : renommez le dossier.</li>
+    </ul>
+    <p>
+      Le site convertit et allège les photos tout seul, et fabrique la galerie à partir de ce qu'il trouve.
+      Le détail complet est écrit dans <code>images/souvenirs/INSTRUCTIONS.txt</code>.
+    </p>
+  </section>
+
+  <!-- ─────────────── FICHE 5 ─────────────── -->
+  <section class="fiche" id="chiffres">
+    <h2><span class="n">Fiche 5</span> Les chiffres</h2>
+    <p class="ligne-fichier">Fichier à ouvrir : <span class="fichier">js/chiffres.js</span></p>
+
+    <p>
+      Le nombre d'élèves de l'école s'affiche sur plusieurs pages à la fois.
+      Il ne s'écrit qu'à un seul endroit, dans ce petit fichier :
+    </p>
+
+    <div class="a-copier">
+      <div class="a-copier-titre">Le contenu du fichier</div>
+<pre>var CHIFFRES = {
+
+  // Nombre d'élèves inscrits à l'école de musique
+  eleves : <span class="chg">49</span>,
+
+  // Année de fondation
+  fondation : 1922
+
+};</pre>
+    </div>
+
+    <ul class="puces">
+      <li>Ne changez que le nombre après les deux points.</li>
+      <li>Ne supprimez ni les virgules, ni les mots de gauche.</li>
+      <li>Les lignes qui commencent par <code>//</code> sont des explications : elles ne s'affichent pas.</li>
+      <li>Le nombre d'années d'histoire se calcule tout seul depuis 1922 : rien à faire au 1<sup>er</sup> janvier.</li>
+    </ul>
+
+    <div class="encart info">
+      <span class="etiquette">Le nombre de musiciens n'est pas ici</span>
+      <p>
+        Il est compté sur les musiciens présents dans <code>musiciens.html</code> et repris
+        partout sur le site. Pour le faire changer, ajoutez ou retirez un musicien (fiche 2).
+      </p>
+    </div>
+  </section>
+
+  <!-- ─────────────── FICHE 6 ─────────────── -->
+  <section class="fiche" id="instruments">
+    <h2><span class="n">Fiche 6</span> Les instruments de l'école</h2>
+    <p class="ligne-fichier">Fichier à ouvrir : <span class="fichier">ecole-musique.html</span></p>
+
+    <ol class="etapes">
+      <li>Mettez l'image de l'instrument dans <code>images/instruments/</code>, de préférence en <code>.png</code> à fond transparent.</li>
+      <li>Cherchez <code>VITRINE DES INSTRUMENTS</code> dans le fichier.</li>
+      <li>Copiez un bloc existant, collez-le dans la grille, remplacez les parties en jaune.</li>
+    </ol>
+
+    <div class="a-copier">
+      <div class="a-copier-titre">Le bloc d'un instrument</div>
+<pre>&lt;div class="instru-card" data-aos&gt;
+  &lt;img src="images/instruments/<span class="chg">tuba.png</span>" alt="<span class="chg">Tuba</span>" class="instru-img" loading="lazy"&gt;
+  &lt;div class="instru-name"&gt;<span class="chg">Tuba</span>&lt;/div&gt;
+  &lt;div class="instru-fam"&gt;<span class="chg">Cuivres</span>&lt;/div&gt;
+&lt;/div&gt;</pre>
+    </div>
+    <p>La famille s'écrit <code>Bois</code>, <code>Cuivres</code> ou <code>Percussions</code>.</p>
+  </section>
+
+  <!-- ─────────────── FICHE 7 ─────────────── -->
+  <section class="fiche" id="cd">
+    <h2><span class="n">Fiche 7</span> Les disques</h2>
+    <p class="ligne-fichier">Fichier à ouvrir : <span class="fichier">cds.html</span></p>
+
+    <p>
+      Chaque disque est une carte contenant son titre (écrit à deux endroits : sur la pochette
+      et en dessous), son année, et la liste des morceaux.
+    </p>
+    <ol class="etapes">
+      <li>Copiez le bloc d'un disque existant, de <code>&lt;div class="cd-card"</code> à son <code>&lt;/div&gt;</code> final.</li>
+      <li>Changez le titre aux <strong>deux</strong> endroits, l'année, et la mention « Enregistrement Live ».</li>
+      <li>Pour les morceaux, recopiez cette ligne autant de fois que nécessaire :</li>
+    </ol>
+
+    <div class="a-copier">
+      <div class="a-copier-titre">Une ligne de morceau</div>
+<pre>&lt;div class="cd-track"&gt;&lt;span class="num"&gt;<span class="chg">01</span>&lt;/span&gt;&lt;span class="title"&gt;<span class="chg">Ouverture Festive</span>&lt;/span&gt;&lt;span class="duration"&gt;<span class="chg">4:32</span>&lt;/span&gt;&lt;/div&gt;</pre>
+    </div>
+    <p>Numérotez les morceaux <code>01</code>, <code>02</code>, <code>03</code>… avec le zéro devant.</p>
+  </section>
+
+  <!-- ─────────────── FICHE 8 ─────────────── -->
+  <section class="fiche" id="textes">
+    <h2><span class="n">Fiche 8</span> Un texte, une date, un tarif</h2>
+    <p class="ligne-fichier">Fichier à ouvrir : celui de la page concernée (voir le tableau plus haut)</p>
+
+    <ol class="etapes">
+      <li>Ouvrez la page dans votre navigateur et repérez la phrase exacte à changer.</li>
+      <li>Ouvrez le fichier dans l'éditeur et cherchez quelques mots de cette phrase avec Cmd+F.</li>
+      <li>Modifiez uniquement les mots, entre <code>&gt;</code> et <code>&lt;</code>.</li>
+      <li>Enregistrez, puis double-cliquez sur le fichier pour vérifier.</li>
+    </ol>
+
+    <div class="a-copier">
+      <div class="a-copier-titre">Ce qui se change, et ce qui reste</div>
+<pre>&lt;h3&gt;<span class="chg">Les répétitions ont lieu le vendredi à 20h30</span>&lt;/h3&gt;
+   ↑                                              ↑
+   ne touchez pas à ce qui est de ce côté-ci des chevrons</pre>
+    </div>
+
+    <div class="encart astuce">
+      <span class="etiquette">Les accents</span>
+      <p>
+        Écrivez les accents normalement (é, è, à, ç, œ). Le site les gère très bien.
+        Évitez seulement les guillemets courbes « intelligents » à l'intérieur des balises.
+      </p>
+    </div>
+  </section>
+
+  <hr>
+
+  <h2>Envoyer les modifications en ligne</h2>
+  <p>
+    Tant que vous n'avez rien envoyé, le site public n'a pas bougé : vos modifications
+    ne sont que sur votre ordinateur. Pour les publier, on utilise <strong>FileZilla</strong>.
+  </p>
+  <ol class="etapes">
+    <li>Ouvrez FileZilla et connectez-vous à l'hébergement.</li>
+    <li>À gauche, votre dossier du site. À droite, celui du serveur (<code>www/</code>).</li>
+    <li>Faites glisser de gauche à droite <strong>uniquement les fichiers que vous avez modifiés</strong>.</li>
+    <li>Confirmez le remplacement (« Écraser »).</li>
+    <li>Rechargez la page du site pour vérifier.</li>
+  </ol>
+
+  <div class="encart astuce">
+    <span class="etiquette">Si vous ne voyez pas le changement</span>
+    <p>
+      Le navigateur garde parfois l'ancienne version en mémoire.
+      Faites <strong>Cmd+Maj+R</strong> (Mac) ou <strong>Ctrl+F5</strong> (Windows) pour forcer le rechargement.
+    </p>
+  </div>
+
+  <h2>Si quelque chose ne va pas</h2>
+  <div class="tableau-enveloppe">
+    <table>
+      <thead>
+        <tr><th>Ce que vous voyez</th><th>Ce qu'il faut faire</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>La page est cassée</td>
+          <td>Un bloc a été coupé au mauvais endroit. Remettez votre copie de sauvegarde et recommencez.</td>
+        </tr>
+        <tr>
+          <td>Une photo n'apparaît pas</td>
+          <td>Vérifiez le nom du fichier, lettre pour lettre : <code>Dupont.JPG</code> et <code>dupont.jpg</code> sont deux fichiers différents pour le serveur.</td>
+        </tr>
+        <tr>
+          <td>Un bloc de code s'affiche</td>
+          <td>Un chevron <code>&lt;</code> ou <code>&gt;</code> a été supprimé. Comparez avec un bloc voisin.</td>
+        </tr>
+        <tr>
+          <td>La galerie est vide</td>
+          <td>Ouvrez <code>galerie.php?test=1</code> sur le site : la page dit ce qui manque.</td>
+        </tr>
+        <tr>
+          <td>Le doute</td>
+          <td>N'envoyez rien et demandez. Une page non modifiée vaut mieux qu'une page cassée.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="pied">
+    Harmonie Fanfare Rudipontaine — Pont-de-Roide-Vermondans.<br>
+    Ce guide accompagne le site ; gardez-le à côté des fichiers.
+  </p>
+
+</div>
+</body>
+</html>

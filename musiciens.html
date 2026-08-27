@@ -315,9 +315,10 @@
     <div class="page-header-content">
       <div class="eyebrow"><i class="fa-solid fa-users"></i> Présentation</div>
       <h1>Nos Musiciens</h1>
-      <!-- ##### NOMBRE TOTAL DE MUSICIENS : modifiez le chiffre ci-dessous ##### -->
+      <!-- ##### Le nombre de musiciens est compté tout seul sur les cartes ##### -->
       <p style="color:var(--c-text-muted);max-width:600px;margin-top:.75rem;font-size:1.05rem">
-        45 musiciens répartis en 10 pupitres
+        <span data-chiffre="musiciens">46</span> musiciens répartis en
+        <span id="nb-pupitres">10</span> pupitres
       </p>
       <div class="breadcrumb">
         <a href="index.html">Accueil</a>
@@ -819,6 +820,7 @@
     });
   });
 </script>
+<script src="js/chiffres.js"></script>
 <script src="js/main.js"></script>
 <script>
   /* Filtrage par pupitre, avec apparition en cascade */
@@ -877,6 +879,25 @@
   }
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLbBtn(); });
+
+  /* ── Comptage automatique des pupitres ──
+     Le petit nombre affiché à côté de chaque pupitre, et le nombre de
+     pupitres en haut de page, sont comptés à partir des cartes
+     présentes : il n'y a jamais de chiffre à corriger à la main quand
+     on ajoute ou retire un musicien. */
+  (function compterPupitres() {
+    var entetes = document.querySelectorAll('.pupitre-header[data-pupitre]');
+    var pupitres = 0;
+    entetes.forEach(function(entete) {
+      var nom = entete.dataset.pupitre;
+      var nombre = document.querySelectorAll('.member-card[data-section="' + nom + '"]').length;
+      var compteur = entete.querySelector('.pupitre-count');
+      if (compteur) compteur.textContent = nombre;
+      if (nom !== 'directeur') pupitres++;
+    });
+    var total = document.getElementById('nb-pupitres');
+    if (total) total.textContent = pupitres;
+  })();
 </script>
 </body>
 </html>
